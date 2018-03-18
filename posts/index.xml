@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Luke Olney</title>
-    <link>https://lolney.github.io/</link>
-    <description>Recent content on Luke Olney</description>
+    <title>Posts on Luke Olney</title>
+    <link>https://lolney.github.io/posts/</link>
+    <description>Recent content in Posts on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 17 Mar 2018 02:01:38 -0800</lastBuildDate>
     
-        <atom:link href="https://lolney.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://lolney.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -34,34 +34,6 @@
 &lt;p&gt;Smart contracts enable all sorts of decentralized applications, and can also create effectively centralized services (like banks) with the advantages of distributed trust (provided by blockchain verification). Eg, you can create a bank contract with a central storage vault for all accounts that resides in the contract&amp;rsquo;s storage, distrubuted over all validating nodes.&lt;/p&gt;
 
 &lt;p&gt;They can also be used to provide payment, in tokens, for work done in a distributed process, like computing or file storage. Because Ethereum stores all state information in the latest block, client nodes don&amp;rsquo;t have to process the entire blockchain or rely on trusted nodes to see the current state of their token system.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Readings</title>
-      <link>https://lolney.github.io/readings/</link>
-      <pubDate>Sun, 04 Mar 2018 02:20:05 -0800</pubDate>
-      
-      <guid>https://lolney.github.io/readings/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Projects</title>
-      <link>https://lolney.github.io/projects/</link>
-      <pubDate>Sun, 04 Mar 2018 02:10:17 -0800</pubDate>
-      
-      <guid>https://lolney.github.io/projects/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Why this site?</title>
-      <link>https://lolney.github.io/why/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://lolney.github.io/why/</guid>
-      <description>&lt;p&gt;After opening &lt;a href=&#34;https://zettelkasten.de/posts/collectors-fallacy/&#34;&gt;this post&lt;/a&gt; from Hacker News on the collector&amp;rsquo;s falacy, then passing my eyes over the dozens of other tabs I had open in a half-read state, I decided I needed something to hold me accountable for getting pulled into distractions I can&amp;rsquo;t finish. If it helped me retain what I just read, that&amp;rsquo;d be nice too. So, I created this site. I hope to include my summaries here of any readings I find on the netz with content worth saving (starting here).&lt;/p&gt;
 </description>
     </item>
     

@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.37" />
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<title>Luke Olney</title>
+	<title>Readings</title>
 	
 	<meta name="description" content="">
 	<meta name="image" content="">
 	
-	<meta itemprop="name" content="Luke Olney">
+	<meta itemprop="name" content="Readings">
 	<meta itemprop="description" content="">
 	<meta itemprop="image" content="">
 	
-	<meta name="og:title" content="Luke Olney">
+	<meta name="og:title" content="Readings">
 	<meta name="og:description" content="">
 	
-	<meta name="og:url" content="https://lolney.github.io/">
-	<meta name="og:site_name" content="Luke Olney">
+	<meta name="og:url" content="https://lolney.github.io/readings/">
+	<meta name="og:site_name" content="Readings">
 	<meta name="og:type" content="article">
 	
 	<meta name="article:tag" content="">
@@ -53,26 +52,58 @@ ga('send', 'pageview');
 </header>
 
 
+<div id="loadingMask" style="width: 100%; height: 100%; position: fixed; background: #fff;"></div>
+<script>
+function fadeOut(el) {
+  el.style.opacity = 1;
 
+  var last = +new Date();
+  var tick = function() {
+    el.style.opacity = +el.style.opacity - (new Date() - last) / 80;
+    last = +new Date();
+    
 
+    if (el.style.opacity > 0) {
+      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+    } else {
+      el.style.display='none';
+    }
+  };
+
+  tick();
+}
+
+function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+         el = document.getElementById('loadingMask');
+         fadeOut(el);
+        var elements = document.querySelectorAll("img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("alt")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("alt"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+
+    } else {
+        document.addEventListener('DOMContentLoaded', fn);
+    }
+}
+window.onload = ready;
+</script>
 
 <div class="content">
-    <h1> posts</h1>
-    
-    
-        <p>
-        <aside>March 17, 2018</aside>
-        <a href="https://lolney.github.io/posts/ethereum-whitepaper/" style="color:black;">Ethereum Whitepaper</a>
-        </p>
-    
-    
-    
-    
-    
-    
-    
-    
+  <h1>Readings <aside></aside></h1>
+  
 </div>
+
 
 
 

@@ -3,18 +3,44 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://example.com/categories/</loc>
+    <loc>https://lolney.github.io/posts/ethereum-whitepaper/</loc>
+    <lastmod>2018-03-17T02:01:38-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lolney.github.io/readings/</loc>
+    <lastmod>2018-03-04T02:20:05-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lolney.github.io/projects/</loc>
+    <lastmod>2018-03-04T02:10:17-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lolney.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://lolney.github.io/</loc>
+    <lastmod>2018-03-17T02:01:38-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://example.com/tags/</loc>
+    <loc>https://lolney.github.io/posts/</loc>
+    <lastmod>2018-03-17T02:01:38-08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lolney.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lolney.github.io/why/</loc>
   </url>
   
 </urlset>
