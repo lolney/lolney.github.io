@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://lolney.github.io/posts/imputed-rent/</loc>
+    <lastmod>2018-03-18T02:01:38-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lolney.github.io/posts/ethereum-whitepaper/</loc>
     <lastmod>2018-03-17T02:01:38-08:00</lastmod>
   </url>
@@ -24,13 +29,13 @@
   
   <url>
     <loc>https://lolney.github.io/</loc>
-    <lastmod>2018-03-17T02:01:38-08:00</lastmod>
+    <lastmod>2018-03-18T02:01:38-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://lolney.github.io/posts/</loc>
-    <lastmod>2018-03-17T02:01:38-08:00</lastmod>
+    <lastmod>2018-03-18T02:01:38-08:00</lastmod>
     <priority>0</priority>
   </url>
   
