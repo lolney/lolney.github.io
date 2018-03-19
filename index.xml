@@ -25,7 +25,7 @@
 
 &lt;p&gt;In any case, any attempt to implement a tax on imputed rent in the United States faces a history of stiff resistance, by both the public and the courts, even to milder forms of taxation. Even estate taxes, applying to intergenerational transfers of wealth, are a contentious political issue, and they tax something that&amp;rsquo;s more clearly income than imaginary tranfers of money to oneself. The Supreme Court has written&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:6&#34;&gt;&lt;a href=&#34;#fn:6&#34;&gt;7&lt;/a&gt;&lt;/sup&gt; that imputed rent does not consitute income, which does not allow it to be taxed under the Consitution - non-apportioned direct taxes (ones that aren&amp;rsquo;t proportional to population) are prohibited under Article I, Section 2, Clause 3, only allowed to apply to income by the 16th amendment. In fact, when the income tax was only 7 yers old, the Supreme Court ruled in Eisner v. Macomber &lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:7&#34;&gt;&lt;a href=&#34;#fn:7&#34;&gt;8&lt;/a&gt;&lt;/sup&gt; that stock dividends are not a form of taxable income, though that decision was eroded by later rulings.&lt;/p&gt;
 
-&lt;p&gt;Most importantly, though, an imputed rent tax would undermine the well-enshrined incentives for home ownership in the US - see Devon Zeugler&amp;rsquo;s post on the subject.&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34;&gt;9&lt;/a&gt;&lt;/sup&gt; That such a tax is unthinkable here, but, as the NYTimes article mentions, is implemented is several European countries, reflects the possibility for vastly different models of home ownership than our own.&lt;/p&gt;
+&lt;p&gt;Most importantly, an imputed rent tax would undermine the well-enshrined incentives for home ownership in the US - see Devon Zeugler&amp;rsquo;s post on the subject.&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:9&#34;&gt;&lt;a href=&#34;#fn:9&#34;&gt;9&lt;/a&gt;&lt;/sup&gt; That such a tax is unthinkable here, but, as the NYTimes article mentions, is implemented is several European countries, reflects the possibility for vastly different models of home ownership than our own.&lt;/p&gt;
 &lt;div class=&#34;footnotes&#34;&gt;
 
 &lt;hr /&gt;
@@ -51,6 +51,55 @@
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:9&#34;&gt;&lt;sup&gt;[return]&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>My take on the Monty-Hall Problem</title>
+      <link>https://lolney.github.io/posts/monty-hall/</link>
+      <pubDate>Sun, 18 Mar 2018 02:01:38 -0800</pubDate>
+      
+      <guid>https://lolney.github.io/posts/monty-hall/</guid>
+      <description>&lt;p&gt;Monty-Hall is a simple problem that&amp;rsquo;s attracted a disproportionate amount of controversy. It&amp;rsquo;s originally formulated as follows:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Suppose you&amp;rsquo;re on a game show, and you&amp;rsquo;re given the choice of three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and the host, who knows what&amp;rsquo;s behind the doors, opens another door, say No. 3, which has a goat. He then says to you, &amp;ldquo;Do you want to pick door No. 2?&amp;rdquo; Is it to your advantage to switch your choice?&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The question is posed in a way that makes you think the answer is no, since you have a &lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;2&lt;/sub&gt; chance of winning whether you switch or not.&lt;/p&gt;
+
+&lt;p&gt;The key to thinking about it properly, which isn&amp;rsquo;t really clear in the original formulation, is that the host won&amp;rsquo;t open door 2 or 3 if he knows the car is behind it, but chooses uniformly at random between 2 and 3 if the car is in door 1. Working out the probabilities, it&amp;rsquo;s then clear that switching to door 2 will give you a &lt;sup&gt;2&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt; chance of winning. Different interpretations may lead to different solutions.&lt;/p&gt;
+
+&lt;p&gt;In the equations below, $\Pr(C_i)$ denotes the probability that the car is in door $i$, while $\Pr(D_i)$ denotes the probability that the host opens door $i$. Here&amp;rsquo;s the correct interpretation:
+&lt;div&gt;
+$$
+P( C_1 \mid D_3)
+= \frac{P(C_2 \wedge D_3)}{P(C_1 \wedge D_3) + P(C_2 \wedge D_3)}
+= \frac{\frac{1}{3}}{\frac{1}{6} + \frac{1}{3}}
+= \frac{2}{3}
+$$
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;By contrast, if $P( C_1 \mid D_1) = \frac{1}{3}$ &amp;ndash; that is, the host always chooses door 3 when the car is in door 1, chooses door 3 when the car is in door 2, and chooses door 2 if the car is in door 3 &amp;ndash; the probability of winning is now &lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;2&lt;/sub&gt; whether you switch or not.
+&lt;div&gt;
+$$
+P( C_1 \mid D_3)
+= \frac{\frac{1}{3}}{\frac{1}{3} + \frac{1}{3}}
+= \frac{1}{2}
+$$
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;Now consider if the host chooses between doors 2 and 3 uniformly at random. The probability of winning outright is now &lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt; - the car is in the host&amp;rsquo;s chosen door, so you can just choose that one. Then $P(C_2 \mid D_3 \wedge \neg C_3)$ is &lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;2&lt;/sub&gt; &amp;ndash; either it&amp;rsquo;s in door 1 and he chooses the wrong door or in door 2 and he chooses the wrong door, making the total prob. of winning still &lt;sup&gt;2&lt;/sup&gt;&amp;frasl;&lt;sub&gt;3&lt;/sub&gt;.&lt;/p&gt;
+
+&lt;p&gt;$$
+P(Winning) = P(picks correctly) + P(picks incorrectly \wedge guess correctly)
+$$
+$$
+= P( C_2 \wedge D_2) + P( C_3 \wedge D_3) + P(C_1 \wedge D_3 \wedge \neg C_3) + P(C_1 \wedge D_2 \wedge \neg C_2)
+$$
+$$
+= \frac{1}{6} + \frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{2}{3}
+$$&lt;/p&gt;
 </description>
     </item>
     
@@ -95,7 +144,44 @@
       <pubDate>Sun, 04 Mar 2018 02:10:17 -0800</pubDate>
       
       <guid>https://lolney.github.io/projects/</guid>
-      <description></description>
+      <description>
+
+&lt;p&gt;Some of the projects I&amp;rsquo;ve worked on in my spare time, in roughly descending order of seriousness.&lt;/p&gt;
+
+&lt;h3 id=&#34;rust-bittorrent-client-https-github-com-lolney-rust-bittorrent-client&#34;&gt;&lt;a href=&#34;https://github.com/lolney/rust-bittorrent-client&#34;&gt;Rust Bittorrent Client&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;An implementation of the bittorent spec in Rust &amp;ndash; including a parser for bencoded objects &amp;ndash; and a client with a UI built with ncurses. Writeup on some of the implementation challenges coming.&lt;/p&gt;
+
+&lt;h3 id=&#34;plantary-surfaces-https-github-com-lolney-planetary-surface-visualizer&#34;&gt;&lt;a href=&#34;https://github.com/lolney/Planetary-Surface-Visualizer&#34;&gt;Plantary Surfaces&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Using a crude WebGL engine, shows what the solar cycle looks like at various points of the year on a planet with adjustable orbital parameters. E.g., on a planet with an orbital inclination of 90 degrees - tilted on its side - everywhere on the planet but the equator experiences polar night for some part of the year.&lt;/p&gt;
+
+&lt;h3 id=&#34;world-climate-data-https-github-com-lolney-world-climate-data&#34;&gt;&lt;a href=&#34;https://github.com/lolney/World-Climate-Data&#34;&gt;World Climate Data&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Maps monthly average high/low temperatures, based on interpolated and altitude-adjusted USGS station data.&lt;/p&gt;
+
+&lt;h3 id=&#34;zosterops-games-package-https-github-com-lolney-unityproject&#34;&gt;&lt;a href=&#34;https://github.com/lolney/UnityProject&#34;&gt;Zosterops Games Package&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Some silly games made in Unity, themed around a type of birds called white-eyes. The first one: navigate to the top of Mt. Kilamanjaro while freeing the white-eyes trapped in cages before a wandering cat gets to them. The second: a kind of tower defence game where you place obstacles to hinder the enemy (cats) while boosting your friends (white-eyes).&lt;/p&gt;
+
+&lt;h2 id=&#34;in-early-stages&#34;&gt;In early stages:&lt;/h2&gt;
+
+&lt;h3 id=&#34;scripting-rpg-https-github-com-lolney-scripting-rpg&#34;&gt;&lt;a href=&#34;https://github.com/lolney/scripting-rpg&#34;&gt;Scripting RPG&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;An attempt to make a sort of MMORPG where your character is controlled entirely with scripts.&lt;/p&gt;
+
+&lt;h3 id=&#34;twitter-profiles-https-github-com-lolney-twitter-profiles&#34;&gt;&lt;a href=&#34;https://github.com/lolney/twitter-profiles&#34;&gt;Twitter Profiles&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Topic analysis of Twitter accounts. Catagorizes interests based on a hierarchy derived from the Wikipedia category graph.&lt;/p&gt;
+
+&lt;h2 id=&#34;other-minor-or-school-projects&#34;&gt;Other Minor or School Projects:&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/lolney/RecipeTransformations&#34;&gt;Recipe Maker&lt;/a&gt; *
+&lt;a href=&#34;https://github.com/YiMysty/345-Project/tree/master/src/kademlia&#34;&gt;Kademlia DHT implementation&lt;/a&gt; *
+&lt;a href=&#34;https://github.com/eecs394-spr15/NUHacks&#34;&gt;A Yik Yak-like hybrid mobile app&lt;/a&gt; *
+&lt;a href=&#34;https://github.com/eecs394-spr15/MuseumTour&#34;&gt;Mobile app for beacon-guided museum tours&lt;/a&gt; *
+&lt;a href=&#34;https://github.com/lolney/Building-Age-Map&#34;&gt;San Francisco Building Ages&lt;/a&gt;&lt;/p&gt;
+</description>
     </item>
     
     <item>
