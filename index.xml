@@ -137,7 +137,26 @@ $$&lt;/p&gt;
       <pubDate>Sun, 04 Mar 2018 02:20:05 -0800</pubDate>
       
       <guid>https://lolney.github.io/readings/</guid>
-      <description></description>
+      <description>
+
+&lt;p&gt;Short summaries of stuff I&amp;rsquo;ve read (mostly technical blogs or papers) that don&amp;rsquo;t deserve their own post:&lt;/p&gt;
+
+&lt;h3 id=&#34;bind-before-connect-https-idea-popcount-org-2014-04-03-bind-before-connect&#34;&gt;&lt;a href=&#34;https://idea.popcount.org/2014-04-03-bind-before-connect/&#34;&gt;Bind before connect&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h4 id=&#34;3-20-2018&#34;&gt;3/20/2018&lt;/h4&gt;
+
+&lt;p&gt;If you create a socket and call &lt;code&gt;connect(dst, port)&lt;/code&gt; on it, or first call &lt;code&gt;bind(src, port)&lt;/code&gt; with port 0, the kernel will allocate from the pool of up to 64k available ports. However, with with &lt;code&gt;SO_REUSEPORT&lt;/code&gt;, you can also share ports to create an effectively unlimited number of connections - as long as the destination address is different for each connection sharing the same port. To have multiple connections to the same IP/Port pair, you can use different source IP addresses instead.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;SO_REUSEADDR&lt;/code&gt; behaves slightly differently than &lt;code&gt;SO_REUSEPORT&lt;/code&gt;, allowing reuse of addresses in the cooldown period after a process releases a socket, plus allowing binding of wildcard addresses (&lt;code&gt;0.0.0.0&lt;/code&gt;) and normal addresses to the same port.&lt;/p&gt;
+
+&lt;p&gt;There are various implementation concerns (ie, &lt;code&gt;bind&lt;/code&gt; is fine, but after &lt;code&gt;connect&lt;/code&gt; one of the reuse rules is broken) that the linked post discusses.&lt;/p&gt;
+
+&lt;h3 id=&#34;pitfalls-of-oo-design-https-medium-com-cscalfani-goodbye-object-oriented-programming-a59cda4c0e53&#34;&gt;&lt;a href=&#34;https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53&#34;&gt;Pitfalls of OO Design&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h4 id=&#34;3-15-2018&#34;&gt;3/15/2018&lt;/h4&gt;
+
+&lt;p&gt;An overview for the reasons that more recent languages (Rust, Go) have avoided the full-on object-orientedness of Java, C#, et. al. Traits and interfaces allow for polymorphism while avoiding the problems of inheritance - they&amp;rsquo;re not hierarchical, so they avoid issues like the diamond problem that result when implementing new objects that don&amp;rsquo;t fit easily into the existing hierarchy. Non-hierarchical structs also avoid the bloat of carrying around unnecessary parent fields.&lt;/p&gt;
+</description>
     </item>
     
     <item>
