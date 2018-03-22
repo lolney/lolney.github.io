@@ -141,6 +141,18 @@ $$&lt;/p&gt;
 
 &lt;p&gt;Short summaries of stuff I&amp;rsquo;ve read (mostly technical blogs or papers) that don&amp;rsquo;t deserve their own post:&lt;/p&gt;
 
+&lt;h3 id=&#34;async-in-rust-https-aturon-github-io-apr&#34;&gt;&lt;a href=&#34;https://aturon.github.io/apr/&#34;&gt;Async in Rust&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h4 id=&#34;3-22-2018&#34;&gt;3/22/2018&lt;/h4&gt;
+
+&lt;p&gt;Asynchronous programming constructs allow you to reason about asynchronous operations without explicitly working with threads - the asynchronous library handles that itself, prevening unnecessary thread spawning. In Rust, these constructs are &amp;lsquo;tasks.&amp;rsquo; When you run a task, instead of blocking, it returns control to the executor thread. The task runs until it would block, then returns &lt;code&gt;Async::Pending&lt;/code&gt;. You also provide it a &lt;code&gt;Waker&lt;/code&gt; so that it can wake itself up again.&lt;/p&gt;
+
+&lt;p&gt;An executor works by running each of the tasks until they block, and then &lt;code&gt;park&lt;/code&gt;ing. A &lt;code&gt;Waker&lt;/code&gt; contains a link back to the executor and inserts the task in the executor&amp;rsquo;s ready set before &lt;code&gt;unpark&lt;/code&gt;ing it.&lt;/p&gt;
+
+&lt;p&gt;Futures are tasks that can be chained. They must implement a type Item that is the result of the computation, a type Error, and a poll method that returns &lt;code&gt;Async::WillWake&lt;/code&gt; or &lt;code&gt;Async::Ready(data: Item)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Futures are designed to be state machines: eg, one that alterates between the states &lt;code&gt;Reading&lt;/code&gt; and &lt;code&gt;Writing&lt;/code&gt;, returning Async::NotReady when it can&amp;rsquo;t proceed.&lt;/p&gt;
+
 &lt;h3 id=&#34;bind-before-connect-https-idea-popcount-org-2014-04-03-bind-before-connect&#34;&gt;&lt;a href=&#34;https://idea.popcount.org/2014-04-03-bind-before-connect/&#34;&gt;Bind before connect&lt;/a&gt;&lt;/h3&gt;
 
 &lt;h4 id=&#34;3-20-2018&#34;&gt;3/20/2018&lt;/h4&gt;
