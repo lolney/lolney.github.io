@@ -141,6 +141,16 @@ $$&lt;/p&gt;
 
 &lt;p&gt;Short summaries of stuff I&amp;rsquo;ve read (mostly technical blogs or papers) that don&amp;rsquo;t deserve their own post:&lt;/p&gt;
 
+&lt;h3 id=&#34;google-project-zero-dns-rebinding-attacks-https-bugs-chromium-org-p-project-zero-issues-list-can-1-q-dns-rebinding-colspec-id-type-status-priority-milestone-owner-summary-cells-ids&#34;&gt;&lt;a href=&#34;https://bugs.chromium.org/p/project-zero/issues/list?can=1&amp;amp;q=dns+rebinding&amp;amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary&amp;amp;cells=ids&#34;&gt;Google Project Zero: DNS Rebinding Attacks&lt;/a&gt;&lt;/h3&gt;
+
+&lt;h4 id=&#34;3-23-2018&#34;&gt;3/23/2018&lt;/h4&gt;
+
+&lt;p&gt;These attacks involve using DNS rebinding to allow a website to send requests to HTTP servers on a user&amp;rsquo;s machine. The targets include RPC servers included with uTorrent and with Blizzard Updater.&lt;/p&gt;
+
+&lt;p&gt;DNS rebinding is meant to get around the same origin policy. The scheme is: setup a domain and a DNS server with a short TTL. Once that&amp;rsquo;s expired, serve a script that makes a request to the origin domain - but when the browser makes a DNS request, respond with localhost instead. That way, the request gets routed to the target instead.&lt;/p&gt;
+
+&lt;p&gt;Each vulnerable app also failed to provide authentication that could prevent the attack. The Blizzard Updater included an auth token with each response, presumably setting Access-Control-Allow-Credentials to prevent bad actors from reading it - but DNS rebinding circumvented this.&lt;/p&gt;
+
 &lt;h3 id=&#34;async-in-rust-https-aturon-github-io-apr&#34;&gt;&lt;a href=&#34;https://aturon.github.io/apr/&#34;&gt;Async in Rust&lt;/a&gt;&lt;/h3&gt;
 
 &lt;h4 id=&#34;3-22-2018&#34;&gt;3/22/2018&lt;/h4&gt;
