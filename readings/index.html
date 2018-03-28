@@ -121,7 +121,22 @@ window.onload = ready;
   <h1>Readings <aside></aside></h1>
   
 
-<p>Short summaries of stuff I&rsquo;ve read (mostly technical blogs or papers) that don&rsquo;t deserve their own post:</p>
+<p>Short summaries of stuff I&rsquo;ve read (mostly technical blogs or papers) that don&rsquo;t deserve their own post:
+<a href="http://sriku.org/blog/2012/04/14/creating-dsls-in-javascript-using-j-expressions/">http://sriku.org/blog/2012/04/14/creating-dsls-in-javascript-using-j-expressions/</a></p>
+
+<h3 id="ipfs-interplanetary-file-system-proposal-paper-https-github-com-ipfs-ipfs-blob-master-papers-ipfs-cap2pfs-ipfs-p2p-file-system-pdf-raw-true"><a href="https://github.com/ipfs/ipfs/blob/master/papers/ipfs-cap2pfs/ipfs-p2p-file-system.pdf?raw=true">IPFS (Interplanetary File System) Proposal Paper</a></h3>
+
+<h4 id="3-27-208">3/27/208</h4>
+
+<p>IPFS is a distributed file system. It combines ideas from Kademlia, Bittorrent, Git,and Self-Certified Filesystems, taking respectively 1) routing and node identity, 2) block exchange, 3) merkle tree-based verification and versioning, and 4) self-certification - addresses derived from public keys.</p>
+
+<p>The result is something like a DHT that stores Git objects and uses the Bittorrent protocol for distribution. The certificate system, which does not rely on a trusted 3rd party to map addresses to public keys, is another major feature, allowing public-key encryption and ensuring that a malicious node can&rsquo;t impersonate a node that has already established trust.</p>
+
+<p>The block exchange protocol, called BitSwap, is a modified version of Bittorrent&rsquo;s. Bittorrent provides incentives for seeding - the standard seeding strategy is to prioritize seeding to the n peers that are themselves the best seeders. BitSwap is similar, but the choice of which peers to seed to is probabalistic, depending on that peer&rsquo;s ratio of sent:received objects.</p>
+
+<p>Bittorrent also encourages the sharing of rare pieces by prioritizes requests for rare pieces. If this can be described as demand-side, BitSwap&rsquo;s solution is supply-side - peers are encouraged to seek objects that their peers also want.</p>
+
+<p>The filesystem itself is implemented as a Merkel DAG, very similar to Git&rsquo;s. Objects have links to other objects, represented as their hashes. <code>Tree</code> objects represent directories, <code>blob</code>s data, and <code>commit</code>s represent snapshots of a collection of objects in some state. IPFS, unlike git, also has <code>list</code>s, which can contain blobs or other lists. Like Git, objects are deduplicated because they are addressed by their hashes. They are also immutable and permanent: once mutated, an object&rsquo;s hash changes, and there is no command in the protocol to delete the previous version.</p>
 
 <h3 id="google-project-zero-dns-rebinding-attacks-https-bugs-chromium-org-p-project-zero-issues-list-can-1-q-dns-rebinding-colspec-id-type-status-priority-milestone-owner-summary-cells-ids"><a href="https://bugs.chromium.org/p/project-zero/issues/list?can=1&amp;q=dns+rebinding&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary&amp;cells=ids">Google Project Zero: DNS Rebinding Attacks</a></h3>
 
