@@ -28,11 +28,6 @@
   </url>
   
   <url>
-    <loc>https://lolney.github.io/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://lolney.github.io/</loc>
     <lastmod>2018-03-18T02:01:38-08:00</lastmod>
     <priority>0</priority>
@@ -41,11 +36,6 @@
   <url>
     <loc>https://lolney.github.io/posts/</loc>
     <lastmod>2018-03-18T02:01:38-08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://lolney.github.io/tags/</loc>
     <priority>0</priority>
   </url>
   
