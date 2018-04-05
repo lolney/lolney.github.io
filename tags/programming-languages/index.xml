@@ -26,7 +26,7 @@
       <pubDate>Sun, 01 Apr 2018 14:40:09 -0700</pubDate>
       
       <guid>https://lolney.github.io/readings/iaia/</guid>
-      <description>A lot of PL research is about better patterns of programming, covering new ways of abstracting patterns that you encounter in the real world. Two of the most beloved courses at NU, Prof. Robby Findler&amp;rsquo;s courses on Compilers and Programming Languages, are built on that principle: they are basically programming seminars, with very little formal introduction to the concepts they cover - instead letting them reveal themselves through the assignments. Indeed, a compiler isn&amp;rsquo;t built the way it is because the concept of a &amp;lsquo;compiler&amp;rsquo; is written in natural law - it&amp;rsquo;s a revealed way of handling the complexity that comes with all the forms the grammar of the language can express itself.</description>
+      <description>A lot of PL research is about better patterns of programming, covering new ways of abstracting patterns that you encounter in a real codebase. Two of the most beloved courses at NU, Prof. Robby Findler&amp;rsquo;s courses on Compilers and Programming Languages, are built on that principle: they are basically programming seminars, with very little formal introduction to the concepts they cover - instead letting them reveal themselves through the assignments. Indeed, a compiler isn&amp;rsquo;t built the way it is because the concept of a &amp;lsquo;compiler&amp;rsquo; is written in natural law - it&amp;rsquo;s a revealed way of handling the complexity that comes with all the forms the grammar of the language can express itself.</description>
     </item>
     
     <item>

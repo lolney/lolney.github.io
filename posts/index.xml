@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 Mar 2018 02:01:38 -0800</lastBuildDate>
+    <lastBuildDate>Thu, 05 Apr 2018 02:21:09 -0700</lastBuildDate>
     
 	<atom:link href="https://lolney.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Illustrated Explantion for the Rotated Array Search Problem</title>
+      <link>https://lolney.github.io/posts/rotated-search/</link>
+      <pubDate>Thu, 05 Apr 2018 02:21:09 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/posts/rotated-search/</guid>
+      <description>This is a detailed explanation of the &amp;ldquo;Search in Rotated Sorted Array&amp;rdquo; problem on Leetcode. The problem isn&amp;rsquo;t complicated, but because of the combinametrics involved, it has some nice symmetries that you might only see when you work out the problem fully.
+In an ordinary binary search, the side of the array we choose next depends on how the target and the midpoint fall relative to each other. There are only two possibilities:</description>
+    </item>
     
     <item>
       <title>Imputed Rent</title>
