@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Software Engineering on Luke Olney</title>
+    <link>https://lolney.github.io/tags/software-engineering/</link>
+    <description>Recent content in Software Engineering on Luke Olney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 15 Mar 2018 14:40:58 -0700</lastBuildDate>
+    
+	<atom:link href="https://lolney.github.io/tags/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pitfalls of OO Design</title>
+      <link>https://lolney.github.io/readings/oo-design/</link>
+      <pubDate>Thu, 15 Mar 2018 14:40:58 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/oo-design/</guid>
+      <description>An overview for the reasons that more recent languages (Rust, Go) have avoided the full-on object-orientedness of Java, C#, et. al. Traits and interfaces allow for polymorphism while avoiding the problems of inheritance - they&amp;rsquo;re not hierarchical, so they avoid issues like the diamond problem that result when implementing new objects that don&amp;rsquo;t fit easily into the existing hierarchy. Non-hierarchical structs also avoid the bloat of carrying around unnecessary parent fields.</description>
+    </item>
+    
+  </channel>
+</rss>

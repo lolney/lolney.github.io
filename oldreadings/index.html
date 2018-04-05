@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Readings - Luke Olney</title>
+<meta property="og:title" content="Readings - Luke Olney">       
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lolney.github.io/css/main.css" media="all">
+<link rel="stylesheet" href="https://lolney.github.io/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lolney.github.io/" class="nav-logo">
+    <img src="https://lolney.github.io/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/oldreadings/">Readings</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    <h1 class="article-title">Readings</h1>
+    
+
+    <div class="article-content">
+      
+
+<p>Short summaries of stuff I&rsquo;ve read (mostly technical blogs or papers) that don&rsquo;t deserve their own post:</p>
+
+<h3 id="world-models-https-github-com-worldmodels-worldmodels-github-io-blob-master-draft-md"><a href="https://github.com/worldmodels/worldmodels.github.io/blob/master/draft.md">World models</a></h3>
+
+<h3 id="what-color-is-your-function-http-journal-stuffwithstuff-com-2015-02-01-what-color-is-your-function"><a href="http://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">What color is your function</a></h3>
+
+<p>Constructs the PL analogy of &ldquo;colored functions&rdquo; &ndash; function are either blue or red, and differently-colored functions cannot be passed to each other, have different calling conventions, &ndash; as an analogy for async functions.</p>
+
+<h3 id="tail-calls-in-rust-rfc-https-github-com-rust-lang-rfcs-pull-1888-files"><a href="https://github.com/rust-lang/rfcs/pull/1888/files">Tail calls in Rust RFC</a></h3>
+
+<h4 id="4-1-2018">4/1/2018</h4>
+
+<p>The main transformation to enable tail calls is to replace the function call <code>f</code> with a <code>goto</code>, then replace the original arguments of the current function with the arguments of <code>f</code>. In the Rust compiler,
+Also notes the main reason tail calls haven&rsquo;t been implemented yet: portability. They&rsquo;re not supported in several targets, like WebAssembly.</p>
+
+<h3 id="https-github-com-sellout-iaia">[](<a href="https://github.com/sellout/Iaia">https://github.com/sellout/Iaia</a>)</h3>
+
+<h4 id="4-1-2018-1">4/1/2018</h4>
+
+<p>A lot of PL research is about better patterns of programming, covering new ways of abstracting patterns that you encounter in the real world. Two of the most beloved courses at NU, Prof. Robby Findler&rsquo;s courses on Compilers and Programming Languages, are built on that principle: they are basically programming seminars, with very little formal introduction to the concepts they cover - instead letting them reveal themselves through the assignments. Indeed, a compiler isn&rsquo;t built the way it is because the concept of a &lsquo;compiler&rsquo; is written in natural law - it&rsquo;s a revealed way of handling the complexity that comes with all the forms the grammar of the language can express itself.</p>
+
+<h3 id="ipfs-interplanetary-file-system-proposal-paper-https-github-com-ipfs-ipfs-blob-master-papers-ipfs-cap2pfs-ipfs-p2p-file-system-pdf-raw-true"><a href="https://github.com/ipfs/ipfs/blob/master/papers/ipfs-cap2pfs/ipfs-p2p-file-system.pdf?raw=true">IPFS (Interplanetary File System) Proposal Paper</a></h3>
+
+<h4 id="3-27-2018">3/27/2018</h4>
+
+<p>IPFS is a distributed file system. It combines ideas from Kademlia, Bittorrent, Git,and Self-Certified Filesystems, taking respectively 1) routing and node identity, 2) block exchange, 3) Merkle tree-based verification and versioning, and 4) self-certification - addresses derived from public keys.</p>
+
+<p>The result is something like a DHT that stores Git objects and uses the Bittorrent protocol for distribution. The certificate system, which does not rely on a trusted 3rd party to map addresses to public keys, is another major feature, allowing public-key encryption and ensuring that a malicious node can&rsquo;t impersonate a node that has already established trust.</p>
+
+<p>The block exchange protocol, called BitSwap, is a modified version of Bittorrent&rsquo;s. Bittorrent provides incentives for seeding - the standard seeding strategy is to prioritize seeding to the n peers that are themselves the best seeders. BitSwap is similar, but the choice of which peers to seed to is probabilistic, depending on that peer&rsquo;s ratio of sent:received objects. Since this probability is based on <em>lifetime ratios</em>, a peer can stop uploading for a short time and not have its download rates affected much.</p>
+
+<p>Bittorrent also encourages the sharing of rare pieces by making sure that rare pieces are requested first. If this is a demand-side incentive - demand is increased for rare pieces - BitSwap&rsquo;s solution is supply-side - peers are encouraged to seek objects that their peers also want. This allows a peer to contribute even if it currently does not want any objects.</p>
+
+<p>The file system itself is implemented as a Merkle DAG, very similar to Git&rsquo;s. Objects have links to other objects, represented as their hashes. <code>Tree</code> objects represent directories, <code>blob</code>s data, and <code>commit</code>s represent snapshots of a collection of objects in some state. IPFS, unlike git, also has <code>list</code>s, which can contain blobs or other lists. Like Git, objects are deduplicated because they are addressed by their hashes. They are also immutable and permanent: once mutated, an object&rsquo;s hash changes, and there is no command in the protocol to delete the previous version.</p>
+
+<h3 id="google-project-zero-dns-rebinding-attacks-https-bugs-chromium-org-p-project-zero-issues-list-can-1-q-dns-rebinding-colspec-id-type-status-priority-milestone-owner-summary-cells-ids"><a href="https://bugs.chromium.org/p/project-zero/issues/list?can=1&amp;q=dns+rebinding&amp;colspec=ID+Type+Status+Priority+Milestone+Owner+Summary&amp;cells=ids">Google Project Zero: DNS Rebinding Attacks</a></h3>
+
+<h4 id="3-23-2018">3/23/2018</h4>
+
+<p>These attacks involve using DNS rebinding to allow a website to send requests to HTTP servers on a user&rsquo;s machine. The targets include RPC servers included with uTorrent and with Blizzard Updater.</p>
+
+<p>DNS rebinding is meant to get around the same origin policy. The scheme is: setup a domain and a DNS server with a short TTL. Once that&rsquo;s expired, serve a script that makes a request to the origin domain - but when the browser makes a DNS request, respond with localhost instead. That way, the request gets routed to the target instead.</p>
+
+<p>Each vulnerable app also failed to provide authentication that could prevent the attack. The Blizzard Updater included an auth token with each response, presumably setting Access-Control-Allow-Credentials to prevent bad actors from reading it - but DNS rebinding circumvented this.</p>
+
+<h3 id="async-in-rust-https-aturon-github-io-apr"><a href="https://aturon.github.io/apr/">Async in Rust</a></h3>
+
+<h4 id="3-22-2018">3/22/2018</h4>
+
+<p>Asynchronous programming constructs allow you to reason about asynchronous operations without explicitly working with threads - the asynchronous library handles that itself, preventing unnecessary thread spawning. In Rust, these constructs are &lsquo;tasks.&rsquo; When you run a task, instead of blocking, it returns control to the executor thread. The task runs until it would block, then returns <code>Async::Pending</code>. You also provide it a <code>Waker</code> so that it can wake itself up again.</p>
+
+<p>An executor works by running each of the tasks until they block, and then <code>park</code>ing. A <code>Waker</code> contains a link back to the executor and inserts the task in the executor&rsquo;s ready set before <code>unpark</code>ing it.</p>
+
+<p>Futures are tasks that can be chained. They must implement a type Item that is the result of the computation, a type Error, and a poll method that returns <code>Async::WillWake</code> or <code>Async::Ready(data: Item)</code>.</p>
+
+<p>Futures are designed to be state machines: eg, one that alterates between the states <code>Reading</code> and <code>Writing</code>, returning Async::NotReady when it can&rsquo;t proceed.</p>
+
+<h3 id="bind-before-connect-https-idea-popcount-org-2014-04-03-bind-before-connect"><a href="https://idea.popcount.org/2014-04-03-bind-before-connect/">Bind before connect</a></h3>
+
+<h4 id="3-20-2018">3/20/2018</h4>
+
+<p>If you create a socket and call <code>connect(dst, port)</code> on it, or first call <code>bind(src, port)</code> with port 0, the kernel will allocate from the pool of up to 64k available ports. However, with with <code>SO_REUSEPORT</code>, you can also share ports to create an effectively unlimited number of connections - as long as the destination address is different for each connection sharing the same port. To have multiple connections to the same IP/Port pair, you can use different source IP addresses instead.</p>
+
+<p><code>SO_REUSEADDR</code> behaves slightly differently than <code>SO_REUSEPORT</code>, allowing reuse of addresses in the cooldown period after a process releases a socket, plus allowing binding of wildcard addresses (<code>0.0.0.0</code>) and normal addresses to the same port.</p>
+
+<p>There are various implementation concerns (ie, <code>bind</code> is fine, but after <code>connect</code> one of the reuse rules is broken) that the linked post discusses.</p>
+
+<h3 id="pitfalls-of-oo-design-https-medium-com-cscalfani-goodbye-object-oriented-programming-a59cda4c0e53"><a href="https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53">Pitfalls of OO Design</a></h3>
+
+<h4 id="3-15-2018">3/15/2018</h4>
+
+<p>An overview for the reasons that more recent languages (Rust, Go) have avoided the full-on object-orientedness of Java, C#, et. al. Traits and interfaces allow for polymorphism while avoiding the problems of inheritance - they&rsquo;re not hierarchical, so they avoid issues like the diamond problem that result when implementing new objects that don&rsquo;t fit easily into the existing hierarchy. Non-hierarchical structs also avoid the bloat of carrying around unnecessary parent fields.</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://lolney.github.io/index.xml" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss"></i> RSS feed</a>
+    </li>
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

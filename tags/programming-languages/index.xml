@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming Languages on Luke Olney</title>
+    <link>https://lolney.github.io/tags/programming-languages/</link>
+    <description>Recent content in Programming Languages on Luke Olney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 03 Apr 2018 01:31:00 -0700</lastBuildDate>
+    
+	<atom:link href="https://lolney.github.io/tags/programming-languages/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>What color is your function?</title>
+      <link>https://lolney.github.io/readings/function-color/</link>
+      <pubDate>Tue, 03 Apr 2018 01:31:00 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/function-color/</guid>
+      <description>This blog post imagines a programming language with &amp;ldquo;colored functions&amp;rdquo; &amp;ndash; function are either blue or red, and differently-colored functions cannot be passed to or called from each other, plus have different calling conventions &amp;ndash; as an analogy for async functions. The point, I suppose, is to show the unwieldiness of interactions between async and code. After trying to navigate [futures in Rust for a while](), I can see the point.</description>
+    </item>
+    
+    <item>
+      <title>Iaia</title>
+      <link>https://lolney.github.io/readings/iaia/</link>
+      <pubDate>Sun, 01 Apr 2018 14:40:09 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/iaia/</guid>
+      <description>A lot of PL research is about better patterns of programming, covering new ways of abstracting patterns that you encounter in the real world. Two of the most beloved courses at NU, Prof. Robby Findler&amp;rsquo;s courses on Compilers and Programming Languages, are built on that principle: they are basically programming seminars, with very little formal introduction to the concepts they cover - instead letting them reveal themselves through the assignments. Indeed, a compiler isn&amp;rsquo;t built the way it is because the concept of a &amp;lsquo;compiler&amp;rsquo; is written in natural law - it&amp;rsquo;s a revealed way of handling the complexity that comes with all the forms the grammar of the language can express itself.</description>
+    </item>
+    
+    <item>
+      <title>Tail Calls in Rust</title>
+      <link>https://lolney.github.io/readings/tail-calls/</link>
+      <pubDate>Sun, 01 Apr 2018 14:39:40 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/tail-calls/</guid>
+      <description>The main transformation to enable tail calls is to replace the function call f with a goto, calling destructors on local variables, then replacing the original arguments of the current function with the arguments of f. The normal borrow semantics for the return should therefore apply.
+A tail call is only valid if there is nothing to be done in the caller after the call. This implementation checks this by first creating a node for become in HIR, then later, in MIR, checks that the &amp;ldquo;basic block being branched into&amp;rdquo; either &amp;ldquo;has length zero&amp;rdquo; or &amp;ldquo;terminates with a return.</description>
+    </item>
+    
+  </channel>
+</rss>

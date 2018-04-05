@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Tail Calls in Rust - Luke Olney</title>
+<meta property="og:title" content="Tail Calls in Rust - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lolney.github.io/css/main.css" media="all">
+<link rel="stylesheet" href="https://lolney.github.io/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lolney.github.io/" class="nav-logo">
+    <img src="https://lolney.github.io/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    <h1 class="article-title">Tail Calls in Rust</h1>
+    
+
+    <div class="article-content">
+      <p>The main transformation to enable tail calls is to replace the function call <code>f</code> with a <code>goto</code>, calling destructors on local variables, then replacing the original arguments of the current function with the arguments of <code>f</code>. The normal borrow semantics for the return should therefore apply.</p>
+
+<p>A tail call is only valid if there is nothing to be done in the caller after the call. This implementation checks this by first creating a node for <code>become</code> in HIR, then later, in MIR, checks that the &ldquo;basic block being branched into&rdquo; either &ldquo;has length zero&rdquo; or &ldquo;terminates with a return.&rdquo; I assume that this &ldquo;basic block being branched into&rdquo; contains whatever follows the <code>become</code> statement, and branches to another basic block if there&rsquo;s anything more to do after the <code>become</code>; otherwise falling into the cases mentioned.</p>
+
+<p>Also notes the main reason tail calls haven&rsquo;t been implemented yet: portability. They&rsquo;re not supported in several targets, like WebAssembly, which is something that the Rust developers apparently won&rsquo;t tolerate.</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://lolney.github.io/index.xml" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss"></i> RSS feed</a>
+    </li>
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

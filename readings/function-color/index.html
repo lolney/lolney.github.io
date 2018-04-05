@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>What color is your function? - Luke Olney</title>
+<meta property="og:title" content="What color is your function? - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lolney.github.io/css/main.css" media="all">
+<link rel="stylesheet" href="https://lolney.github.io/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lolney.github.io/" class="nav-logo">
+    <img src="https://lolney.github.io/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    <h1 class="article-title">What color is your function?</h1>
+    
+
+    <div class="article-content">
+      <p>This blog post imagines a programming language with &ldquo;colored functions&rdquo; &ndash; function are either blue or red, and differently-colored functions cannot be passed to or called from each other, plus have different calling conventions &ndash; as an analogy for async functions. The point, I suppose, is to show the unwieldiness of interactions between async and code. After trying to navigate [futures in Rust for a while](), I can see the point. As the author notes, futures don&rsquo;t do much to solve the ugliness of the hand-off between sync and async code. There needs to ultimately be a method for handling separate independent callstacks.</p>
+
+<p>One area where this manifests: API design. The API creator must decide whether to expose async functions, leaving sync users to de-async the result themselves, or sync functions, which async users are left to wrap (potentially wasteful, as the library had to do this itself at some point).</p>
+
+<p>The <a href="https://news.ycombinator.com/item?id=8984648">HN comments for this post</a> are insightful, with the top commenter noting that the red-blue language is &ldquo;essentially Haskell&rdquo; (with blue and red monoids), and another noting that golang solves this problem by making the whole program &ldquo;red&rdquo; (async).</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://lolney.github.io/index.xml" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss"></i> RSS feed</a>
+    </li>
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

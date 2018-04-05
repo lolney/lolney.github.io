@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Security on Luke Olney</title>
+    <link>https://lolney.github.io/tags/security/</link>
+    <description>Recent content in Security on Luke Olney</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 Mar 2018 14:40:23 -0700</lastBuildDate>
+    
+	<atom:link href="https://lolney.github.io/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>DNS Rebinding</title>
+      <link>https://lolney.github.io/readings/dns-rebinding/</link>
+      <pubDate>Fri, 23 Mar 2018 14:40:23 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/dns-rebinding/</guid>
+      <description>These attacks involve using DNS rebinding to allow a website to send requests to HTTP servers on a user&amp;rsquo;s machine. The targets include RPC servers included with uTorrent and with Blizzard Updater.
+DNS rebinding is meant to get around the same origin policy. The scheme is: setup a domain and a DNS server with a short TTL. Once that&amp;rsquo;s expired, serve a script that makes a request to the origin domain - but when the browser makes a DNS request, respond with localhost instead.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -180,6 +180,7 @@ blockquote {
 }
 
 .article-taxonomy {
+  margin-top: 5px;
   list-style: none;
   padding-left: 0;
   font-family: 'Lato', sans-serif;
@@ -436,7 +437,7 @@ blockquote {
 .fa-tags::before {
   content: "\f02c";
   float: left;
-  padding: 0px 10px 50px 0;
+  padding: 0px 10px 0px 0;
 }
 
 .fa-category::before {
@@ -451,6 +452,16 @@ code.has-jax {
     background: inherit;
     border: inherit;
     color: #515151;
+}
+
+.more, .less {
+	color: #355834;
+	text-decoration: none;
+	font-weight: bold;
+  padding: 0 5px;
+}
+.fa {
+  margin: 0 5px;
 }
 
 @media (min-width: 600px) {
