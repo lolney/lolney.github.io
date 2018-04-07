@@ -12,13 +12,13 @@
     
     
     <item>
-      <title>Skip List</title>
+      <title>Skip Lists</title>
       <link>https://lolney.github.io/readings/skip-list/</link>
       <pubDate>Fri, 06 Apr 2018 16:25:24 -0700</pubDate>
       
       <guid>https://lolney.github.io/readings/skip-list/</guid>
-      <description>The skip list is an alternative to balanced search trees, especially suited for distributed applications. MemSQL is probably the primary adopter, using skip lists as its primary index structure, but they&amp;rsquo;re also used in Redis to implement ordered sets.
-This image from the paper shows what the data structure looks like. A node contains k pointers, with the ith pointer pointing to the next node of level i: The paper defends the claims that 1) concurrency guarantees are easier to implement for skip lists than for balanced trees, requiring only write locks, and 2) the data structure is very unlikely to become significantly unbalanced.</description>
+      <description>The skip list is an alternative to balanced search trees, especially suited for distributed applications. MemSQL is the primary adopter, using skip lists as its primary index structure, but they&amp;rsquo;re also used in Redis to implement ordered sets.
+This image from the paper shows what the data structure looks like. A node contains k pointers, with the ith pointer pointing to the next node of level i: When a node is inserted, it is given a random level to represent it: level 1 with 50% probability, 2 with 25%, etc.</description>
     </item>
     
   </channel>
