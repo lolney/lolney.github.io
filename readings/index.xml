@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Skip List</title>
+      <link>https://lolney.github.io/readings/skip-list/</link>
+      <pubDate>Fri, 06 Apr 2018 16:25:24 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/skip-list/</guid>
+      <description>The skip list is an alternative to balanced search trees, especially suited for distributed applications. MemSQL is probably the primary adopter, using skip lists as its primary index structure, but they&amp;rsquo;re also used in Redis to implement ordered sets.
+This image from the paper shows what the data structure looks like. A node contains k pointers, with the ith pointer pointing to the next node of level i: The paper defends the claims that 1) concurrency guarantees are easier to implement for skip lists than for balanced trees, requiring only write locks, and 2) the data structure is very unlikely to become significantly unbalanced.</description>
+    </item>
+    
+    <item>
       <title>Making the Touch Bar finally useful</title>
       <link>https://lolney.github.io/readings/mbp-touchbar-customization-showcase/</link>
       <pubDate>Thu, 05 Apr 2018 01:16:20 -0700</pubDate>
@@ -93,15 +103,6 @@ DNS rebinding is meant to get around the same origin policy. The scheme is: setu
       
       <guid>https://lolney.github.io/readings/bind-before-connect/</guid>
       <description>If you create a socket and call connect(dst, port) on it, or first call bind(src, port) with port 0, the kernel will allocate from the pool of up to 64k available ports. However, with with SO_REUSEPORT, you can also share ports to create an effectively unlimited number of connections - as long as the destination address is different for each connection sharing the same port. To have multiple connections to the same IP/Port pair, you can use different source IP addresses instead.</description>
-    </item>
-    
-    <item>
-      <title>Pitfalls of OO Design</title>
-      <link>https://lolney.github.io/readings/oo-design/</link>
-      <pubDate>Thu, 15 Mar 2018 14:40:58 -0700</pubDate>
-      
-      <guid>https://lolney.github.io/readings/oo-design/</guid>
-      <description>An overview for the reasons that more recent languages (Rust, Go) have avoided the full-on object-orientedness of Java, C#, et. al. Traits and interfaces allow for polymorphism while avoiding the problems of inheritance - they&amp;rsquo;re not hierarchical, so they avoid issues like the diamond problem that result when implementing new objects that don&amp;rsquo;t fit easily into the existing hierarchy. Non-hierarchical structs also avoid the bloat of carrying around unnecessary parent fields.</description>
     </item>
     
   </channel>

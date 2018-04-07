@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Skip List - Luke Olney</title>
+<meta property="og:title" content="Skip List - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lolney.github.io/css/main.css" media="all">
+<link rel="stylesheet" href="https://lolney.github.io/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lolney.github.io/" class="nav-logo">
+    <img src="https://lolney.github.io/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    <h1 class="article-title">Skip List</h1>
+    
+
+    <div class="article-content">
+      <p>The skip list is an alternative to balanced search trees, especially suited for distributed applications. MemSQL is probably the primary adopter, using skip lists as its primary index structure, but they&rsquo;re <a href="https://github.com/antirez/redis/blob/unstable/src/t_zset.c#L31">also used in Redis</a> to implement ordered sets.</p>
+
+<p>This image from the paper shows what the data structure looks like. A node contains k pointers, with the ith pointer pointing to the next node of level i:
+<img src="/img/skip-list.png" alt="A skip list" /></p>
+
+<p>The paper defends the claims that 1) concurrency guarantees are easier to implement for skip lists than for balanced trees, requiring only write locks, and 2) the data structure is very unlikely to become significantly unbalanced.</p>
+
+<p>To ensure that readers are not disrupted by writes in the absence of read locks, x is updated to point to its predecessor after removing x. Proofs are supplied for the correctness guarantees, among them that the list remains sorted and the lock is held only by the deleted key.</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://lolney.github.io/index.xml" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss"></i> RSS feed</a>
+    </li>
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>
