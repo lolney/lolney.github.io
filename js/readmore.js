@@ -42,7 +42,7 @@ function moreLess(initiallyVisibleCharacters) {
             var first = findSplit(oldChildren, limit);
             var more = $("<span class='ellipsis'>... </span><a href='#' class='more'>MORE<i class='fa fa-arrow-circle-o-down' aria-hidden='true'></i></a>");
             var rest = oldChildren.splice(1);
-            var text = oldChildren[0].innerHTML;
+            var text = oldChildren[0].innerText;
             var less = $("<span style='display:none'><a href='#' class='less'> LESS<i class='fa fa-arrow-circle-o-up' aria-hidden='true'></i></a></span>");
             less.prepend(rest).prepend(text);
             $(this).append(first.append(more).append(less));
