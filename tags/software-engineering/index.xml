@@ -6,10 +6,20 @@
     <description>Recent content in Software Engineering on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Mar 2018 14:40:58 -0700</lastBuildDate>
+    <lastBuildDate>Tue, 10 Apr 2018 01:24:24 -0700</lastBuildDate>
     
 	<atom:link href="https://lolney.github.io/tags/software-engineering/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Dropbox&#39;s Distributed Storage System</title>
+      <link>https://lolney.github.io/readings/dropbox-storage/</link>
+      <pubDate>Tue, 10 Apr 2018 01:24:24 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/dropbox-storage/</guid>
+      <description>Magic Pocket is Dropbox&amp;rsquo;s distributed storage system. It prioritizes simplicity, durability and availability, with a multi-level design that uses centralized coordination where possible. Data is replicated on all levels: between zones (which span an entire region, like the Eastern US) but also within each zone. The author notes in a HN comment the high-level similarities with GFS, which may warrant a closer look.
+Below the level of zone is the cell, the largest storage unit with central coordination.</description>
+    </item>
     
     <item>
       <title>Pitfalls of OO Design</title>

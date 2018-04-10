@@ -68,6 +68,38 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://idea.popcount.org/2014-04-03-bind-before-connect/">Bind Before Connect</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 20 March 2018 ">20 March 2018</time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/programming">Programming</a>
+        <a href="/tags/networking">Networking</a>
+        <a href="/tags/how-to">How-to</a>
+    </li>
+    
+</ul>
+
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="article-content">
+            <div class="readmore">
+                <p>If you create a socket and call <code>connect(dst, port)</code> on it, or first call <code>bind(src, port)</code> with port 0, the kernel will allocate from the pool of up to 64k available ports. However, with with <code>SO_REUSEPORT</code>, you can also share ports to create an effectively unlimited number of connections - as long as the destination address is different for each connection sharing the same port. To have multiple connections to the same IP/Port pair, you can use different source IP addresses instead.</p>
+
+<p><code>SO_REUSEADDR</code> behaves slightly differently than <code>SO_REUSEPORT</code>, allowing reuse of addresses in the cooldown period after a process releases a socket, plus allowing binding of wildcard addresses (<code>0.0.0.0</code>) and normal addresses to the same port.</p>
+
+<p>There are various implementation concerns (ie, <code>bind</code> is fine, but after <code>connect</code> one of the reuse rules is broken) that the linked post discusses.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53">Pitfalls of OO Design</a>
         </h1>
         <div class="post-meta">

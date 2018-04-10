@@ -12,6 +12,16 @@
     
     
     <item>
+      <title>Dropbox&#39;s Distributed Storage System</title>
+      <link>https://lolney.github.io/readings/dropbox-storage/</link>
+      <pubDate>Tue, 10 Apr 2018 01:24:24 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/dropbox-storage/</guid>
+      <description>Magic Pocket is Dropbox&amp;rsquo;s distributed storage system. It prioritizes simplicity, durability and availability, with a multi-level design that uses centralized coordination where possible. Data is replicated on all levels: between zones (which span an entire region, like the Eastern US) but also within each zone. The author notes in a HN comment the high-level similarities with GFS, which may warrant a closer look.
+Below the level of zone is the cell, the largest storage unit with central coordination.</description>
+    </item>
+    
+    <item>
       <title>Skip Lists</title>
       <link>https://lolney.github.io/readings/skip-list/</link>
       <pubDate>Fri, 06 Apr 2018 16:25:24 -0700</pubDate>
@@ -94,15 +104,6 @@ DNS rebinding is meant to get around the same origin policy. The scheme is: setu
       
       <guid>https://lolney.github.io/readings/async-in-rust/</guid>
       <description>Asynchronous programming usually aim to make it easier to reason about asynchronous operations. For example, by avoiding explicitly working with threads &amp;ndash; the asynchronous library handles that itself&amp;ndash; you can avoid complexity while avoiding the overhead of unnecessary thread spawning. In Rust, these constructs are &amp;lsquo;tasks.&amp;rsquo; When you run a task, instead of blocking, it returns control to the executor thread. The task runs until it would block, then returns Async::Pending.</description>
-    </item>
-    
-    <item>
-      <title>Bind Before Connect</title>
-      <link>https://lolney.github.io/readings/bind-before-connect/</link>
-      <pubDate>Tue, 20 Mar 2018 14:40:49 -0700</pubDate>
-      
-      <guid>https://lolney.github.io/readings/bind-before-connect/</guid>
-      <description>If you create a socket and call connect(dst, port) on it, or first call bind(src, port) with port 0, the kernel will allocate from the pool of up to 64k available ports. However, with with SO_REUSEPORT, you can also share ports to create an effectively unlimited number of connections - as long as the destination address is different for each connection sharing the same port. To have multiple connections to the same IP/Port pair, you can use different source IP addresses instead.</description>
     </item>
     
   </channel>
