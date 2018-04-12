@@ -6,10 +6,19 @@
     <description>Recent content in Networking on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 20 Mar 2018 14:40:49 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 11 Apr 2018 23:27:02 -0700</lastBuildDate>
     
 	<atom:link href="https://lolney.github.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>MIT Roofnet Mesh Network</title>
+      <link>https://lolney.github.io/readings/roofnet/</link>
+      <pubDate>Wed, 11 Apr 2018 23:27:02 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/roofnet/</guid>
+      <description>Roofnet is a WiFi mesh network for increasing Internet access in urban areas. It&amp;rsquo;s designed to be easy to set up: Users just need to place antennae on their roofs, and there&amp;rsquo;s no need surveys to determine the optimum place to put them &amp;ndash; since the network makes up the difference in performance. It does that, in part, though its routing protocol, which chooses routes that maximize bitrate and minimize loss-rate.</description>
+    </item>
     
     <item>
       <title>Bind Before Connect</title>

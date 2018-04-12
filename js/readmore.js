@@ -59,6 +59,7 @@ function moreLess(initiallyVisibleCharacters) {
     });
 };
 
-window.onload = function () {
+window.addEventListener("load", () => { moreLess(300); });
+/*$(document).ready(function () {
     moreLess(300);
-}
+})*/

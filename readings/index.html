@@ -68,6 +68,35 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://pdos.csail.mit.edu/~rtm/roofnet-b.pdf">MIT Roofnet Mesh Network</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 11 April 2018 ">11 April 2018</time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/networking">Networking</a>
+        <a href="/tags/distributed-systems">Distributed Systems</a>
+    </li>
+    
+</ul>
+
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="article-content">
+            <div class="readmore">
+                <p>Roofnet is a WiFi mesh network for increasing Internet access in urban areas. It&rsquo;s designed to be easy to set up: Users just need to place antennae on their roofs, and there&rsquo;s no need surveys to determine the optimum place to put them &ndash; since the network makes up the difference in performance. It does that, in part, though its routing protocol, which chooses routes that maximize bitrate and minimize loss-rate. It also introduces a new protocol that maximizes throughput no matter the loss rate &ndash; transmitting at a lower bitrate can improve performance by avoiding re-transmissions, and this protocol improves on the heuristics used by its predecessors (although not described in detail here).</p>
+
+<p>In summary: Some number of nodes in the network have wired access to the Internet. The rest of the nodes need to route their packets to these gateway nodes, with some number of hops. Roofnet does that without much performance loss by choosing the highest-throughput routes, using multiple links if necessary.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://blogs.dropbox.com/tech/2016/05/inside-the-magic-pocket/">Dropbox&#39;s Distributed Storage System</a>
         </h1>
         <div class="post-meta">
@@ -349,39 +378,6 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
 <p>DNS rebinding is meant to get around the same origin policy. The scheme is: setup a domain and a DNS server with a short TTL. Once that&rsquo;s expired, serve a script that makes a request to the origin domain - but when the browser makes a DNS request, respond with localhost instead. That way, the request gets routed to the target instead.</p>
 
 <p>Each vulnerable app also failed to provide authentication that could prevent the attack. The Blizzard Updater included an auth token with each response, presumably setting Access-Control-Allow-Credentials to prevent bad actors from reading it - but DNS rebinding circumvented this.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://aturon.github.io/apr/">Async in Rust</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 22 March 2018 ">22 March 2018</time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/programming">Programming</a>
-        <a href="/tags/rust">Rust</a>
-    </li>
-    
-</ul>
-
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="article-content">
-            <div class="readmore">
-                <p>Asynchronous programming usually aim to make it easier to reason about asynchronous operations. For example, by avoiding explicitly working with threads &ndash; the asynchronous library handles that itself&ndash; you can avoid complexity while avoiding the overhead of unnecessary thread spawning. In Rust, these constructs are &lsquo;tasks.&rsquo; When you run a task, instead of blocking, it returns control to the executor thread. The task runs until it would block, then returns <code>Async::Pending</code>. You also provide it a <code>Waker</code> so that it can wake itself up again.</p>
-
-<p>An executor works by running each of the tasks until they block, and then <code>park</code>ing. A <code>Waker</code> contains a link back to the executor and inserts the task in the executor&rsquo;s ready set before <code>unpark</code>ing it.</p>
-
-<p>Futures are tasks that can be chained. They must implement a type Item that is the result of the computation, a type Error, and a poll method that returns <code>Async::WillWake</code> or <code>Async::Ready(data: Item)</code>.</p>
-
-<p>Futures are designed to be state machines: eg, one that alterates between the states <code>Reading</code> and <code>Writing</code>, returning <code>Async::NotReady</code> when it can&rsquo;t proceed.</p>
 
             </div>
         </div>
