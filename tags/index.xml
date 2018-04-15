@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Computing History</title>
+      <link>https://lolney.github.io/tags/computing-history/</link>
+      <pubDate>Sat, 14 Apr 2018 00:34:41 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/tags/computing-history/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Data Structures</title>
       <link>https://lolney.github.io/tags/data-structures/</link>
       <pubDate>Fri, 06 Apr 2018 16:25:24 -0700</pubDate>
@@ -35,6 +44,15 @@
       <pubDate>Wed, 11 Apr 2018 23:27:02 -0700</pubDate>
       
       <guid>https://lolney.github.io/tags/distributed-systems/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HCI</title>
+      <link>https://lolney.github.io/tags/hci/</link>
+      <pubDate>Sat, 14 Apr 2018 00:34:41 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/tags/hci/</guid>
       <description></description>
     </item>
     
@@ -80,24 +98,6 @@
       <pubDate>Tue, 03 Apr 2018 01:31:00 -0700</pubDate>
       
       <guid>https://lolney.github.io/tags/programming/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Programming Languages</title>
-      <link>https://lolney.github.io/tags/programming-languages/</link>
-      <pubDate>Tue, 03 Apr 2018 01:31:00 -0700</pubDate>
-      
-      <guid>https://lolney.github.io/tags/programming-languages/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>RNNs</title>
-      <link>https://lolney.github.io/tags/rnns/</link>
-      <pubDate>Wed, 04 Apr 2018 02:01:00 -0700</pubDate>
-      
-      <guid>https://lolney.github.io/tags/rnns/</guid>
       <description></description>
     </item>
     
