@@ -68,6 +68,36 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://bugs.chromium.org/p/project-zero/issues/list?can=1&amp;q=dns&#43;rebinding&amp;colspec=ID&#43;Type&#43;Status&#43;Priority&#43;Milestone&#43;Owner&#43;Summary&amp;cells=ids">DNS Rebinding</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 23 March 2018 ">23 March 2018</time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/security">Security</a>
+    </li>
+    
+</ul>
+
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="article-content">
+            <div class="readmore">
+                <p>These attacks involve using DNS rebinding to allow a website to send requests to HTTP servers on a user&rsquo;s machine. The targets include RPC servers included with uTorrent and with Blizzard Updater.</p>
+
+<p>DNS rebinding is meant to get around the same origin policy. The scheme is: setup a domain and a DNS server with a short TTL. Once that&rsquo;s expired, serve a script that makes a request to the origin domain - but when the browser makes a DNS request, respond with localhost instead. That way, the request gets routed to the target instead.</p>
+
+<p>Each vulnerable app also failed to provide authentication that could prevent the attack. The Blizzard Updater included an auth token with each response, presumably setting Access-Control-Allow-Credentials to prevent bad actors from reading it - but DNS rebinding circumvented this.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://aturon.github.io/apr/">Async in Rust</a>
         </h1>
         <div class="post-meta">

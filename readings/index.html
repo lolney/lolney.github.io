@@ -68,6 +68,49 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="">Alan Kay&#39;s Hacker News AMA</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 14 April 2018 ">14 April 2018</time>
+            <ul class="article-taxonomy">
+     
+</ul>
+
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="article-content">
+            <div class="readmore">
+                <p>Here are some highlights for the Hacker News AMA of Alan Kay, pioneering researcher in graphical user interfaces and object-oriented programming.</p>
+
+<blockquote>
+<p><a href="https://news.ycombinator.com/item?id=11940433">Part of this was that the rather good idea of parsing non-command messages in each process &ndash; we used this in the first Smalltalk at Parc &ndash; became much too ad hoc because there was not a strong attempt to intertwine a real language around the message structures (this very same thing happened with http &ndash; just think of what this could have been if anyone had been noticing</a></p>
+</blockquote>
+
+<p>Mr. Kay appears to think that current message-passing protocols (like HTTP or Unix process communication) fall behind the formal treatment of message-passing in Smalltalk. As background, Smalltalk&rsquo;s message handling was done by dynamic dispatch on objects. This would allow inheritance of message handling, so that, eg, the default implementation was to return <code>messageNotUnderstood</code>.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> There is perhaps also the advantage that message fields are parsed by the language parser, making it an actual component of the language that might allow, eg, for easier static analysis. I&rsquo;m only speculating on the specifics, though, since Mr. Kay doesn&rsquo;t make this part clear.</p>
+
+<blockquote>
+<p><a href="https://news.ycombinator.com/user?id=alankay1">&ndash; I was surprised that the HN list page didn&rsquo;t automatically refresh in my browser (seems as though it should be live and not have to be prompted &hellip;)
+</a></p>
+</blockquote>
+
+<p>Mr. Kay comments earlier on the <a href="https://news.ycombinator.com/item?id=11940276">&ldquo;worse is better&rdquo; vs &ldquo;better is better&rdquo;</a> approaches to user interface design, but this, I think, is a better, more concrete way of answering the question. Hacker News is itself an embodiment of &ldquo;worse is better&rdquo;, avoiding new features and maintaining <a href="https://news.ycombinator.com/item?id=11940044">what one commenter points out</a> is an &ldquo;old school&rdquo; feel. Mr. Kay counters with an interesting critique, saying that if old school means how things were done, eg, at PARC, that&rsquo;s more than this website can do! That&rsquo;s to say that old school software was often more capable than we give it credit for, not static, as we often imagine it, but experimenting with new modes of interaction just like fast-moving software today. We shouldn&rsquo;t, therefore, fold up new features simply because they wouldn&rsquo;t be &ldquo;old school&rdquo; enough, as if the researchers at PARC and Bell Labs achieved the perfect form of computing.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><a href="https://courses.cs.washington.edu/courses/cse505/99au/oo/smalltalk-concepts.html">https://courses.cs.washington.edu/courses/cse505/99au/oo/smalltalk-concepts.html</a>
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://pdos.csail.mit.edu/~rtm/roofnet-b.pdf">MIT Roofnet Mesh Network</a>
         </h1>
         <div class="post-meta">
@@ -348,36 +391,6 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
 <p>Bittorrent also encourages the sharing of rare pieces by making sure that rare pieces are requested first. If this is a demand-side incentive - demand is increased for rare pieces - BitSwap&rsquo;s solution is supply-side - peers are encouraged to seek objects that their peers also want. This allows a peer to contribute even if it currently does not want any objects.</p>
 
 <p>The file system itself is implemented as a Merkle DAG, very similar to Git&rsquo;s. Objects have links to other objects, represented as their hashes. <code>Tree</code> objects represent directories, <code>blob</code>s data, and <code>commit</code>s represent snapshots of a collection of objects in some state. IPFS, unlike git, also has <code>list</code>s, which can contain blobs or other lists. Like Git, objects are deduplicated because they are addressed by their hashes. They are also immutable and permanent: once mutated, an object&rsquo;s hash changes, and there is no command in the protocol to delete the previous version.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://bugs.chromium.org/p/project-zero/issues/list?can=1&amp;q=dns&#43;rebinding&amp;colspec=ID&#43;Type&#43;Status&#43;Priority&#43;Milestone&#43;Owner&#43;Summary&amp;cells=ids">DNS Rebinding</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 23 March 2018 ">23 March 2018</time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/security">Security</a>
-    </li>
-    
-</ul>
-
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="article-content">
-            <div class="readmore">
-                <p>These attacks involve using DNS rebinding to allow a website to send requests to HTTP servers on a user&rsquo;s machine. The targets include RPC servers included with uTorrent and with Blizzard Updater.</p>
-
-<p>DNS rebinding is meant to get around the same origin policy. The scheme is: setup a domain and a DNS server with a short TTL. Once that&rsquo;s expired, serve a script that makes a request to the origin domain - but when the browser makes a DNS request, respond with localhost instead. That way, the request gets routed to the target instead.</p>
-
-<p>Each vulnerable app also failed to provide authentication that could prevent the attack. The Blizzard Updater included an auth token with each response, presumably setting Access-Control-Allow-Credentials to prevent bad actors from reading it - but DNS rebinding circumvented this.</p>
 
             </div>
         </div>
