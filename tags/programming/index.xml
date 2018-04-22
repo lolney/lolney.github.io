@@ -6,10 +6,22 @@
     <description>Recent content in Programming on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Apr 2018 01:31:00 -0700</lastBuildDate>
+    <lastBuildDate>Thu, 19 Apr 2018 20:20:48 -0700</lastBuildDate>
     
 	<atom:link href="https://lolney.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</title>
+      <link>https://lolney.github.io/readings/synchronization/</link>
+      <pubDate>Thu, 19 Apr 2018 20:20:48 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/synchronization/</guid>
+      <description>This paper is an overview of synchronization methods across the hardware stack, with an analysis that attributes high-level performance differences to low-level hardware constraints.
+Among the key takeaways:
+Latency of atomic operations: There is a heavy penalty for cross-socket sharing - ie, passing data between cores (or hyperthreads). This outweighs other sources of latency by far.
+Locking vs message passing: Message passing is better when data has high contention, locking with low contention.</description>
+    </item>
     
     <item>
       <title>What color is your function?</title>

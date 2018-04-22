@@ -68,6 +68,41 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="http://sigops.org/sosp/sosp13/papers/p33-david.pdf">Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 19 April 2018 ">19 April 2018</time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/programming">Programming</a>
+        <a href="/tags/synchronization">Synchronization</a>
+    </li>
+    
+</ul>
+
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="article-content">
+            <div class="readmore">
+                <p>This paper is an overview of synchronization methods across the hardware stack, with an analysis that attributes high-level performance differences to low-level hardware constraints.</p>
+
+<p>Among the key takeaways:</p>
+
+<p>Latency of atomic operations: There is a heavy penalty for cross-socket sharing - ie, passing data between cores (or hyperthreads). This outweighs other sources of latency by far.</p>
+
+<p>Locking vs message passing: Message passing is better when data has high contention, locking with low contention.</p>
+
+<p>Performance of different types of locks: Each of the nine locks considered is the best performer in certain situations. The ticket lock is the best performer in most low-contention cases, though&ndash;the &ldquo;ticket lock&rdquo; being a spinlock that uses a FIFO queue to determine which thread is allowed to proceed.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://news.ycombinator.com/item?id=11939851">Alan Kay&#39;s Hacker News AMA</a>
         </h1>
         <div class="post-meta">
@@ -95,7 +130,7 @@
 <p><a href="https://news.ycombinator.com/item?id=11940433">Part of this was that the rather good idea of parsing non-command messages in each process &ndash; we used this in the first Smalltalk at Parc &ndash; became much too ad hoc because there was not a strong attempt to intertwine a real language around the message structures (this very same thing happened with http &ndash; just think of what this could have been if anyone had been noticing</a></p>
 </blockquote>
 
-<p>Mr. Kay appears to think that current message-passing protocols (like HTTP or Unix process communication) fall behind the formal treatment of message-passing in Smalltalk. As background, Smalltalk&rsquo;s message handling was done by dynamic dispatch on objects. This would allow inheritance of message handling, so that, eg, the default implementation was to return <code>messageNotUnderstood</code>.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> There is perhaps also the advantage that message fields are parsed by the language parser, making it an actual component of the language that might allow, eg, for easier static analysis. I&rsquo;m only speculating on the specifics, though, since Mr. Kay doesn&rsquo;t make this part clear.</p>
+<p>Mr. Kay thinks that current message-passing protocols (like HTTP or Unix process communication) don&rsquo;t stand up well to the formal treatment of message-passing in Smalltalk. As background, Smalltalk&rsquo;s message handling was done by dynamic dispatch on objects. This would allow inheritance of message handling, so that, eg, the default implementation was to return <code>messageNotUnderstood</code>.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> There is perhaps also the advantage that message fields are parsed by the language parser, making it an actual component of the language that might allow, eg, for easier static analysis. I&rsquo;m only speculating on the specifics, though, since Mr. Kay doesn&rsquo;t make this part clear.</p>
 
 <blockquote>
 <p><a href="https://news.ycombinator.com/user?id=alankay1">&ndash; I was surprised that the HN list page didn&rsquo;t automatically refresh in my browser (seems as though it should be live and not have to be prompted &hellip;)
@@ -364,41 +399,6 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
 <p>A tail call is only valid if there is nothing to be done in the caller after the call. This implementation checks this by first creating a node for <code>become</code> in HIR, then later, in MIR, checks that the &ldquo;basic block being branched into&rdquo; either &ldquo;has length zero&rdquo; or &ldquo;terminates with a return.&rdquo; I assume that this &ldquo;basic block being branched into&rdquo; contains whatever follows the <code>become</code> statement, and branches to another basic block if there&rsquo;s anything more to do after the <code>become</code>; otherwise falling into the cases mentioned.</p>
 
 <p>Also notes the main reason tail calls haven&rsquo;t been implemented yet: portability. They&rsquo;re not supported in several targets, like WebAssembly, which is something that the Rust developers apparently won&rsquo;t tolerate.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://github.com/ipfs/ipfs/blob/master/papers/ipfs-cap2pfs/ipfs-p2p-file-system.pdf?raw=true">IPFS (Interplanetary File System) Proposal Paper</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 27 March 2018 ">27 March 2018</time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/papers">Papers</a>
-        <a href="/tags/distributed-systems">Distributed Systems</a>
-    </li>
-    
-</ul>
-
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="article-content">
-            <div class="readmore">
-                <p>IPFS is a distributed file system. It combines ideas from Kademlia, Bittorrent, Git,and Self-Certified Filesystems, taking respectively 1) routing and node identity, 2) block exchange, 3) Merkle tree-based verification and versioning, and 4) self-certification - addresses derived from public keys.</p>
-
-<p>The result is something like a DHT that stores Git objects and uses the Bittorrent protocol for distribution. The certificate system, which does not rely on a trusted 3rd party to map addresses to public keys, is another major feature, allowing public-key encryption and ensuring that a malicious node can&rsquo;t impersonate a node that has already established trust.</p>
-
-<p>The block exchange protocol, called BitSwap, is a modified version of Bittorrent&rsquo;s. Bittorrent provides incentives for seeding - the standard seeding strategy is to prioritize seeding to the n peers that are themselves the best seeders. BitSwap is similar, but the choice of which peers to seed to is probabilistic, depending on that peer&rsquo;s ratio of sent:received objects. Since this probability is based on <em>lifetime ratios</em>, a peer can stop uploading for a short time and not have its download rates affected much.</p>
-
-<p>Bittorrent also encourages the sharing of rare pieces by making sure that rare pieces are requested first. If this is a demand-side incentive - demand is increased for rare pieces - BitSwap&rsquo;s solution is supply-side - peers are encouraged to seek objects that their peers also want. This allows a peer to contribute even if it currently does not want any objects.</p>
-
-<p>The file system itself is implemented as a Merkle DAG, very similar to Git&rsquo;s. Objects have links to other objects, represented as their hashes. <code>Tree</code> objects represent directories, <code>blob</code>s data, and <code>commit</code>s represent snapshots of a collection of objects in some state. IPFS, unlike git, also has <code>list</code>s, which can contain blobs or other lists. Like Git, objects are deduplicated because they are addressed by their hashes. They are also immutable and permanent: once mutated, an object&rsquo;s hash changes, and there is no command in the protocol to delete the previous version.</p>
 
             </div>
         </div>

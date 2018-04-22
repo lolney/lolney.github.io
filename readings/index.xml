@@ -12,6 +12,18 @@
     
     
     <item>
+      <title>Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</title>
+      <link>https://lolney.github.io/readings/synchronization/</link>
+      <pubDate>Thu, 19 Apr 2018 20:20:48 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/synchronization/</guid>
+      <description>This paper is an overview of synchronization methods across the hardware stack, with an analysis that attributes high-level performance differences to low-level hardware constraints.
+Among the key takeaways:
+Latency of atomic operations: There is a heavy penalty for cross-socket sharing - ie, passing data between cores (or hyperthreads). This outweighs other sources of latency by far.
+Locking vs message passing: Message passing is better when data has high contention, locking with low contention.</description>
+    </item>
+    
+    <item>
       <title>Alan Kay&#39;s Hacker News AMA</title>
       <link>https://lolney.github.io/readings/alan-kay/</link>
       <pubDate>Sat, 14 Apr 2018 00:34:41 -0700</pubDate>
@@ -94,16 +106,6 @@ This image from the paper shows what the data structure looks like. A node conta
       <guid>https://lolney.github.io/readings/tail-calls/</guid>
       <description>The main transformation to enable tail calls is to replace the function call f with a goto, calling destructors on local variables, then replacing the original arguments of the current function with the arguments of f. The normal borrow semantics for the return should therefore apply.
 A tail call is only valid if there is nothing to be done in the caller after the call. This implementation checks this by first creating a node for become in HIR, then later, in MIR, checks that the &amp;ldquo;basic block being branched into&amp;rdquo; either &amp;ldquo;has length zero&amp;rdquo; or &amp;ldquo;terminates with a return.</description>
-    </item>
-    
-    <item>
-      <title>IPFS (Interplanetary File System) Proposal Paper</title>
-      <link>https://lolney.github.io/readings/ipfs/</link>
-      <pubDate>Tue, 27 Mar 2018 14:40:00 -0700</pubDate>
-      
-      <guid>https://lolney.github.io/readings/ipfs/</guid>
-      <description>IPFS is a distributed file system. It combines ideas from Kademlia, Bittorrent, Git,and Self-Certified Filesystems, taking respectively 1) routing and node identity, 2) block exchange, 3) Merkle tree-based verification and versioning, and 4) self-certification - addresses derived from public keys.
-The result is something like a DHT that stores Git objects and uses the Bittorrent protocol for distribution. The certificate system, which does not rely on a trusted 3rd party to map addresses to public keys, is another major feature, allowing public-key encryption and ensuring that a malicious node can&amp;rsquo;t impersonate a node that has already established trust.</description>
     </item>
     
   </channel>
