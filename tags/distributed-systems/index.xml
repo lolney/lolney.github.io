@@ -6,10 +6,19 @@
     <description>Recent content in Distributed Systems on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 11 Apr 2018 23:27:02 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 02 May 2018 21:36:29 -0700</lastBuildDate>
     
 	<atom:link href="https://lolney.github.io/tags/distributed-systems/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Urbit</title>
+      <link>https://lolney.github.io/readings/urbit/</link>
+      <pubDate>Wed, 02 May 2018 21:36:29 -0700</pubDate>
+      
+      <guid>https://lolney.github.io/readings/urbit/</guid>
+      <description>I found Urbit when somebody compared it to the &amp;ldquo;decentralized Internet&amp;rdquo; that Silicon Valley&amp;rsquo;s Pied Piper is building. It turns out that it&amp;rsquo;s even more ambitious than that &amp;ndash; an attempt to rebuild the whole software stack from the Kernel up &amp;ndash; but this summary will focus on the network part.</description>
+    </item>
     
     <item>
       <title>MIT Roofnet Mesh Network</title>
