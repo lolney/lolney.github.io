@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rust on Luke Olney</title>
-    <link>https://lolney.github.io/tags/rust/</link>
+    <link>https://lukeolney.me/tags/rust/</link>
     <description>Recent content in Rust on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Apr 2018 14:39:40 -0700</lastBuildDate>
     
-	<atom:link href="https://lolney.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://lukeolney.me/tags/rust/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Tail Calls in Rust</title>
-      <link>https://lolney.github.io/readings/tail-calls/</link>
+      <link>https://lukeolney.me/readings/tail-calls/</link>
       <pubDate>Sun, 01 Apr 2018 14:39:40 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/tail-calls/</guid>
+      <guid>https://lukeolney.me/readings/tail-calls/</guid>
       <description>The main transformation to enable tail calls is to replace the function call f with a goto, calling destructors on local variables, then replacing the original arguments of the current function with the arguments of f. The normal borrow semantics for the return should therefore apply.
 A tail call is only valid if there is nothing to be done in the caller after the call. This implementation checks this by first creating a node for become in HIR, then later, in MIR, checks that the &amp;ldquo;basic block being branched into&amp;rdquo; either &amp;ldquo;has length zero&amp;rdquo; or &amp;ldquo;terminates with a return.</description>
     </item>
     
     <item>
       <title>Async in Rust</title>
-      <link>https://lolney.github.io/readings/async-in-rust/</link>
+      <link>https://lukeolney.me/readings/async-in-rust/</link>
       <pubDate>Thu, 22 Mar 2018 14:40:36 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/async-in-rust/</guid>
+      <guid>https://lukeolney.me/readings/async-in-rust/</guid>
       <description>Asynchronous programming usually aim to make it easier to reason about asynchronous operations. For example, by avoiding explicitly working with threads &amp;ndash; the asynchronous library handles that itself&amp;ndash; you can avoid complexity while avoiding the overhead of unnecessary thread spawning. In Rust, these constructs are &amp;lsquo;tasks.&amp;rsquo; When you run a task, instead of blocking, it returns control to the executor thread. The task runs until it would block, then returns Async::Pending.</description>
     </item>
     

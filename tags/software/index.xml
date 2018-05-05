@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Software on Luke Olney</title>
-    <link>https://lolney.github.io/tags/software/</link>
+    <link>https://lukeolney.me/tags/software/</link>
     <description>Recent content in Software on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 05 Apr 2018 01:16:20 -0700</lastBuildDate>
     
-	<atom:link href="https://lolney.github.io/tags/software/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://lukeolney.me/tags/software/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Making the Touch Bar finally useful</title>
-      <link>https://lolney.github.io/readings/mbp-touchbar-customization-showcase/</link>
+      <link>https://lukeolney.me/readings/mbp-touchbar-customization-showcase/</link>
       <pubDate>Thu, 05 Apr 2018 01:16:20 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/mbp-touchbar-customization-showcase/</guid>
+      <guid>https://lukeolney.me/readings/mbp-touchbar-customization-showcase/</guid>
       <description>This is a pretty neat showcase about customizing the touchbar on the latest Macbook Pros. It&amp;rsquo;s appropriate that it begins with a picture of the author&amp;rsquo;s super customized Linux desktop from 2007, because the last time I thought about this sort of thing was while reading &amp;ldquo;show off your desktop&amp;rdquo; threads in Macrumors threads c. 2007-2008. I wasn&amp;rsquo;t aware that Applescript was so capable &amp;ndash; it has super convient APIs for apps like Spotify and concise JSON fetching and parsing.</description>
     </item>
     

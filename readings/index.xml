@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Readings on Luke Olney</title>
-    <link>https://lolney.github.io/readings/</link>
+    <link>https://lukeolney.me/readings/</link>
     <description>Recent content in Readings on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 04 Mar 2018 02:20:05 -0800</lastBuildDate>
     
-	<atom:link href="https://lolney.github.io/readings/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://lukeolney.me/readings/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>100 Prisoners</title>
-      <link>https://lolney.github.io/readings/100-prisoners/</link>
+      <link>https://lukeolney.me/readings/100-prisoners/</link>
       <pubDate>Thu, 03 May 2018 18:48:50 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/100-prisoners/</guid>
+      <guid>https://lukeolney.me/readings/100-prisoners/</guid>
       <description>The 100 prisoners problem is a probability thought exercise with an unintuitive solution, kind of like the Monty-Hall problem. The setup is this: there are 100 numbers in drawers, each corresponding to one of 100 prisoners. Each prisoner is allowed to pick 50 drawers, but the drawers are reset after each prisoner makes their choice (and there&amp;rsquo;s no communication between prisoners). The goal is for each prisoner to find their number &amp;ndash; if that happens, they escape their sentence.</description>
     </item>
     
     <item>
       <title>Urbit</title>
-      <link>https://lolney.github.io/readings/urbit/</link>
+      <link>https://lukeolney.me/readings/urbit/</link>
       <pubDate>Wed, 02 May 2018 21:36:29 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/urbit/</guid>
+      <guid>https://lukeolney.me/readings/urbit/</guid>
       <description>I found Urbit when somebody compared it to the &amp;ldquo;decentralized Internet&amp;rdquo; that Silicon Valley&amp;rsquo;s Pied Piper is building. It turns out that it&amp;rsquo;s even more ambitious than that &amp;ndash; an attempt to rebuild the whole software stack from the Kernel up &amp;ndash; but this summary will focus on the network part.</description>
     </item>
     
     <item>
       <title>Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</title>
-      <link>https://lolney.github.io/readings/synchronization/</link>
+      <link>https://lukeolney.me/readings/synchronization/</link>
       <pubDate>Thu, 19 Apr 2018 20:20:48 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/synchronization/</guid>
+      <guid>https://lukeolney.me/readings/synchronization/</guid>
       <description>This paper is an overview of synchronization methods across the hardware stack, with an analysis that attributes high-level performance differences to low-level hardware constraints.
 Among the key takeaways:
 Latency of atomic operations: There is a heavy penalty for cross-socket sharing - ie, passing data between cores (or hyperthreads). This outweighs other sources of latency by far.
@@ -43,67 +43,67 @@ Locking vs message passing: Message passing is better when data has high content
     
     <item>
       <title>Alan Kay&#39;s Hacker News AMA</title>
-      <link>https://lolney.github.io/readings/alan-kay/</link>
+      <link>https://lukeolney.me/readings/alan-kay/</link>
       <pubDate>Sat, 14 Apr 2018 00:34:41 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/alan-kay/</guid>
+      <guid>https://lukeolney.me/readings/alan-kay/</guid>
       <description>Here are some highlights for the Hacker News AMA of Alan Kay, pioneering researcher in graphical user interfaces and object-oriented programming.
  Part of this was that the rather good idea of parsing non-command messages in each process &amp;ndash; we used this in the first Smalltalk at Parc &amp;ndash; became much too ad hoc because there was not a strong attempt to intertwine a real language around the message structures (this very same thing happened with http &amp;ndash; just think of what this could have been if anyone had been noticing</description>
     </item>
     
     <item>
       <title>MIT Roofnet Mesh Network</title>
-      <link>https://lolney.github.io/readings/roofnet/</link>
+      <link>https://lukeolney.me/readings/roofnet/</link>
       <pubDate>Wed, 11 Apr 2018 23:27:02 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/roofnet/</guid>
+      <guid>https://lukeolney.me/readings/roofnet/</guid>
       <description>Roofnet is a WiFi mesh network for increasing Internet access in urban areas. It&amp;rsquo;s designed to be easy to set up: Users just need to place antennae on their roofs, and there&amp;rsquo;s no need surveys to determine the optimum place to put them &amp;ndash; since the network makes up the difference in performance. It does that, in part, though its routing protocol, which chooses routes that maximize bitrate and minimize loss-rate.</description>
     </item>
     
     <item>
       <title>Dropbox&#39;s Distributed Storage System</title>
-      <link>https://lolney.github.io/readings/dropbox-storage/</link>
+      <link>https://lukeolney.me/readings/dropbox-storage/</link>
       <pubDate>Tue, 10 Apr 2018 01:24:24 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/dropbox-storage/</guid>
+      <guid>https://lukeolney.me/readings/dropbox-storage/</guid>
       <description>Magic Pocket is Dropbox&amp;rsquo;s distributed storage system. It prioritizes simplicity, durability and availability, with a multi-level design that uses centralized coordination where possible. Data is replicated on all levels: between zones (which span an entire region, like the Eastern US) but also within each zone. The author notes in a HN comment the high-level similarities with GFS, which may warrant a closer look.
 Below the level of zone is the cell, the largest storage unit with central coordination.</description>
     </item>
     
     <item>
       <title>Skip Lists</title>
-      <link>https://lolney.github.io/readings/skip-list/</link>
+      <link>https://lukeolney.me/readings/skip-list/</link>
       <pubDate>Fri, 06 Apr 2018 16:25:24 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/skip-list/</guid>
+      <guid>https://lukeolney.me/readings/skip-list/</guid>
       <description>The skip list is an alternative to balanced search trees, especially suited for distributed applications. MemSQL is the main adopter, using skip lists as its primary index structure, but they&amp;rsquo;re also used in Redis to implement ordered sets.
 This image from the paper shows what the data structure looks like. A node contains k pointers, with the ith pointer pointing to the next node of level i: When a node is inserted, it is given a random level to represent it: level 1 with 50% probability, 2 with 25%, etc.</description>
     </item>
     
     <item>
       <title>Making the Touch Bar finally useful</title>
-      <link>https://lolney.github.io/readings/mbp-touchbar-customization-showcase/</link>
+      <link>https://lukeolney.me/readings/mbp-touchbar-customization-showcase/</link>
       <pubDate>Thu, 05 Apr 2018 01:16:20 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/mbp-touchbar-customization-showcase/</guid>
+      <guid>https://lukeolney.me/readings/mbp-touchbar-customization-showcase/</guid>
       <description>This is a pretty neat showcase about customizing the touchbar on the latest Macbook Pros. It&amp;rsquo;s appropriate that it begins with a picture of the author&amp;rsquo;s super customized Linux desktop from 2007, because the last time I thought about this sort of thing was while reading &amp;ldquo;show off your desktop&amp;rdquo; threads in Macrumors threads c. 2007-2008. I wasn&amp;rsquo;t aware that Applescript was so capable &amp;ndash; it has super convient APIs for apps like Spotify and concise JSON fetching and parsing.</description>
     </item>
     
     <item>
       <title>World Models</title>
-      <link>https://lolney.github.io/readings/world-models/</link>
+      <link>https://lukeolney.me/readings/world-models/</link>
       <pubDate>Wed, 04 Apr 2018 02:01:00 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/world-models/</guid>
+      <guid>https://lukeolney.me/readings/world-models/</guid>
       <description>This is an interesting &amp;ndash; paraphrasing from the article &amp;ndash; &amp;ldquo;distillation of reinforcement learning research from the past two decades,&amp;rdquo; approaching from a cognitive science perspective. It considers the paradigm of training a large (many parameter) model to build a representation of the environment and its future, then training a smaller controller model, which outputs actions, from that representation. The future model, they argue, is similar to the way that humans make decisions &amp;ndash; by considering how their actions will affect the future.</description>
     </item>
     
     <item>
       <title>What color is your function?</title>
-      <link>https://lolney.github.io/readings/function-color/</link>
+      <link>https://lukeolney.me/readings/function-color/</link>
       <pubDate>Tue, 03 Apr 2018 01:31:00 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/function-color/</guid>
+      <guid>https://lukeolney.me/readings/function-color/</guid>
       <description>This blog post imagines a programming language with &amp;ldquo;colored functions&amp;rdquo; &amp;ndash; function are either blue or red, and differently-colored functions cannot be passed to or called from each other, plus have different calling conventions &amp;ndash; as an analogy for async functions. The point, I suppose, is to show the unwieldiness of interactions between async and code. After trying to navigate [futures in Rust for a while](), I can see the point.</description>
     </item>
     

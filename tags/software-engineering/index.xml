@@ -2,41 +2,41 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Software Engineering on Luke Olney</title>
-    <link>https://lolney.github.io/tags/software-engineering/</link>
+    <link>https://lukeolney.me/tags/software-engineering/</link>
     <description>Recent content in Software Engineering on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 14 Apr 2018 00:34:41 -0700</lastBuildDate>
     
-	<atom:link href="https://lolney.github.io/tags/software-engineering/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://lukeolney.me/tags/software-engineering/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Alan Kay&#39;s Hacker News AMA</title>
-      <link>https://lolney.github.io/readings/alan-kay/</link>
+      <link>https://lukeolney.me/readings/alan-kay/</link>
       <pubDate>Sat, 14 Apr 2018 00:34:41 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/alan-kay/</guid>
+      <guid>https://lukeolney.me/readings/alan-kay/</guid>
       <description>Here are some highlights for the Hacker News AMA of Alan Kay, pioneering researcher in graphical user interfaces and object-oriented programming.
  Part of this was that the rather good idea of parsing non-command messages in each process &amp;ndash; we used this in the first Smalltalk at Parc &amp;ndash; became much too ad hoc because there was not a strong attempt to intertwine a real language around the message structures (this very same thing happened with http &amp;ndash; just think of what this could have been if anyone had been noticing</description>
     </item>
     
     <item>
       <title>Dropbox&#39;s Distributed Storage System</title>
-      <link>https://lolney.github.io/readings/dropbox-storage/</link>
+      <link>https://lukeolney.me/readings/dropbox-storage/</link>
       <pubDate>Tue, 10 Apr 2018 01:24:24 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/dropbox-storage/</guid>
+      <guid>https://lukeolney.me/readings/dropbox-storage/</guid>
       <description>Magic Pocket is Dropbox&amp;rsquo;s distributed storage system. It prioritizes simplicity, durability and availability, with a multi-level design that uses centralized coordination where possible. Data is replicated on all levels: between zones (which span an entire region, like the Eastern US) but also within each zone. The author notes in a HN comment the high-level similarities with GFS, which may warrant a closer look.
 Below the level of zone is the cell, the largest storage unit with central coordination.</description>
     </item>
     
     <item>
       <title>Pitfalls of OO Design</title>
-      <link>https://lolney.github.io/readings/oo-design/</link>
+      <link>https://lukeolney.me/readings/oo-design/</link>
       <pubDate>Thu, 15 Mar 2018 14:40:58 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/oo-design/</guid>
+      <guid>https://lukeolney.me/readings/oo-design/</guid>
       <description>An overview for the reasons that more recent languages (Rust, Go) have avoided the full-on object-orientedness of Java, C#, et. al. Traits and interfaces allow for polymorphism while avoiding the problems of inheritance - they&amp;rsquo;re not hierarchical, so they avoid issues like the diamond problem that result when implementing new objects that don&amp;rsquo;t fit easily into the existing hierarchy. Non-hierarchical structs also avoid the bloat of carrying around unnecessary parent fields.</description>
     </item>
     

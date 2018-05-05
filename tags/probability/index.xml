@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Probability on Luke Olney</title>
-    <link>https://lolney.github.io/tags/probability/</link>
+    <link>https://lukeolney.me/tags/probability/</link>
     <description>Recent content in Probability on Luke Olney</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 03 May 2018 18:48:50 -0700</lastBuildDate>
     
-	<atom:link href="https://lolney.github.io/tags/probability/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://lukeolney.me/tags/probability/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>100 Prisoners</title>
-      <link>https://lolney.github.io/readings/100-prisoners/</link>
+      <link>https://lukeolney.me/readings/100-prisoners/</link>
       <pubDate>Thu, 03 May 2018 18:48:50 -0700</pubDate>
       
-      <guid>https://lolney.github.io/readings/100-prisoners/</guid>
+      <guid>https://lukeolney.me/readings/100-prisoners/</guid>
       <description>The 100 prisoners problem is a probability thought exercise with an unintuitive solution, kind of like the Monty-Hall problem. The setup is this: there are 100 numbers in drawers, each corresponding to one of 100 prisoners. Each prisoner is allowed to pick 50 drawers, but the drawers are reset after each prisoner makes their choice (and there&amp;rsquo;s no communication between prisoners). The goal is for each prisoner to find their number &amp;ndash; if that happens, they escape their sentence.</description>
     </item>
     
