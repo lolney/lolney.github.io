@@ -1,0 +1,30 @@
+{
+    "data" :  {
+    "title": "Alan Kay's Hacker News AMA",
+    "content": "<p>Here are some highlights for the Hacker News AMA of Alan Kay, pioneering researcher in graphical user interfaces and object-oriented programming.</p>
+
+<blockquote>
+<p><a href="https://news.ycombinator.com/item?id=11940433">Part of this was that the rather good idea of parsing non-command messages in each process &ndash; we used this in the first Smalltalk at Parc &ndash; became much too ad hoc because there was not a strong attempt to intertwine a real language around the message structures (this very same thing happened with http &ndash; just think of what this could have been if anyone had been noticing</a></p>
+</blockquote>
+
+<p>Mr. Kay thinks that current message-passing protocols (like HTTP or Unix process communication) don&rsquo;t stand up well to the formal treatment of message-passing in Smalltalk. As background, Smalltalk&rsquo;s message handling was done by dynamic dispatch on objects. This would allow inheritance of message handling, so that, eg, the default implementation was to return <code>messageNotUnderstood</code>.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> There is perhaps also the advantage that message fields are parsed by the language parser, making it an actual component of the language that might allow, eg, for easier static analysis. I&rsquo;m only speculating on the specifics, though, since Mr. Kay doesn&rsquo;t make this part clear.</p>
+
+<blockquote>
+<p><a href="https://news.ycombinator.com/user?id=alankay1">&ndash; I was surprised that the HN list page didn&rsquo;t automatically refresh in my browser (seems as though it should be live and not have to be prompted &hellip;)
+</a></p>
+</blockquote>
+
+<p>Mr. Kay comments earlier on the <a href="https://news.ycombinator.com/item?id=11940276">&ldquo;worse is better&rdquo; vs &ldquo;better is better&rdquo;</a> approaches to user interface design, but this, I think, is a better, more concrete way of answering the question. Hacker News is itself an embodiment of &ldquo;worse is better&rdquo;, avoiding new features and maintaining <a href="https://news.ycombinator.com/item?id=11940044">what one commenter points out</a> is an &ldquo;old school&rdquo; feel. Mr. Kay counters with an interesting critique, saying that if old school means how things were done, eg, at PARC, that&rsquo;s more than this website can do! That&rsquo;s to say that old school software was often more capable than we give it credit for, not static, as we often imagine it, but experimenting with new modes of interaction just like fast-moving software today. We shouldn&rsquo;t, therefore, fold up new features simply because they wouldn&rsquo;t be &ldquo;old school&rdquo; enough, as if the researchers at PARC and Bell Labs achieved the perfect form of computing.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"><a href="https://courses.cs.washington.edu/courses/cse505/99au/oo/smalltalk-concepts.html">https://courses.cs.washington.edu/courses/cse505/99au/oo/smalltalk-concepts.html</a>
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+"
+} 
+}
+

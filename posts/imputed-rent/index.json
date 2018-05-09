@@ -1,0 +1,43 @@
+{
+    "data" :  {
+    "title": "Imputed Rent",
+    "content": "<p><a href="https://mobile.nytimes.com/blogs/economix/2013/09/03/taxing-homeowners-as-if-they-were-landlords/?referer=">https://mobile.nytimes.com/blogs/economix/2013/09/03/taxing-homeowners-as-if-they-were-landlords/?referer=</a></p>
+
+<p>Imputed rent captures the idea that homeowners, as landlords, implicitly collect rent from themselves, as renters. Like ordinary rental income, then, it ought to be included in an account of the homeowners&rsquo; income, even if it&rsquo;s balanced out by an equally-sized expense. That would imply it&rsquo;s only fair that income tax applies to this income, as well.</p>
+
+<p>Although the concept is widely accepted, if imperfectly accounted for, in national income analysis - it&rsquo;s used by the Deparment of Commerce in the calculation of GDP<sup class="footnote-ref" id="fnref:0"><a href="#fn:0">1</a></sup> - scanning the comments of the linked NYTimes article reveals that the concept is deeply offensve to the public. Though many commentors make tortured attempts to argue against it there,<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">2</a></sup> some of them make a good point: imputed income does not just apply to homeownership, but to any kind of service you offered to yourself or to any use of your own property. If you put a tax on imputed rent, that opens up the possibility of taxes on the food you&rsquo;ve grown in your garden, on the shirts in your wardrobe, or on the labor of washing your own dishes. I don&rsquo;t think, though, that this threatens the concept of imputed income in the first place - it speaks more to the difficulty in accounting for all the various types of it and the challenge to our intution that it presents. <sup class="footnote-ref" id="fnref:2"><a href="#fn:2">3</a></sup> Unpaid labor is not less valuable to the economy than paid labor, and neither is there more value made if you live in your neighbors&rsquo; house and they live in yours, each paying rent to the other.</p>
+
+<p>It is still difficult to shake the feeling that housing is especially singled out in these analyses. Googling &ldquo;imputed [rent/income] of non-housing property,&rdquo; &ldquo;imputed income from car ownership,&rdquo; etc., turns up little discussion of the concept applied to non-housing property, the only results I found being <a href="http://stuartbuck.blogspot.com/2005/02/imputed-rental-income.html">a blogger&rsquo;s take</a> in a similar vein as the NYTimes comments. However, a discussion of &ldquo;rental income of persons&rdquo; on the BEA website does mention &ldquo;patents, copyrights, and rights to natural resources&rdquo;<sup class="footnote-ref" id="fnref:3"><a href="#fn:3">4</a></sup> in addition to housing. I did also manage to find a paper (1943)<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">5</a></sup> that considers, after introducing the subject with housing, &ldquo;the rental value of other owned durable goods such as automobiles, aeroplanes, refrigerators and the like.&rdquo; This same paper calculates the total imputed income from a variety of consumer goods - including automobiles, furniture, and radios - at 365 billion, compared to 1.8 trillion from imputed housing rent. Since housing prices have only risen (faster than inflation) since then,<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">6</a></sup> it seems the discussion is housing-focused for good reason - the housing stock represents most of the value of durable goods in the country.</p>
+
+<p>In any case, any attempt to implement a tax on imputed rent in the United States faces a history of stiff resistance, by both the public and the courts, even to milder forms of taxation. Even estate taxes, applying to intergenerational transfers of wealth, are a contentious political issue, and they tax something that&rsquo;s more clearly income than imaginary tranfers of money to oneself. The Supreme Court has written<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">7</a></sup> that imputed rent does not consitute income, which does not allow it to be taxed under the Consitution - non-apportioned direct taxes (ones that aren&rsquo;t proportional to population) are prohibited under Article I, Section 2, Clause 3, only allowed to apply to income by the 16th amendment. In fact, when the income tax was only 7 yers old, the Supreme Court ruled in Eisner v. Macomber <sup class="footnote-ref" id="fnref:7"><a href="#fn:7">8</a></sup> that stock dividends are not a form of taxable income, though that decision was eroded by later rulings.</p>
+
+<p>More importantly, an imputed rent tax would undermine the well-enshrined incentives for home ownership in the US - see Devon Zeugler&rsquo;s post on the subject.<sup class="footnote-ref" id="fnref:9"><a href="#fn:9">9</a></sup> That such a tax is unthinkable here, but, as the NYTimes article mentions, is implemented is several European countries, reflects the possibility for vastly different models of home ownership than our own.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:0"><a href="https://www.bea.gov/faq/?faq_id=488">https://www.bea.gov/faq/?faq_id=488</a>
+ <a class="footnote-return" href="#fnref:0"><sup>[return]</sup></a></li>
+<li id="fn:1"><a href="https://mobile.nytimes.com/comments/blogs/economix/2013/09/03/taxing-homeowners-as-if-they-were-landlords/">Comments</a>. One of the more off-base ones attempts to argue that the concept is bunk because the bank is the real owner of the house in some cases, but there are also a bunch of weird attmpts at argumetum ad absurdum by coming up with exapmles of imputed income (like &ldquo;[going] home and saw[ing] a slice of ham&rdquo;).
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2"><a href="http://www.roiw.org/1979/349.pdf">Kendrick, John W. &ldquo;Expanding imputed values in the national income and product accounts.&rdquo; Review of Income and Wealth 25.4 (1979): 349-363.</a>. 1979: &ldquo;The official national income and product accounts of most countries contain but a limited range of imputed values for non-market economic activities.&rdquo;
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+<li id="fn:3"><a href="https://www.bea.gov/faq/index.cfm?faq_id=64">https://www.bea.gov/faq/index.cfm?faq_id=64</a>
+ <a class="footnote-return" href="#fnref:3"><sup>[return]</sup></a></li>
+<li id="fn:4"><a href="www.jstor.org/stable/2144946">Marsh, Donald B. “The Taxation of Imputed Income.” Political Science Quarterly, vol. 58, no. 4, 1943, pp. 514–536. JSTOR</a>.
+ <a class="footnote-return" href="#fnref:4"><sup>[return]</sup></a></li>
+<li id="fn:5"><a href="https://inequality.stanford.edu/sites/default/files/media/_media/pdf/Reference%20Media/Glaeser_Gyourko_Saks_2005.pdf">Glaeser, Edward, L., Joseph Gyourko, and Raven E. Saks. 2005. &ldquo;Why Have Housing Prices Gone Up?&rdquo; American Economic Review, 95(2): 329-333.</a> :  &ldquo;Since 1970, U.S. Census data show that the standard deviation of prices across metropolitan areas increased by 247 percent, compared with 72-percent appreciation in average prices.&rdquo; This paper also includes an interesting discussion of the effects of housing and permitting on housing cost.
+ <a class="footnote-return" href="#fnref:5"><sup>[return]</sup></a></li>
+<li id="fn:6"><a href="https://scholar.google.com/scholar_case?case=4168218225591685135&amp;q=292+u.s.+371&amp;hl=en&amp;as_sdt=80000002"> Helvering v. Independent Life Ins. Co., 292 U.S. 371, 378-79 (1934)</a>
+ <a class="footnote-return" href="#fnref:6"><sup>[return]</sup></a></li>
+<li id="fn:7"><a href="http://supreme.justia.com/us/252/189/index.html">Eisner v Macomber, 252 U.S. 189</a>
+ <a class="footnote-return" href="#fnref:7"><sup>[return]</sup></a></li>
+<li id="fn:9"><a href="https://medium.com/by-the-bay/exempting-suburbia-13e339f4e37a)">https://medium.com/by-the-bay/exempting-suburbia-13e339f4e37a)</a>
+ <a class="footnote-return" href="#fnref:9"><sup>[return]</sup></a></li>
+</ol>
+</div>
+"
+} 
+}
+

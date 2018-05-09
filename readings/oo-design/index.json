@@ -1,0 +1,8 @@
+{
+    "data" :  {
+    "title": "Pitfalls of OO Design",
+    "content": "<p>An overview for the reasons that more recent languages (Rust, Go) have avoided the full-on object-orientedness of Java, C#, et. al. Traits and interfaces allow for polymorphism while avoiding the problems of inheritance - they&rsquo;re not hierarchical, so they avoid issues like the diamond problem that result when implementing new objects that don&rsquo;t fit easily into the existing hierarchy. Non-hierarchical structs also avoid the bloat of carrying around unnecessary parent fields.</p>
+"
+} 
+}
+

@@ -1,0 +1,14 @@
+{
+    "data" :  {
+    "title": "Async in Rust",
+    "content": "<p>Asynchronous programming usually aim to make it easier to reason about asynchronous operations. For example, by avoiding explicitly working with threads &ndash; the asynchronous library handles that itself&ndash; you can avoid complexity while avoiding the overhead of unnecessary thread spawning. In Rust, these constructs are &lsquo;tasks.&rsquo; When you run a task, instead of blocking, it returns control to the executor thread. The task runs until it would block, then returns <code>Async::Pending</code>. You also provide it a <code>Waker</code> so that it can wake itself up again.</p>
+
+<p>An executor works by running each of the tasks until they block, and then <code>park</code>ing. A <code>Waker</code> contains a link back to the executor and inserts the task in the executor&rsquo;s ready set before <code>unpark</code>ing it.</p>
+
+<p>Futures are tasks that can be chained. They must implement a type Item that is the result of the computation, a type Error, and a poll method that returns <code>Async::WillWake</code> or <code>Async::Ready(data: Item)</code>.</p>
+
+<p>Futures are designed to be state machines: eg, one that alterates between the states <code>Reading</code> and <code>Writing</code>, returning <code>Async::NotReady</code> when it can&rsquo;t proceed.</p>
+"
+} 
+}
+

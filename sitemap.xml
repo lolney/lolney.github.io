@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://lukeolney.me/readings/rust-immutable-hashmap/</loc>
+    <lastmod>2018-05-09T00:45:44-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/100-prisoners/</loc>
     <lastmod>2018-05-03T18:48:50-07:00</lastmod>
   </url>
@@ -124,6 +129,12 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/code-reading/</loc>
+    <lastmod>2018-05-09T00:45:44-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/computing-history/</loc>
     <lastmod>2018-04-14T00:34:41-07:00</lastmod>
     <priority>0</priority>
@@ -131,7 +142,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/data-structures/</loc>
-    <lastmod>2018-04-06T16:25:24-07:00</lastmod>
+    <lastmod>2018-05-09T00:45:44-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -155,7 +166,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2018-05-03T18:48:50-07:00</lastmod>
+    <lastmod>2018-05-09T00:45:44-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -209,7 +220,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/rust/</loc>
-    <lastmod>2018-04-01T14:39:40-07:00</lastmod>
+    <lastmod>2018-05-09T00:45:44-07:00</lastmod>
     <priority>0</priority>
   </url>
   

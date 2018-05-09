@@ -1,0 +1,12 @@
+{
+    "data" :  {
+    "title": "DNS Rebinding",
+    "content": "<p>These attacks involve using DNS rebinding to allow a website to send requests to HTTP servers on a user&rsquo;s machine. The targets include RPC servers included with uTorrent and with Blizzard Updater.</p>
+
+<p>DNS rebinding is meant to get around the same origin policy. The scheme is: setup a domain and a DNS server with a short TTL. Once that&rsquo;s expired, serve a script that makes a request to the origin domain - but when the browser makes a DNS request, respond with localhost instead. That way, the request gets routed to the target instead.</p>
+
+<p>Each vulnerable app also failed to provide authentication that could prevent the attack. The Blizzard Updater included an auth token with each response, presumably setting Access-Control-Allow-Credentials to prevent bad actors from reading it - but DNS rebinding circumvented this.</p>
+"
+} 
+}
+

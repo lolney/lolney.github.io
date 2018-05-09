@@ -1,0 +1,24 @@
+{
+    "data" :  {
+    "title": "Ethereum Whitepaper",
+    "content": "<p><a href="https://github.com/ethereum/wiki/wiki/White-Paper#ethereum">https://github.com/ethereum/wiki/wiki/White-Paper#ethereum</a></p>
+
+<p>People have come up with some creative purposes for the bitcoin blockchain, like metacoins, that weren&rsquo;t anticipated in the original spec. Generally speaking, though, these applications don&rsquo;t have the same security guarantees as bitcoin itself, and can&rsquo;t leverage the network for anything more than storage. Ethereum expands on that idea, introducing a virtual machine and programming language with code that can be attached to every transaction. The result is that anyone can pay a fee to do useful work &ndash; or store data &ndash; that&rsquo;s replicated on any node that keeps the full state of Ethereum&rsquo;s network.</p>
+
+<p>The code has access to its own internal state and lives within the Ethereum execution environment. It&rsquo;s run by any full node in the network that receives that transaction  - and it&rsquo;s paid for by the sender, who&rsquo;s required to attach payment in the form of &ldquo;gas&rdquo; (which is tied to the main currency, Ether). Each transaction has a fixed cost plus the variable cost of running the attached code.</p>
+
+<p>Contracts can themselves send communications to other clients, called &ldquo;messages.&rdquo; This creates a distinction between externally-owned accounts (which send transactions signed with their private key) and contract accounts. These messages are similar to transactions, except that they consume gas endowed to them by the transaction that originally created the contract - the contract uses that budget to send its own messages.</p>
+
+<p>Ethereum code runs on a fairly simple virtual machine with a stack-based execution model and a specially-created bytecode, whose instructions can affect the stack or the contract&rsquo;s storage.</p>
+
+<p>Ethereum full nodes must keep the state of the network and update it with each transaction. Only the node that successfully mines the next block, however, collects the fees for the gas that gets consumed. Who end up mining the block is a different question - originally it was based on a competitive proof-of-work system,  but it will move soon to proof-of-stake (a topic for another time).</p>
+
+<p><strong>Smart Contract Uses:</strong></p>
+
+<p>Smart contracts enable all sorts of decentralized applications, and can also create effectively centralized services (like banks) with the advantages of distributed trust (provided by blockchain verification). Eg, you can create a bank contract with a central storage vault for all accounts that resides in the contract&rsquo;s storage, distrubuted over all validating nodes.</p>
+
+<p>They can also be used to provide payment, in tokens, for work done in a distributed process, like computing or file storage. Because Ethereum stores all state information in the latest block, client nodes don&rsquo;t have to process the entire blockchain or rely on trusted nodes to see the current state of their token system.</p>
+"
+} 
+}
+

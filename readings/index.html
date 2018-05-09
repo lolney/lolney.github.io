@@ -4,8 +4,7 @@
     <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
 <title>Readings - Luke Olney</title>
-<meta property="og:title" content="Readings - Luke Olney">      
-<link href="https://lukeolney.me/readings/index.xml" rel="alternate" type="application/rss+xml" title="Luke Olney" />  
+<meta property="og:title" content="Readings - Luke Olney">       
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
@@ -66,6 +65,79 @@
             
             <h2 class="list-title">2018</h2>
              <article class="preview">
+    <header>
+        <h1 class="post-title">
+            <a href="https://github.com/bodil/im-rs/blob/master/src/hashmap.rs">An Immutable Hashmap in Rust</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 09 May 2018 ">09 May 2018</time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/data-structures">Data Structures</a>
+        <a href="/tags/rust">Rust</a>
+        <a href="/tags/code-reading">Code Reading</a>
+    </li>
+    
+</ul>
+
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="article-content">
+            <div class="readmore">
+                <p>This is an implementation of the &ldquo;hash array mapped trie,&rdquo; a purely functional hashmap. In an ordinary trie hashmap, the keys are stored as bitstrings in a trie, as follows:</p>
+
+<pre><code>   0
+  / \
+  1 0
+/ \ / \
+1 0 1 0 
+| | | |
+X F D E
+</code></pre>
+
+<p>This saves space compared to a traditional Hashmap, and it means resizings are never necessary.</p>
+
+<p>The HAMT improves on this by instead storing in each node a table with N (32 with 32-bit words) entries, with each entry containing a pointer to another node. When traversing or inserting a key, you consider the most significant T=log_2(N)=5 bits of the hash; this indexes to either a submap, a value, or nil. It starts out as a value, then a submap is added when a new hash collides with an existing one. This submap then behaves like the root map, but with the next 5 bits of the hash as a key. With T=2:</p>
+
+<pre><code>00 01 10 11
+|   |  |  |
+|   G     O
+|
+00 01 10 11
+|  |  |  |
+E     D
+</code></pre>
+
+<p>This means that lookup time is reduced to log_N(n) from log_2(n), without taking up much additional space.</p>
+
+<p>Another note: to save space in the tables, only the keys that point to actual values or nodes are represented. This is done by adding an N-bit bitmap to each node, with the ith bit representing whether that pointer is nil. Then, the index into the table is found by calculating the hamming weight (number of 1s) in the first i bits of the bitmap, where i is also the T-bit key into the subtable.</p>
+
+<pre><code>// Modified above example
+bitmap: 1101
+0 1 2
+| | |
+| G O
+|
+...
+</code></pre>
+
+<p>This means that the table must be resized every time a new key is inserted. Still, the immutable version is significantly slower than the equivalent mutable version, by a factor of about 10 with 1000 inserts.</p>
+
+<pre><code>test hashmap_insert_10         ... bench:       5,991 ns/iter (+/- 185)
+test hashmap_insert_100        ... bench:     197,136 ns/iter (+/- 9,000)
+test hashmap_insert_1000       ... bench:   2,990,670 ns/iter (+/- 133,638)
+test hashmap_insert_mut_10     ... bench:       1,961 ns/iter (+/- 191)
+test hashmap_insert_mut_100    ... bench:      29,460 ns/iter (+/- 2,971)
+test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
+</code></pre>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
     <header>
         <h1 class="post-title">
             <a href="https://en.wikipedia.org/wiki/100_prisoners_problem">100 Prisoners</a>
@@ -376,37 +448,6 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
             </div>
         </div>
     </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="http://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">What color is your function?</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 03 April 2018 ">03 April 2018</time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/programming">Programming</a>
-        <a href="/tags/programming-languages">Programming Languages</a>
-    </li>
-    
-</ul>
-
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="article-content">
-            <div class="readmore">
-                <p>This blog post imagines a programming language with &ldquo;colored functions&rdquo; &ndash; function are either blue or red, and differently-colored functions cannot be passed to or called from each other, plus have different calling conventions &ndash; as an analogy for async functions. The point, I suppose, is to show the unwieldiness of interactions between async and code. After trying to navigate [futures in Rust for a while](), I can see the point. As the author notes, futures don&rsquo;t do much to solve the ugliness of the hand-off between sync and async code. There needs to ultimately be a method for handling separate independent callstacks.</p>
-
-<p>One area where this manifests: API design. The API creator must decide whether to expose async functions, leaving sync users to de-async the result themselves, or sync functions, which async users are left to wrap (potentially wasteful, as the library had to do this itself at some point).</p>
-
-<p>The <a href="https://news.ycombinator.com/item?id=8984648">HN comments for this post</a> are insightful, with the top commenter noting that the red-blue language is &ldquo;essentially Haskell&rdquo; (with blue and red monoids), and another noting that golang solves this problem by making the whole program &ldquo;red&rdquo; (async).</p>
-
-            </div>
-        </div>
-    </section>
 </article>  
         </div>
 
@@ -459,7 +500,7 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
 <footer class="footer">
   <ul class="footer-links">
     <li>
-      <a href="https://lukeolney.me/index.xml" type="application/rss+xml" target="_blank">
+      <a href="" type="application/rss+xml" target="_blank">
         <i class="fa fa-rss"></i> RSS feed</a>
     </li>
     <li>

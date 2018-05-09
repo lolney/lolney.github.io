@@ -1,0 +1,10 @@
+{
+    "data" :  {
+    "title": "MIT Roofnet Mesh Network",
+    "content": "<p>Roofnet is a WiFi mesh network for increasing Internet access in urban areas. It&rsquo;s designed to be easy to set up: Users just need to place antennae on their roofs, and there&rsquo;s no need surveys to determine the optimum place to put them &ndash; since the network makes up the difference in performance. It does that, in part, though its routing protocol, which chooses routes that maximize bitrate and minimize loss-rate. It also introduces a new protocol that maximizes throughput no matter the loss rate &ndash; transmitting at a lower bitrate can improve performance by avoiding re-transmissions, and this protocol improves on the heuristics used by its predecessors (although not described in detail here).</p>
+
+<p>In summary: Some number of nodes in the network have wired access to the Internet. The rest of the nodes need to route their packets to these gateway nodes, with some number of hops. Roofnet does that without much performance loss by choosing the highest-throughput routes, using multiple links if necessary.</p>
+"
+} 
+}
+

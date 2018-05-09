@@ -1,0 +1,53 @@
+{
+    "data" :  {
+    "title": "An Immutable Hashmap in Rust",
+    "content": "<p>This is an implementation of the &ldquo;hash array mapped trie,&rdquo; a purely functional hashmap. In an ordinary trie hashmap, the keys are stored as bitstrings in a trie, as follows:</p>
+
+<pre><code>   0
+  / \
+  1 0
+/ \ / \
+1 0 1 0 
+| | | |
+X F D E
+</code></pre>
+
+<p>This saves space compared to a traditional Hashmap, and it means resizings are never necessary.</p>
+
+<p>The HAMT improves on this by instead storing in each node a table with N (32 with 32-bit words) entries, with each entry containing a pointer to another node. When traversing or inserting a key, you consider the most significant T=log_2(N)=5 bits of the hash; this indexes to either a submap, a value, or nil. It starts out as a value, then a submap is added when a new hash collides with an existing one. This submap then behaves like the root map, but with the next 5 bits of the hash as a key. With T=2:</p>
+
+<pre><code>00 01 10 11
+|   |  |  |
+|   G     O
+|
+00 01 10 11
+|  |  |  |
+E     D
+</code></pre>
+
+<p>This means that lookup time is reduced to log_N(n) from log_2(n), without taking up much additional space.</p>
+
+<p>Another note: to save space in the tables, only the keys that point to actual values or nodes are represented. This is done by adding an N-bit bitmap to each node, with the ith bit representing whether that pointer is nil. Then, the index into the table is found by calculating the hamming weight (number of 1s) in the first i bits of the bitmap, where i is also the T-bit key into the subtable.</p>
+
+<pre><code>// Modified above example
+bitmap: 1101
+0 1 2
+| | |
+| G O
+|
+...
+</code></pre>
+
+<p>This means that the table must be resized every time a new key is inserted. Still, the immutable version is significantly slower than the equivalent mutable version, by a factor of about 10 with 1000 inserts.</p>
+
+<pre><code>test hashmap_insert_10         ... bench:       5,991 ns/iter (+/- 185)
+test hashmap_insert_100        ... bench:     197,136 ns/iter (+/- 9,000)
+test hashmap_insert_1000       ... bench:   2,990,670 ns/iter (+/- 133,638)
+test hashmap_insert_mut_10     ... bench:       1,961 ns/iter (+/- 191)
+test hashmap_insert_mut_100    ... bench:      29,460 ns/iter (+/- 2,971)
+test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
+</code></pre>
+"
+} 
+}
+

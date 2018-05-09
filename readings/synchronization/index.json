@@ -1,0 +1,16 @@
+{
+    "data" :  {
+    "title": "Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask",
+    "content": "<p>This paper is an overview of synchronization methods across the hardware stack, with an analysis that attributes high-level performance differences to low-level hardware constraints.</p>
+
+<p>Among the key takeaways:</p>
+
+<p>Latency of atomic operations: There is a heavy penalty for cross-socket sharing - ie, passing data between cores (or hyperthreads). This outweighs other sources of latency by far.</p>
+
+<p>Locking vs message passing: Message passing is better when data has high contention, locking with low contention.</p>
+
+<p>Performance of different types of locks: Each of the nine locks considered is the best performer in certain situations. The ticket lock is the best performer in most low-contention cases, though&ndash;the &ldquo;ticket lock&rdquo; being a spinlock that uses a FIFO queue to determine which thread is allowed to proceed.</p>
+"
+} 
+}
+
