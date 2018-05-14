@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Graph Databases at Twitter - Luke Olney</title>
+<meta property="og:title" content="Graph Databases at Twitter - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    <h1 class="article-title">Graph Databases at Twitter</h1>
+    
+
+    <div class="article-content">
+      <p>&ldquo;Graph databases&rdquo; seem to be mostly wrappers over relational databases that are optimized for certain graph operations. One example is Twitter&rsquo;s FlockDB &ndash; an apparently long-abandoned project that&rsquo;s nonetheless a solid demonstration of the principle. FlockDB uses MySQL as as storage engine, storing its edges as MySQL records.</p>
+
+<p>Flock is optimized for queries that involve a user&rsquo;s followers and people who follow that user. Like, which of my followers is following President Obama? These are the people A who satisfy the relations follows(Me, A) and follows(A, Obama). Flock contains a single table for for all A s.t. follows(Me, A). And the reverse is also stored, so follows(A, Obama) is just as efficient. So that query ends up being a single query on the <code>me</code> partition combined with a query on the <code>Obama</code> partition.</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss"></i> RSS feed</a>
+    </li>
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

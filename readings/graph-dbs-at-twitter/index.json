@@ -1,0 +1,10 @@
+{
+    "data" :  {
+    "title": "Graph Databases at Twitter",
+    "content": "<p>&ldquo;Graph databases&rdquo; seem to be mostly wrappers over relational databases that are optimized for certain graph operations. One example is Twitter&rsquo;s FlockDB &ndash; an apparently long-abandoned project that&rsquo;s nonetheless a solid demonstration of the principle. FlockDB uses MySQL as as storage engine, storing its edges as MySQL records.</p>
+
+<p>Flock is optimized for queries that involve a user&rsquo;s followers and people who follow that user. Like, which of my followers is following President Obama? These are the people A who satisfy the relations follows(Me, A) and follows(A, Obama). Flock contains a single table for for all A s.t. follows(Me, A). And the reverse is also stored, so follows(A, Obama) is just as efficient. So that query ends up being a single query on the <code>me</code> partition combined with a query on the <code>Obama</code> partition.</p>
+"
+} 
+}
+
