@@ -70,7 +70,9 @@
             <a href="https://pdfs.semanticscholar.org/6a39/082e14e08fcc4f853b07e4d797163afadde1.pdf">Log Structured Merge Trees</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 19 May 2018 ">19 May 2018</time>
+            <time datetime=" 19 May 2018 ">
+                <a href="https://lukeolney.me/readings/log-structured-merge-trees/">19 May 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
@@ -86,7 +88,7 @@
     <section class="post-excerpt">
         <div class="article-content">
             <div class="readmore">
-                <p>The log-structured merge tree is used in the storage engine of many databases, including Cassandra[^1]. It describes a data structure, often contrasted with B-trees, that&rsquo;s mainly designed as a strategy for managing writes to disk.</p>
+                <p>The log-structured merge tree is used in the storage engine of many databases, including Cassandra<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>. It describes a data structure, often contrasted with B-trees, that&rsquo;s mainly designed as a strategy for managing writes to disk.</p>
 
 <p>The basic approach is this: Maintain a collection of stores, increasing geometrically in size from the top down. Store records in the top level first. When level L_i fills up, merge it into L_i+1, emptying L_i.</p>
 
@@ -99,10 +101,18 @@
 
 <p>The log-structured approach contrasts with the update-in-place approach: while the former does sequential writes, relying on additional sequential IO to manage the structure asynchronously, the latter does random reads &ndash; relying on a single seek for each read.</p>
 
-<p>The bLSM[^2] authors note the choice that web services face when storing small objects: optimize for low-latency reads, or for high-throughput writes. B-trees meet the former requirement, and LSMTs meet the latter by making sure that all writes to disk are batched.</p>
+<p>The bLSM<sup class="footnote-ref" id="fnref:2"><a href="#fn:2">2</a></sup> authors note the choice that web services face when storing small objects: optimize for low-latency reads, or for high-throughput writes. B-trees meet the former requirement, and LSMTs meet the latter by making sure that all writes to disk are batched.</p>
+<div class="footnotes">
 
-<p>[^1] <a href="https://docs.datastax.com/en/cassandra/2.1/cassandra/dml/dml_manage_ondisk_c.html">https://docs.datastax.com/en/cassandra/2.1/cassandra/dml/dml_manage_ondisk_c.html</a>
-[^2] <a href="http://www.eecs.harvard.edu/~margo/cs165/papers/gp-lsm.pdf">http://www.eecs.harvard.edu/~margo/cs165/papers/gp-lsm.pdf</a></p>
+<hr />
+
+<ol>
+<li id="fn:1"><a href="https://docs.datastax.com/en/cassandra/2.1/cassandra/dml/dml_manage_ondisk_c.html">https://docs.datastax.com/en/cassandra/2.1/cassandra/dml/dml_manage_ondisk_c.html</a>
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+<li id="fn:2"><a href="http://www.eecs.harvard.edu/~margo/cs165/papers/gp-lsm.pdf">http://www.eecs.harvard.edu/~margo/cs165/papers/gp-lsm.pdf</a>
+ <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
+</ol>
+</div>
 
             </div>
         </div>
@@ -113,7 +123,9 @@
             <a href="https://blog.twitter.com/engineering/en_us/a/2010/introducing-flockdb.html">Graph Databases at Twitter</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 10 May 2018 ">10 May 2018</time>
+            <time datetime=" 10 May 2018 ">
+                <a href="https://lukeolney.me/readings/graph-dbs-at-twitter/">10 May 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
 </ul>
@@ -136,7 +148,9 @@
             <a href="https://github.com/bodil/im-rs/blob/master/src/hashmap.rs">An Immutable Hashmap in Rust</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 09 May 2018 ">09 May 2018</time>
+            <time datetime=" 09 May 2018 ">
+                <a href="https://lukeolney.me/readings/rust-immutable-hashmap/">09 May 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
@@ -209,7 +223,9 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
             <a href="https://en.wikipedia.org/wiki/100_prisoners_problem">100 Prisoners</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 03 May 2018 ">03 May 2018</time>
+            <time datetime=" 03 May 2018 ">
+                <a href="https://lukeolney.me/readings/100-prisoners/">03 May 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
@@ -245,7 +261,9 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
             <a href="https://github.com/urbit/urbit">Urbit</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 02 May 2018 ">02 May 2018</time>
+            <time datetime=" 02 May 2018 ">
+                <a href="https://lukeolney.me/readings/urbit/">02 May 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
@@ -271,7 +289,9 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
             <a href="http://sigops.org/sosp/sosp13/papers/p33-david.pdf">Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 19 April 2018 ">19 April 2018</time>
+            <time datetime=" 19 April 2018 ">
+                <a href="https://lukeolney.me/readings/synchronization/">19 April 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
@@ -306,7 +326,9 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
             <a href="https://news.ycombinator.com/item?id=11939851">Alan Kay&#39;s Hacker News AMA</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 14 April 2018 ">14 April 2018</time>
+            <time datetime=" 14 April 2018 ">
+                <a href="https://lukeolney.me/readings/alan-kay/">14 April 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
@@ -357,7 +379,9 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
             <a href="https://pdos.csail.mit.edu/~rtm/roofnet-b.pdf">MIT Roofnet Mesh Network</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 11 April 2018 ">11 April 2018</time>
+            <time datetime=" 11 April 2018 ">
+                <a href="https://lukeolney.me/readings/roofnet/">11 April 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
@@ -386,7 +410,9 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
             <a href="https://blogs.dropbox.com/tech/2016/05/inside-the-magic-pocket/">Dropbox&#39;s Distributed Storage System</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 10 April 2018 ">10 April 2018</time>
+            <time datetime=" 10 April 2018 ">
+                <a href="https://lukeolney.me/readings/dropbox-storage/">10 April 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
@@ -419,7 +445,9 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
             <a href="https://docs.google.com/viewer?url=https%3A%2F%2Fdrum.lib.umd.edu%2Fbitstream%2Fhandle%2F1903%2F542%2FCS-TR-2222.ps%3Fsequence%3D1%26isAllowed%3Dy">Skip Lists</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 06 April 2018 ">06 April 2018</time>
+            <time datetime=" 06 April 2018 ">
+                <a href="https://lukeolney.me/readings/skip-list/">06 April 2018</a>
+            </time>
             <ul class="article-taxonomy">
      
     <li>
