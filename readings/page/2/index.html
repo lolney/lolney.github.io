@@ -85,8 +85,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>This is a pretty neat showcase about customizing the touchbar on the latest Macbook Pros. It&rsquo;s appropriate that it begins with a picture of the author&rsquo;s super customized Linux desktop from 2007, because the last time I thought about this sort of thing was while reading &ldquo;show off your desktop&rdquo; threads in Macrumors threads c. 2007-2008. I wasn&rsquo;t aware that Applescript was so capable &ndash; it has super convient APIs for apps like Spotify and concise JSON fetching and parsing.</p>
 
 <p>It sort of makes me want to get a MBP, even though my impressions of it have soured because of the constant negativity about it on Hacker News and elsewhere.</p>
@@ -116,8 +119,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>This is an interesting &ndash; paraphrasing from the article &ndash; &ldquo;distillation of reinforcement learning research from the past two decades,&rdquo; approaching from a cognitive science perspective. It considers the paradigm of training a large (many parameter) model to build a representation of the environment and its future, then training a smaller controller model, which outputs actions, from that representation. The future model, they argue, is similar to the way that humans make decisions &ndash; by considering how their actions will affect the future.</p>
 
 <p>The RNN part of the model uses an approach similar to the one that <a href="https://magenta.tensorflow.org/sketch-rnn-demo">SketchRNN</a> does to predict future actions. It sends compressed version of the environment through a feed-forward RNN, taking, at each stage t, the hidden vector h<em>{t-1}, the action a</em>{t-1}, and an additional input z_{t-1}. z_t is a vector sampled from the mixture of Gaussian distributions output by a <a href="http://blog.otoro.net/2015/11/24/mixture-density-networks-with-tensorflow/">Mixture Density Network</a>.</p>
@@ -154,8 +160,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>This blog post imagines a programming language with &ldquo;colored functions&rdquo; &ndash; function are either blue or red, and differently-colored functions cannot be passed to or called from each other, plus have different calling conventions &ndash; as an analogy for async functions. The point, I suppose, is to show the unwieldiness of interactions between async and code. After trying to navigate [futures in Rust for a while](), I can see the point. As the author notes, futures don&rsquo;t do much to solve the ugliness of the hand-off between sync and async code. There needs to ultimately be a method for handling separate independent callstacks.</p>
 
 <p>One area where this manifests: API design. The API creator must decide whether to expose async functions, leaving sync users to de-async the result themselves, or sync functions, which async users are left to wrap (potentially wasteful, as the library had to do this itself at some point).</p>
@@ -186,8 +195,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>A lot of PL research is about better patterns of programming, covering new ways of abstracting patterns that you encounter in a real codebase. Two of the most beloved courses at NU, Prof. Robby Findler&rsquo;s courses on Compilers and Programming Languages, are built on that principle: they are basically programming seminars, with very little formal introduction to the concepts they cover - instead letting them reveal themselves through the assignments. Indeed, a compiler isn&rsquo;t built the way it is because the concept of a &lsquo;compiler&rsquo; is written in natural law - it&rsquo;s a revealed way of handling the complexity that comes with all the forms the grammar of the language can express itself.</p>
 
             </div>
@@ -216,8 +228,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>The main transformation to enable tail calls is to replace the function call <code>f</code> with a <code>goto</code>, calling destructors on local variables, then replacing the original arguments of the current function with the arguments of <code>f</code>. The normal borrow semantics for the return should therefore apply.</p>
 
 <p>A tail call is only valid if there is nothing to be done in the caller after the call. This implementation checks this by first creating a node for <code>become</code> in HIR, then later, in MIR, checks that the &ldquo;basic block being branched into&rdquo; either &ldquo;has length zero&rdquo; or &ldquo;terminates with a return.&rdquo; I assume that this &ldquo;basic block being branched into&rdquo; contains whatever follows the <code>become</code> statement, and branches to another basic block if there&rsquo;s anything more to do after the <code>become</code>; otherwise falling into the cases mentioned.</p>
@@ -249,8 +264,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>IPFS is a distributed file system. It combines ideas from Kademlia, Bittorrent, Git,and Self-Certified Filesystems, taking respectively 1) routing and node identity, 2) block exchange, 3) Merkle tree-based verification and versioning, and 4) self-certification - addresses derived from public keys.</p>
 
 <p>The result is something like a DHT that stores Git objects and uses the Bittorrent protocol for distribution. The certificate system, which does not rely on a trusted 3rd party to map addresses to public keys, is another major feature, allowing public-key encryption and ensuring that a malicious node can&rsquo;t impersonate a node that has already established trust.</p>
@@ -285,8 +303,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>These attacks involve using DNS rebinding to allow a website to send requests to HTTP servers on a user&rsquo;s machine. The targets include RPC servers included with uTorrent and with Blizzard Updater.</p>
 
 <p>DNS rebinding is meant to get around the same origin policy. The scheme is: setup a domain and a DNS server with a short TTL. Once that&rsquo;s expired, serve a script that makes a request to the origin domain - but when the browser makes a DNS request, respond with localhost instead. That way, the request gets routed to the target instead.</p>
@@ -318,8 +339,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>Asynchronous programming usually aim to make it easier to reason about asynchronous operations. For example, by avoiding explicitly working with threads &ndash; the asynchronous library handles that itself&ndash; you can avoid complexity while avoiding the overhead of unnecessary thread spawning. In Rust, these constructs are &lsquo;tasks.&rsquo; When you run a task, instead of blocking, it returns control to the executor thread. The task runs until it would block, then returns <code>Async::Pending</code>. You also provide it a <code>Waker</code> so that it can wake itself up again.</p>
 
 <p>An executor works by running each of the tasks until they block, and then <code>park</code>ing. A <code>Waker</code> contains a link back to the executor and inserts the task in the executor&rsquo;s ready set before <code>unpark</code>ing it.</p>
@@ -354,8 +378,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>If you create a socket and call <code>connect(dst, port)</code> on it, or first call <code>bind(src, port)</code> with port 0, the kernel will allocate from the pool of up to 64k available ports. However, with with <code>SO_REUSEPORT</code>, you can also share ports to create an effectively unlimited number of connections - as long as the destination address is different for each connection sharing the same port. To have multiple connections to the same IP/Port pair, you can use different source IP addresses instead.</p>
 
 <p><code>SO_REUSEADDR</code> behaves slightly differently than <code>SO_REUSEPORT</code>, allowing reuse of addresses in the cooldown period after a process releases a socket, plus allowing binding of wildcard addresses (<code>0.0.0.0</code>) and normal addresses to the same port.</p>
@@ -386,8 +413,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>An overview for the reasons that more recent languages (Rust, Go) have avoided the full-on object-orientedness of Java, C#, et. al. Traits and interfaces allow for polymorphism while avoiding the problems of inheritance - they&rsquo;re not hierarchical, so they avoid issues like the diamond problem that result when implementing new objects that don&rsquo;t fit easily into the existing hierarchy. Non-hierarchical structs also avoid the bloat of carrying around unnecessary parent fields.</p>
 
             </div>

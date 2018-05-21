@@ -86,8 +86,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>The log-structured merge tree is used in the storage engine of many databases, including Cassandra<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>. It describes a data structure, often contrasted with B-trees, that&rsquo;s mainly designed as a strategy for managing writes to disk.</p>
 
 <p>The basic approach is this: Maintain a collection of stores, increasing geometrically in size from the top down. Store records in the top level first. When level L_i fills up, merge it into L_i+1, emptying L_i.</p>
@@ -133,8 +136,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>&ldquo;Graph databases&rdquo; seem to be mostly wrappers over relational databases that are optimized for certain graph operations. One example is Twitter&rsquo;s FlockDB &ndash; an apparently long-abandoned project that&rsquo;s nonetheless a solid demonstration of the principle. FlockDB uses MySQL as as storage engine, storing its edges as MySQL records.</p>
 
 <p>Flock is optimized for queries that involve a user&rsquo;s followers and people who follow that user. Like, which of my followers is following President Obama? These are the people A who satisfy the relations follows(Me, A) and follows(A, Obama). Flock contains a single table for for all A s.t. follows(Me, A). And the reverse is also stored, so follows(A, Obama) is just as efficient. So that query ends up being a single query on the <code>me</code> partition combined with a query on the <code>Obama</code> partition.</p>
@@ -165,8 +171,11 @@
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>This is an implementation of the &ldquo;hash array mapped trie,&rdquo; a purely functional hashmap. In an ordinary trie hashmap, the keys are stored as bitstrings in a trie, as follows:</p>
 
 <pre><code>   0
@@ -238,8 +247,11 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>The 100 prisoners problem is a probability thought exercise with an unintuitive solution, kind of like the Monty-Hall problem. The setup is this: there are 100 numbers in drawers, each corresponding to one of 100 prisoners. Each prisoner is allowed to pick 50 drawers, but the drawers are reset after each prisoner makes their choice (and there&rsquo;s no communication between prisoners). The goal is for each prisoner to find their number &ndash; if that happens, they escape their sentence.</p>
 
 <p>The naive solution is to pick the 50 drawers at random, giving each prisoner a 50% chance of success (and a vanishingly small chance &ndash; .50^100 &ndash; for all 100 prisoners to pick the correct number). But there&rsquo;s a strategy that drastically improves the odds of success, bringing it to ~30%.</p>
@@ -276,8 +288,11 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>I found Urbit when somebody compared it to the &ldquo;decentralized Internet&rdquo; that <em>Silicon Valley</em>&rsquo;s Pied Piper is building. It turns out that it&rsquo;s even more ambitious than that &ndash; an attempt to rebuild the whole software stack from the Kernel up &ndash; but this summary will focus on the network part.</p>
 
             </div>
@@ -305,8 +320,11 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>This paper is an overview of synchronization methods across the hardware stack, with an analysis that attributes high-level performance differences to low-level hardware constraints.</p>
 
 <p>Among the key takeaways:</p>
@@ -344,8 +362,11 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>Here are some highlights for the Hacker News AMA of Alan Kay, pioneering researcher in graphical user interfaces and object-oriented programming.</p>
 
 <blockquote>
@@ -395,8 +416,11 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>Roofnet is a WiFi mesh network for increasing Internet access in urban areas. It&rsquo;s designed to be easy to set up: Users just need to place antennae on their roofs, and there&rsquo;s no need surveys to determine the optimum place to put them &ndash; since the network makes up the difference in performance. It does that, in part, though its routing protocol, which chooses routes that maximize bitrate and minimize loss-rate. It also introduces a new protocol that maximizes throughput no matter the loss rate &ndash; transmitting at a lower bitrate can improve performance by avoiding re-transmissions, and this protocol improves on the heuristics used by its predecessors (although not described in detail here).</p>
 
 <p>In summary: Some number of nodes in the network have wired access to the Internet. The rest of the nodes need to route their packets to these gateway nodes, with some number of hops. Roofnet does that without much performance loss by choosing the highest-throughput routes, using multiple links if necessary.</p>
@@ -426,8 +450,11 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>Magic Pocket is Dropbox&rsquo;s distributed storage system. It prioritizes simplicity, durability and availability, with a multi-level design that uses centralized coordination where possible. Data is replicated on all levels: between zones (which span an entire region, like the Eastern US) but also within each zone. The <a href="https://news.ycombinator.com/item?id=11647343">author notes in a HN comment</a> the high-level similarities with GFS, which may warrant a closer look.</p>
 
 <p>Below the level of <code>zone</code> is the <code>cell</code>, the largest storage unit with central coordination. The <code>cell</code> contains <code>volume</code>s, which are replicated over several physical storage units, or <code>OSD</code>s. The cell&rsquo;s <code>master</code> controls tasks like the creation and deletion of buckets, and repair of volumes in case of <code>OSD</code> failure. The data flow of the cell works independently of the master, though: a separate <code>replication table</code> maps buckets to physical storage locations, keeping it working in case of failure of the master. The master&rsquo;s protocol ensures consistency in the event of failure or restart of any component, notably by storing the <code>generation</code> of each volume-to-OSD mapping with the volume and in the replication table. Eg, if the master hangs in the middle of a repair process and later comes back to life, it will not try to continue that repair (or will at least not leave the system inconsistent - the exact mechanism that prevents that is unclear).</p>
@@ -461,8 +488,11 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         </div>
     </header>
     <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
         <div class="article-content">
-            <div class="readmore">
+            <div class="readmore" hidden=true>
                 <p>The skip list is an alternative to balanced search trees, especially suited for distributed applications. MemSQL is the main adopter, using skip lists as its primary index structure, but they&rsquo;re <a href="https://github.com/antirez/redis/blob/unstable/src/t_zset.c#L31">also used in Redis</a> to implement ordered sets.</p>
 
 <p>This image from the paper shows what the data structure looks like. A node contains k pointers, with the ith pointer pointing to the next node of level i:

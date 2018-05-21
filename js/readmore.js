@@ -27,8 +27,7 @@ function adjustLimit(text, limit) {
 
 function moreLess(initiallyVisibleCharacters) {
     var limit = initiallyVisibleCharacters;
-    var paragraph = $(".readmore")
-
+    var paragraph = $(".readmore");
 
     paragraph.each(function () {
         var children = $(this).children();
@@ -57,6 +56,10 @@ function moreLess(initiallyVisibleCharacters) {
         e.preventDefault();
         $(this).parent().hide().prev().show().prev().show();
     });
+
+    var spinners = $(".fa-spin");
+    spinners.detach();
+    paragraph.show();
 };
 
 window.addEventListener("load", () => { moreLess(300); });
