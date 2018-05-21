@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Log Structured Merge Trees - Luke Olney</title>
+<meta property="og:title" content="Log Structured Merge Trees - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    <h1 class="article-title">Log Structured Merge Trees</h1>
+    
+
+    <div class="article-content">
+      <p>The log-structured merge tree is used in the storage engine of many databases, including Cassandra[^1]. It describes a data structure, often contrasted with B-trees, that&rsquo;s mainly designed as a strategy for managing writes to disk.</p>
+
+<p>The basic approach is this: Maintain a collection of stores, increasing geometrically in size from the top down. Store records in the top level first. When level L_i fills up, merge it into L_i+1, emptying L_i.</p>
+
+<p>Each level is itself a key-value store. Lower levels are implemented as B+ trees, filled in breadth-first order to avoid wasting space and allow for more sequential reads. Lookups proceed by checking for the key in L_0, then proceeding to the next level if the key isn&rsquo;t found.</p>
+
+<pre><code>        [][][]               &lt;--- L_0: memory (updated in place)
+      [][][][][][]           &lt;--- L_1: disk (updated with a merge)
+[][][][][][][][][][][][]     &lt;--- L_2: disk (updated with a merge)
+</code></pre>
+
+<p>The log-structured approach contrasts with the update-in-place approach: while the former does sequential writes, relying on additional sequential IO to manage the structure asynchronously, the latter does random reads &ndash; relying on a single seek for each read.</p>
+
+<p>The bLSM[^2] authors note the choice that web services face when storing small objects: optimize for low-latency reads, or for high-throughput writes. B-trees meet the former requirement, and LSMTs meet the latter by making sure that all writes to disk are batched.</p>
+
+<p>[^1] <a href="https://docs.datastax.com/en/cassandra/2.1/cassandra/dml/dml_manage_ondisk_c.html">https://docs.datastax.com/en/cassandra/2.1/cassandra/dml/dml_manage_ondisk_c.html</a>
+[^2] <a href="http://www.eecs.harvard.edu/~margo/cs165/papers/gp-lsm.pdf">http://www.eecs.harvard.edu/~margo/cs165/papers/gp-lsm.pdf</a></p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss"></i> RSS feed</a>
+    </li>
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

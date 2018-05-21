@@ -67,6 +67,49 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://pdfs.semanticscholar.org/6a39/082e14e08fcc4f853b07e4d797163afadde1.pdf">Log Structured Merge Trees</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 19 May 2018 ">19 May 2018</time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/databases">Databases</a>
+        <a href="/tags/data-structures">Data Structures</a>
+    </li>
+    
+</ul>
+
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="article-content">
+            <div class="readmore">
+                <p>The log-structured merge tree is used in the storage engine of many databases, including Cassandra[^1]. It describes a data structure, often contrasted with B-trees, that&rsquo;s mainly designed as a strategy for managing writes to disk.</p>
+
+<p>The basic approach is this: Maintain a collection of stores, increasing geometrically in size from the top down. Store records in the top level first. When level L_i fills up, merge it into L_i+1, emptying L_i.</p>
+
+<p>Each level is itself a key-value store. Lower levels are implemented as B+ trees, filled in breadth-first order to avoid wasting space and allow for more sequential reads. Lookups proceed by checking for the key in L_0, then proceeding to the next level if the key isn&rsquo;t found.</p>
+
+<pre><code>        [][][]               &lt;--- L_0: memory (updated in place)
+      [][][][][][]           &lt;--- L_1: disk (updated with a merge)
+[][][][][][][][][][][][]     &lt;--- L_2: disk (updated with a merge)
+</code></pre>
+
+<p>The log-structured approach contrasts with the update-in-place approach: while the former does sequential writes, relying on additional sequential IO to manage the structure asynchronously, the latter does random reads &ndash; relying on a single seek for each read.</p>
+
+<p>The bLSM[^2] authors note the choice that web services face when storing small objects: optimize for low-latency reads, or for high-throughput writes. B-trees meet the former requirement, and LSMTs meet the latter by making sure that all writes to disk are batched.</p>
+
+<p>[^1] <a href="https://docs.datastax.com/en/cassandra/2.1/cassandra/dml/dml_manage_ondisk_c.html">https://docs.datastax.com/en/cassandra/2.1/cassandra/dml/dml_manage_ondisk_c.html</a>
+[^2] <a href="http://www.eecs.harvard.edu/~margo/cs165/papers/gp-lsm.pdf">http://www.eecs.harvard.edu/~margo/cs165/papers/gp-lsm.pdf</a></p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://blog.twitter.com/engineering/en_us/a/2010/introducing-flockdb.html">Graph Databases at Twitter</a>
         </h1>
         <div class="post-meta">
@@ -403,34 +446,6 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
 <p>To ensure that readers are not disrupted by writes in the absence of read locks, x is updated to point to its predecessor after removing x. Proofs are supplied for the correctness guarantees, among them that the list remains sorted and the lock is held only by the deleted key.</p>
 
 <p>Although the worst case search time is O(n), in the case, for example, that the only node at each level i is the first node in the list at level 0, this is an unlikely outcome. The probability distribution over the comparisons required is similar to that of the number of coin flips needed to see k heads, where k is equal to the number of levels. Showing that distribution is apparently left by the authors as an exercise for the reader, but it makes intuitive sense: the most likely outcome is 1-2 comparisons on each level, corresponding to the most likely outcomes of 1 or 2 coin flips needed to see 1 head.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="http://vas3k.com/blog/touchbar/">Making the Touch Bar finally useful</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 05 April 2018 ">05 April 2018</time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/software">Software</a>
-    </li>
-    
-</ul>
-
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="article-content">
-            <div class="readmore">
-                <p>This is a pretty neat showcase about customizing the touchbar on the latest Macbook Pros. It&rsquo;s appropriate that it begins with a picture of the author&rsquo;s super customized Linux desktop from 2007, because the last time I thought about this sort of thing was while reading &ldquo;show off your desktop&rdquo; threads in Macrumors threads c. 2007-2008. I wasn&rsquo;t aware that Applescript was so capable &ndash; it has super convient APIs for apps like Spotify and concise JSON fetching and parsing.</p>
-
-<p>It sort of makes me want to get a MBP, even though my impressions of it have soured because of the constant negativity about it on Hacker News and elsewhere.</p>
 
             </div>
         </div>

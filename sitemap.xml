@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://lukeolney.me/readings/log-structured-merge-trees/</loc>
+    <lastmod>2018-05-19T23:33:44-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/graph-dbs-at-twitter/</loc>
     <lastmod>2018-05-10T00:17:55-07:00</lastmod>
   </url>
@@ -147,7 +152,13 @@
   
   <url>
     <loc>https://lukeolney.me/tags/data-structures/</loc>
-    <lastmod>2018-05-09T00:45:44-07:00</lastmod>
+    <lastmod>2018-05-19T23:33:44-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lukeolney.me/tags/databases/</loc>
+    <lastmod>2018-05-19T23:33:44-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -171,7 +182,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2018-05-10T00:17:55-07:00</lastmod>
+    <lastmod>2018-05-19T23:33:44-07:00</lastmod>
     <priority>0</priority>
   </url>
   
