@@ -9,9 +9,13 @@
 
 <p>An implementation of the BitTorrent spec in Rust &ndash; including a parser for bencoded objects &ndash; and a web client with a UI built with React/Redux. Writeup on some of the implementation challenges coming.</p>
 
+<h3 id="bottleneck-https-github-com-lolney-bottleneck"><a href="https://github.com/lolney/bottleneck">Bottleneck</a></h3>
+
+<p>A multiplayer game, built with websockets, Node.js, and React, in which players manage their base by solving programming problems.</p>
+
 <h3 id="planetary-surfaces-https-github-com-lolney-planetary-surface-visualizer"><a href="https://github.com/lolney/Planetary-Surface-Visualizer">Planetary Surfaces</a></h3>
 
-<p>Using a crude WebGL engine, shows what the solar cycle looks like at various points of the year on a planet with adjustable orbital parameters. E.g., on a planet with an orbital inclination of 90 degrees - tilted on its side - everywhere on the planet but the equator experiences polar night for some part of the year.</p>
+<p>A WebGL project that shows what the solar cycle looks like at various points of the year on a planet with adjustable orbital parameters. E.g., on a planet with an orbital inclination of 90 degrees - tilted on its side - everywhere on the planet but the equator experiences polar night for some part of the year.</p>
 
 <h3 id="world-climate-data-https-github-com-lolney-world-climate-data"><a href="https://github.com/lolney/World-Climate-Data">World Climate Data</a></h3>
 
@@ -23,21 +27,18 @@
 
 <h2 id="in-early-stages">In early stages:</h2>
 
-<h3 id="bottleneck-https-github-com-lolney-bottleneck"><a href="https://github.com/lolney/bottleneck">Bottleneck</a></h3>
-
-<p>A multiplayer game, built with websockets, Node.js, and React, in which players unlock resources by solving programming problems.</p>
-
 <h3 id="twitter-profiles-https-github-com-lolney-twitter-profiles"><a href="https://github.com/lolney/twitter-profiles">Twitter Profiles</a></h3>
 
 <p>Topic analysis of Twitter accounts. Categorizes interests based on a hierarchy derived from the Wikipedia category graph.</p>
 
 <h2 id="other-minor-or-school-projects">Other Minor or School Projects:</h2>
 
-<p><a href="https://github.com/lolney/RecipeTransformations">Recipe Maker</a> *
-<a href="https://github.com/YiMysty/345-Project/tree/master/src/kademlia">Kademlia DHT implementation</a> *
-<a href="https://github.com/eecs394-spr15/NUHacks">A Yik Yak-like hybrid mobile app</a> *
-<a href="https://github.com/eecs394-spr15/MuseumTour">Mobile app for beacon-guided museum tours</a> *
-<a href="https://github.com/lolney/Building-Age-Map">San Francisco Building Ages</a></p>
+<p><a href="https://github.com/lolney/RecipeTransformations">Recipe Maker</a> _
+<a href="https://github.com/YiMysty/345-Project/tree/master/src/kademlia">Kademlia DHT implementation</a> _
+<a href="https://github.com/eecs394-spr15/NUHacks">A Yik Yak-like hybrid mobile app</a> _
+<a href="https://github.com/eecs394-spr15/MuseumTour">Mobile app for beacon-guided museum tours</a> _
+<a href="https://github.com/lolney/Building-Age-Map">San Francisco Building Ages</a> *
+[A compiler for a lisp-like language]()</p>
 "
 } 
 }
