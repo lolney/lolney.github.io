@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Linux Cache Invalidation Bug - Luke Olney</title>
+<meta property="og:title" content="Linux Cache Invalidation Bug - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    <h1 class="article-title">Linux Cache Invalidation Bug</h1>
+    
+
+    <div class="article-content">
+      <p>This is a detailed writeup from Project Zero about a bug in the Linux Kernel, introducing by an optimization with an unconsidered edge case.</p>
+
+<p>A quick summary of the relevant OS concepts: Virtual Memory Areas (VMAs), which include the code segment, data segment, and heap, have special rules[1] that must be applied when a page fault occurs. The mappings of addresses to VMAs are stored in <code>vm_area_struct</code>s, which are stored in a red-black tree or possibly cached in a per-thread 4-member array. Whenever a VMA is freed in any thread for the process, all of these per-thread caches must be invalidated.</p>
+
+<p>To avoid having to do this expensive operation, each cache is tagged with a <code>seqnum</code> equal to the <code>seqnum</code> of the per-process <code>mm_struct</code>; when the <code>seqnum</code>s are out of sync, we know to invalidate the cache. Because the <code>seqnum</code> can overflow, though, we still need to flush all the caches every time that happens.</p>
+
+<p>In the patch in question, someone added the further optimization of simply avoiding the flush if the process is single-threaded. They reasoned that VMA lookups would always trigger the update of the cache <code>seqnum</code> and <code>mm_struct</code> <code>seqnum</code> simultaneously, avoiding the need for the flush.</p>
+
+<p>However, this added a (normally) rather unlikely bug in the case that, immediately after incrementing the <code>mm_struct</code> <code>seqnum</code> to wrap to zero, a second thread is created, pushing the <code>seqnum</code> back up to <code>0xffffffff</code> and making the cache in the first thread appear valid again.</p>
+
+<p>The authors manage to exploit the bug first by doing a large number of VMA remappings to trigger the overflow, then creating a fake VMA using the pointers from the deallocated one &ndash; leaked to logs by a warning message &ndash; to bypass Kernel controls. The VMA contains a fault handler that is used on page faults, which can be used, for instance, to run a binary with root privileges.</p>
+
+<p>[1] <a href="http://students.mimuw.edu.pl/SO/Linux/Kod/include/linux/mm.h.html">http://students.mimuw.edu.pl/SO/Linux/Kod/include/linux/mm.h.html</a></p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="" type="application/rss+xml" target="_blank">
+        <i class="fa fa-rss"></i> RSS feed</a>
+    </li>
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

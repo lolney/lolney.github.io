@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://lukeolney.me/readings/linux-cache-invalidation-bug/</loc>
+    <lastmod>2018-10-02T22:26:18-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/log-structured-merge-trees/</loc>
     <lastmod>2018-05-19T23:33:44-07:00</lastmod>
   </url>
@@ -182,7 +187,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2018-05-19T23:33:44-07:00</lastmod>
+    <lastmod>2018-10-02T22:26:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -248,7 +253,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/security/</loc>
-    <lastmod>2018-03-23T14:40:23-07:00</lastmod>
+    <lastmod>2018-10-02T22:26:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -267,6 +272,12 @@
   <url>
     <loc>https://lukeolney.me/tags/synchronization/</loc>
     <lastmod>2018-04-19T20:20:48-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lukeolney.me/tags/systems/</loc>
+    <lastmod>2018-10-02T22:26:18-07:00</lastmod>
     <priority>0</priority>
   </url>
   

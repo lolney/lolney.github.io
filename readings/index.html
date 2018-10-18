@@ -67,6 +67,50 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://googleprojectzero.blogspot.com/2018/09/a-cache-invalidation-bug-in-linux.html">Linux Cache Invalidation Bug</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 02 October 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/linux-cache-invalidation-bug/">02 October 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/systems">Systems</a>
+        <a href="/tags/security">Security</a>
+    </li>
+    
+</ul>
+
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>This is a detailed writeup from Project Zero about a bug in the Linux Kernel, introducing by an optimization with an unconsidered edge case.</p>
+
+<p>A quick summary of the relevant OS concepts: Virtual Memory Areas (VMAs), which include the code segment, data segment, and heap, have special rules[1] that must be applied when a page fault occurs. The mappings of addresses to VMAs are stored in <code>vm_area_struct</code>s, which are stored in a red-black tree or possibly cached in a per-thread 4-member array. Whenever a VMA is freed in any thread for the process, all of these per-thread caches must be invalidated.</p>
+
+<p>To avoid having to do this expensive operation, each cache is tagged with a <code>seqnum</code> equal to the <code>seqnum</code> of the per-process <code>mm_struct</code>; when the <code>seqnum</code>s are out of sync, we know to invalidate the cache. Because the <code>seqnum</code> can overflow, though, we still need to flush all the caches every time that happens.</p>
+
+<p>In the patch in question, someone added the further optimization of simply avoiding the flush if the process is single-threaded. They reasoned that VMA lookups would always trigger the update of the cache <code>seqnum</code> and <code>mm_struct</code> <code>seqnum</code> simultaneously, avoiding the need for the flush.</p>
+
+<p>However, this added a (normally) rather unlikely bug in the case that, immediately after incrementing the <code>mm_struct</code> <code>seqnum</code> to wrap to zero, a second thread is created, pushing the <code>seqnum</code> back up to <code>0xffffffff</code> and making the cache in the first thread appear valid again.</p>
+
+<p>The authors manage to exploit the bug first by doing a large number of VMA remappings to trigger the overflow, then creating a fake VMA using the pointers from the deallocated one &ndash; leaked to logs by a warning message &ndash; to bypass Kernel controls. The VMA contains a fault handler that is used on page faults, which can be used, for instance, to run a binary with root privileges.</p>
+
+<p>[1] <a href="http://students.mimuw.edu.pl/SO/Linux/Kod/include/linux/mm.h.html">http://students.mimuw.edu.pl/SO/Linux/Kod/include/linux/mm.h.html</a></p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://pdfs.semanticscholar.org/6a39/082e14e08fcc4f853b07e4d797163afadde1.pdf">Log Structured Merge Trees</a>
         </h1>
         <div class="post-meta">
@@ -466,48 +510,6 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
             </div>
         </div>
     </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://docs.google.com/viewer?url=https%3A%2F%2Fdrum.lib.umd.edu%2Fbitstream%2Fhandle%2F1903%2F542%2FCS-TR-2222.ps%3Fsequence%3D1%26isAllowed%3Dy">Skip Lists</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 06 April 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/skip-list/">06 April 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/data-structures">Data Structures</a>
-        <a href="/tags/algorithms">Algorithms</a>
-    </li>
-    
-</ul>
-
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>The skip list is an alternative to balanced search trees, especially suited for distributed applications. MemSQL is the main adopter, using skip lists as its primary index structure, but they&rsquo;re <a href="https://github.com/antirez/redis/blob/unstable/src/t_zset.c#L31">also used in Redis</a> to implement ordered sets.</p>
-
-<p>This image from the paper shows what the data structure looks like. A node contains k pointers, with the ith pointer pointing to the next node of level i:
-<img src="/img/skip-list.png" alt="A skip list" />
-When a node is inserted, it is given a random level to represent it: level 1 with 50% probability, 2 with 25%, etc. Searches are started at the top level, with each node acting as an index to the lower level. This process is like a binary search &ndash; if the skip list is balanced, the search traverses only 1-2 nodes at each level.</p>
-
-<p>The paper defends the claims that 1) concurrency guarantees are easier to implement for skip lists than for balanced trees, requiring only write locks on the nodes being written, and 2) the data structure is very unlikely to become significantly unbalanced. With skip lists having the advantage of 1) and having similar performance to balanced trees, they appear to provide an advantage in concurrent applications.</p>
-
-<p>To ensure that readers are not disrupted by writes in the absence of read locks, x is updated to point to its predecessor after removing x. Proofs are supplied for the correctness guarantees, among them that the list remains sorted and the lock is held only by the deleted key.</p>
-
-<p>Although the worst case search time is O(n), in the case, for example, that the only node at each level i is the first node in the list at level 0, this is an unlikely outcome. The probability distribution over the comparisons required is similar to that of the number of coin flips needed to see k heads, where k is equal to the number of levels. Showing that distribution is apparently left by the authors as an exercise for the reader, but it makes intuitive sense: the most likely outcome is 1-2 comparisons on each level, corresponding to the most likely outcomes of 1 or 2 coin flips needed to see 1 head.</p>
-
-            </div>
-        </div>
-    </section>
 </article>  
         </div>
 
@@ -544,6 +546,19 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
   
     <li
       ><a href="/readings/page/2/">2</a>
+    </li>
+    
+  
+  
+  
+  
+   
+    
+    
+  
+  
+    <li
+      ><a href="/readings/page/3/">3</a>
     </li>
     
   
