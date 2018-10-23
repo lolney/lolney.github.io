@@ -1,0 +1,34 @@
+{
+    "data" :  {
+    "title": "OpenID Connect 1.0 Spec",
+    "content": "<p>OpenID connect is based on OAuth 2.0, building on the simple access tokens of the latter to standardize a more complete login system. While OAuth is only specified as an authorization process, leaving authentication, if they chose to include that, up to implementors, OpenID specifies ways for the OAuth server to to answer claims about the end user. That gives it a standard way to perform both authentication and authorization.</p>
+
+<p>It makes use in several cases of JSON Web Tokens, the format for making cryptographically-verifiable claims.</p>
+
+<p>The main addition is that of the ID Token, which contains a &lsquo;subject identitifier&rsquo; field as well as claims about, for instance, the identity of the issuer. This is suplemented by the UserInfo request, which allows the client to ask questions about the user. Standard claims include personally-identifiable information like name and birthdate.</p>
+
+<p>The specification provided this diagram, and I&rsquo;ve filled in the terms:</p>
+
+<pre><code>+--------+                                   +--------+
+|        |                                   |        |
+|        |---(1) Authentication Request-----&gt;|        |
+|        |                                   |        |
+|        |  +--------+                       |        |
+|        |  |        |                       |        |
+|        |  |  End-  |&lt;--(2) AuthN &amp; AuthZ--&gt;|        |
+|        |  |  User  |                       |        |
+|  OAuth |  |        |                       | OAuth  |
+| Client |  +--------+                       | Server |
+|        |                                   |        |
+|        |&lt;---(3) Authentication Response----|        |
+|        |                                   |        |
+|        |---------(4) UserInfo Request-----&gt;|        |
+|        |                                   |        |
+|        |&lt;--------(5) UserInfo Response-----|        |
+|        |                                   |        |
++--------+                                   +--------+
+</code></pre>
+"
+} 
+}
+

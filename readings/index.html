@@ -69,6 +69,63 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://openid.net/specs/openid-connect-basic-1_0.html">OpenID Connect 1.0 Spec</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 22 October 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/openid-connect-1.0/">22 October 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/web">Web</a>
+        <a href="/tags/authentication">Authentication</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>OpenID connect is based on OAuth 2.0, building on the simple access tokens of the latter to standardize a more complete login system. While OAuth is only specified as an authorization process, leaving authentication, if they chose to include that, up to implementors, OpenID specifies ways for the OAuth server to to answer claims about the end user. That gives it a standard way to perform both authentication and authorization.</p>
+
+<p>It makes use in several cases of JSON Web Tokens, the format for making cryptographically-verifiable claims.</p>
+
+<p>The main addition is that of the ID Token, which contains a &lsquo;subject identitifier&rsquo; field as well as claims about, for instance, the identity of the issuer. This is suplemented by the UserInfo request, which allows the client to ask questions about the user. Standard claims include personally-identifiable information like name and birthdate.</p>
+
+<p>The specification provided this diagram, and I&rsquo;ve filled in the terms:</p>
+
+<pre><code>+--------+                                   +--------+
+|        |                                   |        |
+|        |---(1) Authentication Request-----&gt;|        |
+|        |                                   |        |
+|        |  +--------+                       |        |
+|        |  |        |                       |        |
+|        |  |  End-  |&lt;--(2) AuthN &amp; AuthZ--&gt;|        |
+|        |  |  User  |                       |        |
+|  OAuth |  |        |                       | OAuth  |
+| Client |  +--------+                       | Server |
+|        |                                   |        |
+|        |&lt;---(3) Authentication Response----|        |
+|        |                                   |        |
+|        |---------(4) UserInfo Request-----&gt;|        |
+|        |                                   |        |
+|        |&lt;--------(5) UserInfo Response-----|        |
+|        |                                   |        |
++--------+                                   +--------+
+</code></pre>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://krebsonsecurity.com/2017/01/who-is-anna-senpai-the-mirai-worm-author/">Who is Anna-Senpai, the Mirai Worm Author</a>
         </h1>
         <div class="post-meta">
@@ -468,39 +525,6 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
  <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
 </ol>
 </div>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://pdos.csail.mit.edu/~rtm/roofnet-b.pdf">MIT Roofnet Mesh Network</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 11 April 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/roofnet/">11 April 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/networking">Networking</a>
-        <a href="/tags/distributed-systems">Distributed Systems</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>Roofnet is a WiFi mesh network for increasing Internet access in urban areas. It&rsquo;s designed to be easy to set up: Users just need to place antennae on their roofs, and there&rsquo;s no need surveys to determine the optimum place to put them &ndash; since the network makes up the difference in performance. It does that, in part, though its routing protocol, which chooses routes that maximize bitrate and minimize loss-rate. It also introduces a new protocol that maximizes throughput no matter the loss rate &ndash; transmitting at a lower bitrate can improve performance by avoiding re-transmissions, and this protocol improves on the heuristics used by its predecessors (although not described in detail here).</p>
-
-<p>In summary: Some number of nodes in the network have wired access to the Internet. The rest of the nodes need to route their packets to these gateway nodes, with some number of hops. Roofnet does that without much performance loss by choosing the highest-throughput routes, using multiple links if necessary.</p>
 
             </div>
         </div>
