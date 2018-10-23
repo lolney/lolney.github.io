@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://lukeolney.me/readings/</loc>
+    <lastmod>2018-03-04T02:20:05-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/mirai/</loc>
     <lastmod>2018-10-18T23:24:48-07:00</lastmod>
   </url>
@@ -130,11 +135,6 @@
   <url>
     <loc>https://lukeolney.me/readings/oo-design/</loc>
     <lastmod>2018-03-15T14:40:58-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://lukeolney.me/readings/</loc>
-    <lastmod>2018-03-04T02:20:05-08:00</lastmod>
   </url>
   
   <url>

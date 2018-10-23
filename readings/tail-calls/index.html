@@ -42,6 +42,8 @@
     
     <li><a href="/readings/">Readings</a></li>
     
+    <li><a href="/tags/">Tags</a></li>
+    
   </ul>
 </nav>
 
@@ -50,8 +52,15 @@
 
 <main class="content" role="main">
   <article class="article">
-    <h1 class="article-title">Tail Calls in Rust</h1>
     
+    <h1 class="article-title"><a href=https://github.com/rust-lang/rfcs/pull/1888/files>Tail Calls in Rust</a></h1>
+    
+
+    
+    <span class="article-date">2018-04-01</span>
+    
+
+
 
     <div class="article-content">
       <p>The main transformation to enable tail calls is to replace the function call <code>f</code> with a <code>goto</code>, calling destructors on local variables, then replacing the original arguments of the current function with the arguments of <code>f</code>. The normal borrow semantics for the return should therefore apply.</p>
@@ -65,7 +74,6 @@
     <ul class="article-taxonomy">
      
 </ul>
-
   </article>
 
 </main>

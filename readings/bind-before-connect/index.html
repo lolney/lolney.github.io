@@ -42,6 +42,8 @@
     
     <li><a href="/readings/">Readings</a></li>
     
+    <li><a href="/tags/">Tags</a></li>
+    
   </ul>
 </nav>
 
@@ -50,8 +52,15 @@
 
 <main class="content" role="main">
   <article class="article">
-    <h1 class="article-title">Bind Before Connect</h1>
     
+    <h1 class="article-title"><a href=https://idea.popcount.org/2014-04-03-bind-before-connect/>Bind Before Connect</a></h1>
+    
+
+    
+    <span class="article-date">2018-03-20</span>
+    
+
+
 
     <div class="article-content">
       <p>If you create a socket and call <code>connect(dst, port)</code> on it, or first call <code>bind(src, port)</code> with port 0, the kernel will allocate from the pool of up to 64k available ports. However, with with <code>SO_REUSEPORT</code>, you can also share ports to create an effectively unlimited number of connections - as long as the destination address is different for each connection sharing the same port. To have multiple connections to the same IP/Port pair, you can use different source IP addresses instead.</p>
@@ -65,7 +74,6 @@
     <ul class="article-taxonomy">
      
 </ul>
-
   </article>
 
 </main>
