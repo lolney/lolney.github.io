@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Implementing the BitTorrent Protocol in Rust - Luke Olney</title>
+<meta property="og:title" content="Implementing the BitTorrent Protocol in Rust - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title">Implementing the BitTorrent Protocol in Rust</h1>
+    
+
+    
+    <span class="article-date">2018-10-18</span>
+    
+
+
+
+    <div class="article-content">
+      
+
+<p>As I round out my Rust BitTorrent implementation, here are some thoughts on its design and the ways in which Rust has helped guide it.</p>
+
+<h3 id="the-beauty-and-frustration-of-coding-in-rust">The Beauty - And Frustration - Of Coding in Rust</h3>
+
+<p>The borrow checker, lifetimes, the limitations on when you can implement traits &ndash; these are all heavy cudgels compared to the benefits you get from them, often requiring much cajoling with the compiler to get code to work. And of the actions that they limit &ndash; particularly the borrow checker &ndash; most of them you can easily reason about the safety of, and act to prevent it yourself. I&rsquo;d say that, at least in this project, they have been more of a hindrance than help. But I&rsquo;m interested in seeing concrete examples of where they have worked.</p>
+
+<p>The metaprogramming and type system, though, bringing high-level concepts to low-level tasks, are a thing of beauty. I experienced their possibilities mainly through the Rocket web framework and the Serde serialization library, which use traits and the Rust compiler to accomplish some pretty cool control inversion[1]. Not knowing much about PL theory, I don&rsquo;t want to comment extensively on this or attempt to compare it to other languages with extensive type systems. But the <a href="https://www.reddit.com/r/rust/comments/9cgmi6/feasible_functors_in_rust/">possibilities</a> with traits <a href="https://gist.github.com/brendanzab/9220415">are vast</a>.</p>
+
+<p>On a more modest note, it took some time into the process realize I could even create something like the <code>to_keys</code> macro to generically convert objects to bencoded dicts. I implemented the bencoder/decoder early in the process, and they probably would be better off built off with Serde or more compiler-level integration,rather than the clumsy matches and dictionary-converting macros I created.</p>
+
+<h3 id="concurrency">Concurrency</h3>
+
+<p>It seems that one of the key motivations for the limitations on borrowing is in enforcing safe concurrency practices. Indeed, they do, along with the <code>Send</code> and <code>Sync</code> traits, force you to consider concurrency explicitly &ndash; but since you can grant those traits to any object with <code>Arc</code>s and <code>Mutex</code>, they don&rsquo;t hinder you as long as you are willing stick with safe, locking designs.</p>
+
+<p>The model I chose is based on message-passing between several categories of tasks: per-connection tasks, a controller task that synchronizes writing, and a manager task (on the user&rsquo;s thread) that controls adding new torrents. The controller and per-connection task serve alternatively as producers and consumers, sending and writings messages from peers. Also involved is a futures-based tracker client.</p>
+
+<p>There is very likely room for improvement here: The per-connection threads should likely be made into a thread pool, there are probably unnecessary copies, and the ad-hoc sleep intervals in the controller could be optimized, or perhaps eliminated altogether. Maybe the whole task-oriented system would be better based on futures and Tokio. However, I decided after struggling a bit on the (fairly simple) task of creating the tracker client that they were more trouble than they were forth, particularly in dealing with convoluted futures return types.</p>
+
+<p>In any case, any further improvement will depend on benchmark results: download/upload speeds, CPU time, memory, and perhaps tests of effects of protocol concepts like endgame performance, snubbing, or network properties like connectivity.</p>
+
+<p>[1]: Perhaps a comparison a standard competitor like Spring would be worth doing</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

@@ -7,23 +7,27 @@
 
 <h3 id="rust-bittorrent-client-https-github-com-lolney-rust-bittorrent-client"><a href="https://github.com/lolney/rust-bittorrent-client">Rust BitTorrent Client</a></h3>
 
-<p>An implementation of the BitTorrent spec in Rust &ndash; including a parser for bencoded objects &ndash; and a web client with a UI built with React/Redux. Writeup on some of the implementation challenges coming.</p>
+<p>An implementation of the BitTorrent spec in Rust &ndash; including a parser for bencoded objects &ndash; and a web client with a UI built with React/Redux. <a href="/posts/rust-bittorrent-client/">Writeup here</a>.</p>
 
 <h3 id="bottleneck-https-github-com-lolney-bottleneck"><a href="https://github.com/lolney/bottleneck">Bottleneck</a></h3>
 
 <p>A multiplayer game, built with websockets, Node.js, and React, in which players manage their base by solving programming problems.</p>
 
+<p><img src="https://camo.githubusercontent.com/7d30cbfbfe2613e6780ea60a51a76f9baa130d30/68747470733a2f2f692e696d6775722e636f6d2f643355685a4a752e6a7067" alt="screenshot" /></p>
+
 <h3 id="planetary-surfaces-https-github-com-lolney-planetary-surface-visualizer"><a href="https://github.com/lolney/Planetary-Surface-Visualizer">Planetary Surfaces</a></h3>
 
 <p>A WebGL project that shows what the solar cycle looks like at various points of the year on a planet with adjustable orbital parameters. E.g., on a planet with an orbital inclination of 90 degrees - tilted on its side - everywhere on the planet but the equator experiences polar night for some part of the year.</p>
+
+<h3 id="zosterops-games-package-https-github-com-lolney-zosterops-games-suite"><a href="https://github.com/lolney/zosterops-games-suite">Zosterops Games Package</a></h3>
+
+<p>Some silly games made in Unity, themed around a type of birds called white-eyes. The first one: navigate to the top of Mt. Kilamanjaro while freeing the white-eyes trapped in cages before a wandering cat gets to them. The second: a kind of tower defense game where you place obstacles to hinder the enemy (cats) while boosting your friends (white-eyes).</p>
 
 <h3 id="world-climate-data-https-github-com-lolney-world-climate-data"><a href="https://github.com/lolney/World-Climate-Data">World Climate Data</a></h3>
 
 <p>Maps monthly average high/low temperatures, based on interpolated and altitude-adjusted USGS station data.</p>
 
-<h3 id="zosterops-games-package-https-github-com-lolney-zosterops-games-suite"><a href="https://github.com/lolney/zosterops-games-suite">Zosterops Games Package</a></h3>
-
-<p>Some silly games made in Unity, themed around a type of birds called white-eyes. The first one: navigate to the top of Mt. Kilamanjaro while freeing the white-eyes trapped in cages before a wandering cat gets to them. The second: a kind of tower defense game where you place obstacles to hinder the enemy (cats) while boosting your friends (white-eyes).</p>
+<p>While the data here is still useful, the</p>
 
 <h2 id="in-early-stages">In early stages:</h2>
 
@@ -35,10 +39,12 @@
 
 <p><a href="https://github.com/lolney/RecipeTransformations">Recipe Maker</a> *
 <a href="https://github.com/YiMysty/345-Project/tree/master/src/kademlia">Kademlia DHT implementation</a> *
-<a href="https://github.com/eecs394-spr15/NUHacks">A Yik Yak-like hybrid mobile app</a> *
+<a href="https://github.com/eecs394-spr15/NUHacks">A Yik Yak-like life hack aggregator</a> *
 <a href="https://github.com/eecs394-spr15/MuseumTour">Mobile app for beacon-guided museum tours</a> *
 <a href="https://github.com/lolney/Building-Age-Map">San Francisco Building Ages</a> *
-A compiler for a lisp-like language</p>
+A compiler for a Scheme-like language *
+A WebGL raytracer *
+An SVM-based reverse image search engine</p>
 "
 } 
 }
