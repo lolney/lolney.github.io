@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>HTTP/3 Explained - Luke Olney</title>
+<meta property="og:title" content="HTTP/3 Explained - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title"><a href=https://daniel.haxx.se/http3-explained/>HTTP/3 Explained</a></h1>
+    
+
+    
+    <span class="article-date">2018-12-30</span>
+    
+
+
+
+    <div class="article-content">
+      
+
+<p>HTTP/3 is the evolution of the HTTP standard with UDP. It’s based on a new transport-layer protocol called QUIC, which allows better parallelism of the features of HTTP/2.</p>
+
+<p>HTTP/2 introduced multiplexing, which lets the browser send multiple requests without first waiting for the response. This appears parallel at the HTTP level, but it still relies on a single TCP connection. That means that any lost packet will hold up the chain of requests until that packet can be re-transmitted.</p>
+
+<p>HTTP/3&rsquo;s solution continues to use a single connection, but allows transmission from other logical streams while waiting for a lost packet to be retransmitted. That requires implementing a new protocol that retains TCP’s features but allows more control over transmission of packets.</p>
+
+<h2 id="streams">Streams</h2>
+
+<p>QUIC brings HTTP streams to the transport layer. They are independently flow-controlled and independently head-blocked, with prioritization still done at the HTTP layer.</p>
+
+<h2 id="ossification">Ossification</h2>
+
+<p>Changing standards like TCP comes with costs: The Internet relies on a lot of intermediaries to survive, but many are not frequently updated — they will often drop packets on seeing TCP options that they don’t recognize. QUIC gets around this by operating purely with secure connections, preventing intermediaries from inspecting traffic.</p>
+
+<p>This has been a problem with TCP Fast Open, the standard that allows sending data on the first handshake transmission. QUIC offers its own fast open handshake to address that.</p>
+
+<p>Regardless, there are still barriers to using UDP as a transport - many routers block UDP traffic on the standard HTTP ports, for example. This means that HTTP/1 or /2 will still have to exist as a fallback and that connections to unknown hosts will have to be initiated that way.</p>
+
+<h2 id="adoption">Adoption</h2>
+
+<p>It’s already in use across much of the Internet - 7% of all Internet traffic in 2017. While the original Google-introduced protocol was just for HTTP, the IETF version includes a layer for non-HTTP protocols. The implementation for that is still in progress.</p>
+
+<p>Adoption requires coordinating support among those who determine the path of the web, including browser vendors, Apache and nGinx, and TSL implementors.</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>
