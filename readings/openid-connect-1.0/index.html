@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>OpenID Connect 1.0 Spec - Luke Olney</title>
+<meta property="og:title" content="OpenID Connect 1.0 Spec - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title"><a href=https://openid.net/specs/openid-connect-basic-1_0.html>OpenID Connect 1.0 Spec</a></h1>
+    
+
+    
+    <span class="article-date">2018-10-22</span>
+    
+
+
+
+    <div class="article-content">
+      <p>OpenID connect is based on OAuth 2.0, building on the simple access tokens of the latter to standardize a more complete login system. While OAuth is only specified as an authorization process, leaving authentication, if they chose to include that, up to implementors, OpenID specifies ways for the OAuth server to to answer claims about the end user. That gives it a standard way to perform both authentication and authorization.</p>
+
+<p>It makes use in several cases of JSON Web Tokens, the format for making cryptographically-verifiable claims.</p>
+
+<p>The main addition is that of the ID Token, which contains a &lsquo;subject identitifier&rsquo; field as well as claims about, for instance, the identity of the issuer. This is suplemented by the UserInfo request, which allows the client to ask questions about the user. Standard claims include personally-identifiable information like name and birthdate.</p>
+
+<p>The specification provided this diagram, and I&rsquo;ve filled in the terms:</p>
+
+<pre><code>+--------+                                   +--------+
+|        |                                   |        |
+|        |---(1) Authentication Request-----&gt;|        |
+|        |                                   |        |
+|        |  +--------+                       |        |
+|        |  |        |                       |        |
+|        |  |  End-  |&lt;--(2) AuthN &amp; AuthZ--&gt;|        |
+|        |  |  User  |                       |        |
+|  OAuth |  |        |                       | OAuth  |
+| Client |  +--------+                       | Server |
+|        |                                   |        |
+|        |&lt;---(3) Authentication Response----|        |
+|        |                                   |        |
+|        |---------(4) UserInfo Request-----&gt;|        |
+|        |                                   |        |
+|        |&lt;--------(5) UserInfo Response-----|        |
+|        |                                   |        |
++--------+                                   +--------+
+</code></pre>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>
