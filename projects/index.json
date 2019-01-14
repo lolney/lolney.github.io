@@ -3,21 +3,27 @@
     "title": "Projects",
     "content": "
 
-<p>Some of the projects I&rsquo;ve worked on in my spare time, in roughly descending order of seriousness.</p>
-
-<h3 id="rust-bittorrent-client-https-github-com-lolney-rust-bittorrent-client"><a href="https://github.com/lolney/rust-bittorrent-client">Rust BitTorrent Client</a></h3>
-
-<p>An implementation of the BitTorrent spec in Rust &ndash; including a parser for bencoded objects &ndash; and a web client with a UI built with React/Redux. <a href="/posts/rust-bittorrent-client/">Writeup here</a>.</p>
+<p>Some of my personal projects, in roughly descending order of seriousness:</p>
 
 <h3 id="bottleneck-https-github-com-lolney-bottleneck"><a href="https://github.com/lolney/bottleneck">Bottleneck</a></h3>
 
 <p>A multiplayer game, built with websockets, Node.js, and React, in which players manage their base by solving programming problems.</p>
 
+<p><a href="https://bottleneck.world">bottleneck.world</a></p>
+
 <p><img src="https://camo.githubusercontent.com/7d30cbfbfe2613e6780ea60a51a76f9baa130d30/68747470733a2f2f692e696d6775722e636f6d2f643355685a4a752e6a7067" alt="screenshot" /></p>
 
-<h3 id="planetary-surfaces-https-github-com-lolney-planetary-surface-visualizer"><a href="https://github.com/lolney/Planetary-Surface-Visualizer">Planetary Surfaces</a></h3>
+<h3 id="rust-bittorrent-client-https-github-com-lolney-rust-bittorrent-client"><a href="https://github.com/lolney/rust-bittorrent-client">Rust BitTorrent Client</a></h3>
+
+<p>An implementation of the BitTorrent spec in Rust &ndash; including a parser for bencoded objects &ndash; and a web client with a UI built with React/Redux. <a href="/posts/rust-bittorrent-client/">Writeup here</a>.</p>
+
+<h3 id="vaporwave-planetary-surface-viewer-https-github-com-lolney-planetary-surface-visualizer"><a href="https://github.com/lolney/Planetary-Surface-Visualizer">Vaporwave Planetary Surface Viewer</a></h3>
 
 <p>A WebGL project that shows what the solar cycle looks like at various points of the year on a planet with adjustable orbital parameters. E.g., on a planet with an orbital inclination of 90 degrees - tilted on its side - everywhere on the planet but the equator experiences polar night for some part of the year.</p>
+
+<p><a href="https://lukeolney.me/Planetary-Surface-Visualizer/">https://lukeolney.me/Planetary-Surface-Visualizer/</a></p>
+
+<p><img src="https://i.imgur.com/pZo3yGW.png" alt="screenshot" /></p>
 
 <h3 id="zosterops-games-package-https-github-com-lolney-zosterops-games-suite"><a href="https://github.com/lolney/zosterops-games-suite">Zosterops Games Package</a></h3>
 
