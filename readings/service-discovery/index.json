@@ -1,0 +1,24 @@
+{
+    "data" :  {
+    "title": "Service Discovery",
+    "content": "
+
+<p>Service discovery deals with the problem of mapping services to IPs: If a load balancer wants to send a request to an API server, how does it figure out which ip address to sent it to? This AWS whitepaper gives a high level overview and trade-offs to a couple of approaches:</p>
+
+<h2 id="domains-names-and-load-balancers">Domains Names and Load Balancers</h2>
+
+<p>Alias service domain names (using CNAME records) to the load balancer, which routes to the correct service based on path or host name. This is vulnerable to DNS caching, but you can mitigate that with a short TTL.</p>
+
+<h2 id="dns">DNS</h2>
+
+<p>You can also use DNS to route requests directly to the service. Route 53 allows you to restrict access to services in your own virtual private cloud.</p>
+
+<h2 id="configuration-management">Configuration management</h2>
+
+<p>Map service names to IP addresses in your configuration, which you can set on server start. In particular, you can have new service register with a central configuration manager like AWS OpsWorks.</p>
+
+<p>This is also the basis for frameworks like <a href="https://github.com/Netflix/eureka">Netflix Eurkea</a> or <a href="https://stripe.com/blog/service-discovery-at-stripe">Consul</a>.</p>
+"
+} 
+}
+

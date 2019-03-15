@@ -123,6 +123,53 @@
 </article>  <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/microservices-on-aws.pdf?icmpid=link_from_whitepapers_page">Service Discovery</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 02 December 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/service-discovery/">02 December 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/aws">AWS</a>
+        <a href="/tags/microservices">microservices</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                
+
+<p>Service discovery deals with the problem of mapping services to IPs: If a load balancer wants to send a request to an API server, how does it figure out which ip address to sent it to? This AWS whitepaper gives a high level overview and trade-offs to a couple of approaches:</p>
+
+<h2 id="domains-names-and-load-balancers">Domains Names and Load Balancers</h2>
+
+<p>Alias service domain names (using CNAME records) to the load balancer, which routes to the correct service based on path or host name. This is vulnerable to DNS caching, but you can mitigate that with a short TTL.</p>
+
+<h2 id="dns">DNS</h2>
+
+<p>You can also use DNS to route requests directly to the service. Route 53 allows you to restrict access to services in your own virtual private cloud.</p>
+
+<h2 id="configuration-management">Configuration management</h2>
+
+<p>Map service names to IP addresses in your configuration, which you can set on server start. In particular, you can have new service register with a central configuration manager like AWS OpsWorks.</p>
+
+<p>This is also the basis for frameworks like <a href="https://github.com/Netflix/eureka">Netflix Eurkea</a> or <a href="https://stripe.com/blog/service-discovery-at-stripe">Consul</a>.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://openid.net/specs/openid-connect-basic-1_0.html">OpenID Connect 1.0 Spec</a>
         </h1>
         <div class="post-meta">
@@ -485,45 +532,6 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         <div class="article-content">
             <div class="readmore" hidden=true>
                 <p>I found Urbit when somebody compared it to the &ldquo;decentralized Internet&rdquo; that <em>Silicon Valley</em>&rsquo;s Pied Piper is building. It turns out that it&rsquo;s even more ambitious than that &ndash; an attempt to rebuild the whole software stack from the Kernel up &ndash; but this summary will focus on the network part.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="http://sigops.org/sosp/sosp13/papers/p33-david.pdf">Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 19 April 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/synchronization/">19 April 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/programming">Programming</a>
-        <a href="/tags/synchronization">Synchronization</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>This paper is an overview of synchronization methods across the hardware stack, with an analysis that attributes high-level performance differences to low-level hardware constraints.</p>
-
-<p>Among the key takeaways:</p>
-
-<p>Latency of atomic operations: There is a heavy penalty for cross-socket sharing - ie, passing data between cores (or hyperthreads). This outweighs other sources of latency by far.</p>
-
-<p>Locking vs message passing: Message passing is better when data has high contention, locking with low contention.</p>
-
-<p>Performance of different types of locks: Each of the nine locks considered is the best performer in certain situations. The ticket lock is the best performer in most low-contention cases, though&ndash;the &ldquo;ticket lock&rdquo; being a spinlock that uses a FIFO queue to determine which thread is allowed to proceed.</p>
 
             </div>
         </div>
