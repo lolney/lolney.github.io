@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/readings/rust-virtual-doms/</loc>
+    <lastmod>2019-03-14T13:26:33-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/http3/</loc>
     <lastmod>2018-12-30T23:19:08-08:00</lastmod>
   </url>
@@ -181,6 +186,12 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/browser-tech/</loc>
+    <lastmod>2019-03-14T13:26:33-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/code-reading/</loc>
     <lastmod>2018-05-09T00:45:44-07:00</lastmod>
     <priority>0</priority>
@@ -223,8 +234,14 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/javascript/</loc>
+    <lastmod>2019-03-14T13:26:33-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2018-12-30T23:19:08-08:00</lastmod>
+    <lastmod>2019-03-14T13:26:33-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -283,8 +300,14 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/react/</loc>
+    <lastmod>2019-03-14T13:26:33-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/rust/</loc>
-    <lastmod>2018-05-09T00:45:44-07:00</lastmod>
+    <lastmod>2019-03-14T13:26:33-07:00</lastmod>
     <priority>0</priority>
   </url>
   

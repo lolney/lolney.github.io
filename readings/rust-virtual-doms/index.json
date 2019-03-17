@@ -1,0 +1,59 @@
+{
+    "data" :  {
+    "title": "Dodrio: Virtual DOMs in Rust",
+    "content": "
+
+<p>Javascript ecosystem tools like ESLint, Babel, NPM, or Webpack have traditionally been written in Javascript and run on the Node runtime. But there&rsquo;s no requirement that tools that process our JS code run JS themselves, and given that these tools are often computationally demanding, there have been <a href="https://www.notionjs.com/">attempts</a> to create more performant versions in languages like Rust.</p>
+
+<p>The project described here takes that a step further, moving a process normally handled by front end JS libraries to high-performance code via WebAssembly.</p>
+
+<p>The virtual DOM is at the core of how React, Ember, Angular, and Vue &ndash; name any recent front end view framework &ndash; do updates: a virtual representation of the DOM, mirroring the component tree, that can be diffed on updates to avoid making unnecessary updates to the actual DOM.</p>
+
+<p>Dodrio implements the virtual DOM in Rust and does high-throughput transfers to JS to make the actual DOM updates. This raises the question, perhaps, if those updates could in the future be done directly in Wasm via the browser API, but the result is still faster than many of the libraries they benchmarked against.</p>
+
+<h2 id="the-dodrio-api">The Dodrio API</h2>
+
+<p>The API gives ways to manipulate virtual DOM nodes (including state, like counters) and render them. It also includes a Wasm interface for using Javacsript components in Rust:</p>
+
+<pre><code>#[wasm_bindgen]
+extern &quot;C&quot; {
+    // Import the JS `Greeting` class.
+    #[wasm_bindgen(extends = Object)]
+    type Greeting;
+
+    // And the `Greeting` class's constructor.
+    #[wasm_bindgen(constructor)]
+    fn new(who: &amp;str) -&gt; Greeting;
+}
+
+// Construct a JS rendering component from a `Greeting` instance.
+let js = JsRender::new(Greeting::new(&quot;World&quot;));
+
+</code></pre>
+
+<h2 id="bump-allocation">Bump allocation</h2>
+
+<p>Bump allocators treat allocation like adding to a stack: add new objects to the end, and you can&rsquo;t deallocate existing objects (except all of them at once).</p>
+
+<p>Dodrio bump allocates its virtual DOM trees and the DOM mutations required after each render, batching the changes that will be made to the physical DOM.</p>
+
+<p>Diagram provided by the blog post. Two trees - the two most recent renders - must be kept in memory at a given time:</p>
+
+<pre><code>        ------------------- Time -------------------&gt;
+Tree 0: [ render | ------ | diff ]
+Tree 1:          [ render | diff | ------ | diff ]
+Tree 2:                          [ render | diff | ------ | diff ]
+Tree 3:                                          [ render | diff | ------ | diff ]
+...
+
+</code></pre>
+
+<p>This is a simple garbage collector that avoid any of the overhead of a general tracing/generational GC.</p>
+
+<h2 id="diffing-and-updating-the-dom">Diffing and updating the DOM</h2>
+
+<p>The diffing process is done by walking the two trees in unison and noting whenever children, attributes, or listeners vary between the two. These changes are translated to instructions in a stack machine, which is read and interpreted in Javascript.</p>
+"
+} 
+}
+
