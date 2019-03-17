@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Spark at scale at Facebook - Luke Olney</title>
+<meta property="og:title" content="Spark at scale at Facebook - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title"><a href=https://code.fb.com/core-data/apache-spark-scale-a-60-tb-production-use-case/>Spark at scale at Facebook</a></h1>
+    
+
+    
+    <span class="article-date">2019-02-16</span>
+    
+
+
+
+    <div class="article-content">
+      <p>This blog post details Facebook&rsquo;s migration from Hive to Spark for a particular distributed data processing workload.</p>
+
+<p>Spark is a distributed compute engine, allowing you to write SQL or imperative code that runs in a distributed environment with relatively few accommodations.</p>
+
+<p>Example pipeline (Hive):</p>
+
+<pre><code>Filter -&gt;
+Group -&gt;
+Reduce
+</code></pre>
+
+<p>In this writeup, the core task was to aggregate feature values for each entity_id, target_id pair and shard by entity id:</p>
+
+<pre><code>entity_id, target_id, feature_id, feature_value
+
+-&gt;
+
+// Aggregation could be something like this - not explicit in writeup
+entity_id, target_id: &lt;average, sum, ..&gt; feature_value for feature_id
+</code></pre>
+
+<p>In Hive, each step outputs a temporary table (stored in the HDFS) that serves as the input to the next step. Because this involved serializing and writing files to HDFS repeatedly along the way, this had a pretty severe performance cost in time and CPU hours.</p>
+
+<p>In the Spark implementation described here, each step is instead combined into a single MapReduce job.</p>
+
+<p>They also note some contributions to Spark to improve its reliability, where the great size of their workload revealed some cracks - especially where hardcoded limits proved to be too restrictive.</p>
+
+<p>E.g., <a href="https://github.com/apache/spark/pull/12285/files">this pull request</a> solves a problem when a reducer&rsquo;s memory is fully allocated. Memory is taken up both by the pointer array (which is the array that&rsquo;s sorted) and the records pointed to by it. Initially, the code would reset the pointer array first (allocating new memory) then free the records, which could cause OoM errors unnecessarily.</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

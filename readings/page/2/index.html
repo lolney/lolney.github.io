@@ -69,6 +69,46 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://en.wikipedia.org/wiki/100_prisoners_problem">100 Prisoners</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 03 May 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/100-prisoners/">03 May 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/probability">Probability</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>The 100 prisoners problem is a probability thought exercise with an unintuitive solution, kind of like the Monty-Hall problem. The setup is this: there are 100 numbers in drawers, each corresponding to one of 100 prisoners. Each prisoner is allowed to pick 50 drawers, but the drawers are reset after each prisoner makes their choice (and there&rsquo;s no communication between prisoners). The goal is for each prisoner to find their number &ndash; if that happens, they escape their sentence.</p>
+
+<p>The naive solution is to pick the 50 drawers at random, giving each prisoner a 50% chance of success (and a vanishingly small chance &ndash; .50^100 &ndash; for all 100 prisoners to pick the correct number). But there&rsquo;s a strategy that drastically improves the odds of success, bringing it to ~30%.</p>
+
+<p>This strategy does not appear much different from the naive one, but it relies on the hidden correlation between success and failure in the permutation cycles to shape the search space. Namely, the prisoners want to search a set that&rsquo;s as different as possible from everyone else&rsquo;s &ndash; since they know the world where they succeed is one in which they all pick different boxes.</p>
+
+<p>The the <a href="https://en.wikipedia.org/wiki/100_prisoners_problem#Monty_Hall_problem">Monty Hall-inspired analogy on the Wikipedia page</a> gives a good explanation of this. Essentially, the contestants choose doors (over two rounds) in a way that they&rsquo;re never picking the same door in the same round.</p>
+
+<p>Consider how the prisoners could design their choices similarly. If, in the case where each prisoner is only allowed to search a single box, all prisoners just choose box 1, there is no possibility of success: Only one prisoner will find the correct number. Choosing a box at random has some probability of success, if extremely low: 100^-100. If instead each prisoner i chooses the ith box, the chances are improved: it&rsquo;s now 1/(100!), since each correctly chosen box constrains the options for future boxes. If just you expand that search to the next 50 boxes, you still don&rsquo;t get the optimal solution - starting with a <sup>1</sup>&frasl;<sub>2</sub> chance of success for the first prisoner, the next 50 prisoners slowly widdle that down to 1 (the resulting probability is 50^50/(100!/50!)).</p>
+
+<p>It follows along these lines that permutation cycles, being disjoint, are better for structuring the search. But I&rsquo;m not sure how to make this intuition concrete, if that&rsquo;s even possible.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://github.com/urbit/urbit">Urbit</a>
         </h1>
         <div class="post-meta">
@@ -404,36 +444,6 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
 <p>One area where this manifests: API design. The API creator must decide whether to expose async functions, leaving sync users to de-async the result themselves, or sync functions, which async users are left to wrap (potentially wasteful, as the library had to do this itself at some point).</p>
 
 <p>The <a href="https://news.ycombinator.com/item?id=8984648">HN comments for this post</a> are insightful, with the top commenter noting that the red-blue language is &ldquo;essentially Haskell&rdquo; (with blue and red monoids), and another noting that golang solves this problem by making the whole program &ldquo;red&rdquo; (async).</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://github.com/sellout/Iaia">Iaia</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 01 April 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/iaia/">01 April 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/programming-languages">Programming Languages</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>A lot of PL research is about better patterns of programming, covering new ways of abstracting patterns that you encounter in a real codebase. Two of the most beloved courses at NU, Prof. Robby Findler&rsquo;s courses on Compilers and Programming Languages, are built on that principle: they are basically programming seminars, with very little formal introduction to the concepts they cover - instead letting them reveal themselves through the assignments. Indeed, a compiler isn&rsquo;t built the way it is because the concept of a &lsquo;compiler&rsquo; is written in natural law - it&rsquo;s a revealed way of handling the complexity that comes with all the forms the grammar of the language can express itself.</p>
 
             </div>
         </div>

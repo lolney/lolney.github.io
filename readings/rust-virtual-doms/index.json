@@ -3,7 +3,7 @@
     "title": "Dodrio: Virtual DOMs in Rust",
     "content": "
 
-<p>Javascript ecosystem tools like ESLint, Babel, NPM, or Webpack have traditionally been written in Javascript and run on the Node runtime. But there&rsquo;s no requirement that tools that process our JS code run JS themselves, and given that these tools are often computationally demanding, there have been <a href="https://www.notionjs.com/">attempts</a> to create more performant versions in languages like Rust.</p>
+<p>Javascript ecosystem tools like ESLint, Babel, NPM, or Webpack have traditionally been written in Javascript and run on the Node runtime. But there&rsquo;s no requirement that tools that process our JS code be written in JS themselves, and given that these tools are often computationally demanding, there have been <a href="https://www.notionjs.com/">attempts</a> to create more performant versions in languages like Rust.</p>
 
 <p>The project described here takes that a step further, moving a process normally handled by front end JS libraries to high-performance code via WebAssembly.</p>
 
