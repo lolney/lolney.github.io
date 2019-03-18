@@ -63,7 +63,7 @@
 
 
     <div class="article-content">
-      <p>This is a detailed writeup from Project Zero about a bug in the Linux Kernel, introducing by an optimization with an unconsidered edge case.</p>
+      <p>This is a detailed writeup from Project Zero about a bug in the Linux Kernel, introduced through an optimization with an unconsidered edge case.</p>
 
 <p>A quick summary of the relevant OS concepts: Virtual Memory Areas (VMAs), which include the code segment, data segment, and heap, have special rules[1] that must be applied when a page fault occurs. The mappings of addresses to VMAs are stored in <code>vm_area_struct</code>s, which are stored in a red-black tree or possibly cached in a per-thread 4-member array. Whenever a VMA is freed in any thread for the process, all of these per-thread caches must be invalidated.</p>
 
