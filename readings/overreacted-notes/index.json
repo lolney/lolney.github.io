@@ -1,0 +1,132 @@
+{
+    "data" :  {
+    "title": "Notes on Overreacted",
+    "content": "
+
+<p>Here are my notes on a few of my favorite posts on Overreacted, the blog of the React Core team&rsquo;s Dan Abramov.</p>
+
+<h3 id="writing-resilient-components-https-overreacted-io-writing-resilient-components"><a href="https://overreacted.io/writing-resilient-components/">Writing Resilient Components</a></h3>
+
+<ul>
+<li>Things that don’t matter: too much deference on opinionated style guides/lint configs, cargo cult rules like “don’t call <code>setState</code> in <code>componentDidMount</code>. The former often puts too much emphasis on aesthetics and just creates conflict and stress without any improvement in maintainability.
+
+<ul>
+<li>It&rsquo;s really just important to have <em>some</em> set of rules, so that auto formatting is always consistent</li>
+</ul></li>
+</ul>
+
+<h5 id="don-t-stop-the-data-flow">Don’t stop the data flow</h5>
+
+<ul>
+<li>For derived state, memoization is cleaner than <code>getDerivedStateFromProps</code>. <code>componentDidUpdate</code> is an option, but causes double renders.</li>
+<li>Make sure that side effects are repeated on prop or state updates (eg, calls in <code>componentDidMount</code> may have to be repeated in <code>componentDidUpdate</code>)
+
+<ul>
+<li>Alternatively, the <code>useEffect</code> hook combines all lifecycle methods and makes prop, state dependencies explicit</li>
+</ul></li>
+<li>Be careful when comparing function props across updates: methods retain their identity across renders, but functions may not. The <code>useCallback</code> hook helps make this more explicit by memoizing closures so that their identity changes iff an element in the dependency array changes.</li>
+</ul>
+
+<h5 id="always-be-ready-to-render">Always be ready to render</h5>
+
+<ul>
+<li>Derived state can also have the &ldquo;blowing away&rdquo; problem: local state updates are overriden by props updates
+
+<ul>
+<li>Fix this by making components fully controlled, limiting state updates to a container component</li>
+</ul></li>
+</ul>
+
+<h5 id="no-component-is-a-singleton">No component is a singleton</h5>
+
+<ul>
+<li>Any component, even something like a nav bar, might need to be rendered twice</li>
+<li>Avoid global state for that reason</li>
+</ul>
+
+<h5 id="keep-the-local-state-isolated">Keep the Local State Isolated</h5>
+
+<ul>
+<li>What state should remain local vs. in a central (eg, Redux) store?</li>
+<li>Try asking this question: if a component is rendered twice, what state should be updated in the other component when updated in one?</li>
+<li>Local state should generally be limited to presentational state (eg, are these comments expanded?) or ephemeral state (eg, text in a comment field that hasn&rsquo;t been submitted)</li>
+</ul>
+
+<h3 id="why-do-we-write-super-props">Why do we write super(props)?</h3>
+
+<ul>
+<li>ES6 classes require super() to be called in the first line of the constructor (if at all), so that super class fields are initialized if you want to call super class methods</li>
+<li>React requires super(props) mainly so that this.props is accessible in the constructor</li>
+<li>But it’s not strictly necessary, since React initializes this.props after instantiating your opponent anyway</li>
+</ul>
+
+<h3 id="why-do-react-elements-have-typeof-property">Why do React elements have typeof property?</h3>
+
+<ul>
+<li>React escapes strings to prevent XSS attacks</li>
+<li>Of course, it’s still vulnerable to attacks under certain conditions - eg, this renders arbitrary html:
+<code>&lt;div dangerouslySetInnerHtml: {_html: “&lt;script&gt;stealPassword() &lt;/script&gt;”}&gt;</code></li>
+
+<li><p>Could happen if you spread user input on a div</p></li>
+
+<li><p>Could also happen if your server serves JSON where you expect text, and you get his:</p></li>
+</ul>
+
+<pre><code>let expectedTextButGotJSON = {
+  type: 'div',
+  props: {
+    dangerouslySetInnerHTML: {
+      __html: '/* put your exploit here */'
+    },
+  },
+  // ...
+};
+let message = { text: expectedTextButGotJSON };
+
+// Dangerous in React 0.13
+&lt;p&gt;
+  {message.text}
+&lt;/p&gt;
+See: http://danlec.com/blog/xss-via-a-spoofed-react-element
+</code></pre>
+
+<p>React protects against this by adding the typeof: symbol(‘react.elemt’) to React elements, which can’t be replicated in JSON. So, it’s a very specific fix - but it does enable the typeof function on React elements</p>
+
+<h3 id="why-do-hooks-rely-on-call-order">Why do hooks rely on call order?</h3>
+
+<p>useState can be used multiple times to create multiple state variables:</p>
+
+<pre><code>const [a, setA] = useState(1);
+const [b, setB] = useState(2);
+
+const [b, setB] = useState(2);
+useState(a) {
+let current = a;
+
+let setA = (a) =&gt; {
+current = a;
+};
+
+return current;
+}
+</code></pre>
+
+<p>This (supporting multiple useState calls) is mostly useful so that we can extract stateful logic into custom hooks that use useState:</p>
+
+<p>This useWindowWidth hook outputs the window width as it changes with lifecycle updates (though apparently the same as just using window.innerWidth?):</p>
+
+<pre><code>function useWindowWidth() {
+// Declare some state and effects in a custom Hook
+const [width, setWidth] = useState(window.innerWidth);
+useEffect(() =&gt; {
+// ...
+});
+return width;
+}
+</code></pre>
+
+<p>Dan presents a number of solutions that involve passing an identifying key, and points out how each in turn fails to meet these requirements, or requires a lot of additional setup.</p>
+"
+} 
+}
+
