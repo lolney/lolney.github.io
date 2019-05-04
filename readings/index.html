@@ -69,6 +69,77 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://github.com/facebook/prepack">The Prepack Compiler</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 30 April 2019 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/prepack/">30 April 2019</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/web">Web</a>
+        <a href="/tags/javascript">Javascript</a>
+        <a href="/tags/compilers">Compilers</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                
+
+<p>Prepack is an experimental optimizing Javascript compiler. The existing major Javascript compilers, like Babel or Closure, focus on other things: code size reduction for the former, backwards compatibility for the latter. Prepack is all about optimization: function inlining, loop unrolling, and other transformations that shift some of the work to compile time.</p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>It runs your code, then generates an optimized version that returns the same results. This makes it very good at optimizing, for example, a call to fib(10), which returns the 10th Fibonacci number.</p>
+
+<p>It’s limited, by default, to code along the global path — ie, what’s run in the initialization phase — but it can also run specific code that you direct it to do so, as long as any state it depends on are defined by the time the initialization phase in complete.</p>
+
+<h3 id="symbolic-execution-engine">Symbolic Execution Engine</h3>
+
+<p>Certain results will depend on state, e.g., Date.now(), that can’t be determined at compile time. These can be substituted with abstract values, allowing optimizations to still be made over code that depends on them.</p>
+
+<p>Here are some examples that I tried with the <a href="https://prepack.io/repl.html">Prepack repl</a> that could in principle be optimized, but aren&rsquo;t:</p>
+
+<p>Eg 1:</p>
+
+<pre><code>let now = Date.now();
+now += 1;
+now -= 1;
+</code></pre>
+
+<p>In this case, the compiler can deduce that the value of <code>now</code> (which could be any integer) is the same whether or not lines 2 and 3 execute, so it should optimize them away.</p>
+
+<p>Eg 2:</p>
+
+<pre><code>function f() {
+    let now = Date.now()
+    if(now * 2 == 12) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+</code></pre>
+
+<p>Here, the result only depends on whether now is equal to 6. The abstract interpreter can replace the result with an abstract data type equivalent to (Date.now == 6 ? 0 : 1).</p>
+
+<p>(This shows the result of a control flow merge that results in a conditional abstract value.)</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://overreacted.io">Notes on Overreacted</a>
         </h1>
         <div class="post-meta">
@@ -658,33 +729,6 @@ entity_id, target_id: &lt;average, sum, ..&gt; feature_value for feature_id
  <a class="footnote-return" href="#fnref:2"><sup>[return]</sup></a></li>
 </ol>
 </div>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://blog.twitter.com/engineering/en_us/a/2010/introducing-flockdb.html">Graph Databases at Twitter</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 10 May 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/graph-dbs-at-twitter/">10 May 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>&ldquo;Graph databases&rdquo; seem to be mostly wrappers over relational databases that are optimized for certain graph operations. One example is Twitter&rsquo;s FlockDB &ndash; an apparently long-abandoned project that&rsquo;s nonetheless a solid demonstration of the principle. FlockDB uses MySQL as as storage engine, storing its edges as MySQL records.</p>
-
-<p>Flock is optimized for queries that involve a user&rsquo;s followers and people who follow that user. Like, which of my followers is following President Obama? These are the people A who satisfy the relations follows(Me, A) and follows(A, Obama). Flock contains a single table for for all A s.t. follows(Me, A). And the reverse is also stored, so follows(A, Obama) is just as efficient. So that query ends up being a single query on the <code>me</code> partition combined with a query on the <code>Obama</code> partition.</p>
 
             </div>
         </div>

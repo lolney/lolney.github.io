@@ -1,0 +1,47 @@
+{
+    "data" :  {
+    "title": "The Prepack Compiler",
+    "content": "
+
+<p>Prepack is an experimental optimizing Javascript compiler. The existing major Javascript compilers, like Babel or Closure, focus on other things: code size reduction for the former, backwards compatibility for the latter. Prepack is all about optimization: function inlining, loop unrolling, and other transformations that shift some of the work to compile time.</p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>It runs your code, then generates an optimized version that returns the same results. This makes it very good at optimizing, for example, a call to fib(10), which returns the 10th Fibonacci number.</p>
+
+<p>It’s limited, by default, to code along the global path — ie, what’s run in the initialization phase — but it can also run specific code that you direct it to do so, as long as any state it depends on are defined by the time the initialization phase in complete.</p>
+
+<h3 id="symbolic-execution-engine">Symbolic Execution Engine</h3>
+
+<p>Certain results will depend on state, e.g., Date.now(), that can’t be determined at compile time. These can be substituted with abstract values, allowing optimizations to still be made over code that depends on them.</p>
+
+<p>Here are some examples that I tried with the <a href="https://prepack.io/repl.html">Prepack repl</a> that could in principle be optimized, but aren&rsquo;t:</p>
+
+<p>Eg 1:</p>
+
+<pre><code>let now = Date.now();
+now += 1;
+now -= 1;
+</code></pre>
+
+<p>In this case, the compiler can deduce that the value of <code>now</code> (which could be any integer) is the same whether or not lines 2 and 3 execute, so it should optimize them away.</p>
+
+<p>Eg 2:</p>
+
+<pre><code>function f() {
+    let now = Date.now()
+    if(now * 2 == 12) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+</code></pre>
+
+<p>Here, the result only depends on whether now is equal to 6. The abstract interpreter can replace the result with an abstract data type equivalent to (Date.now == 6 ? 0 : 1).</p>
+
+<p>(This shows the result of a control flow merge that results in a conditional abstract value.)</p>
+"
+} 
+}
+

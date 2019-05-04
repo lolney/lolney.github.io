@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/readings/prepack/</loc>
+    <lastmod>2019-04-30T23:25:14-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/overreacted-notes/</loc>
     <lastmod>2019-03-20T15:49:21-07:00</lastmod>
   </url>
@@ -214,6 +219,12 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/compilers/</loc>
+    <lastmod>2019-04-30T23:25:14-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/computing-history/</loc>
     <lastmod>2018-04-14T00:34:41-07:00</lastmod>
     <priority>0</priority>
@@ -251,13 +262,13 @@
   
   <url>
     <loc>https://lukeolney.me/tags/javascript/</loc>
-    <lastmod>2019-03-14T13:26:33-07:00</lastmod>
+    <lastmod>2019-04-30T23:25:14-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2019-03-20T15:49:21-07:00</lastmod>
+    <lastmod>2019-04-30T23:25:14-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -377,7 +388,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/web/</loc>
-    <lastmod>2019-03-20T15:49:21-07:00</lastmod>
+    <lastmod>2019-04-30T23:25:14-08:00</lastmod>
     <priority>0</priority>
   </url>
   

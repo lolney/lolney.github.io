@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>The Prepack Compiler - Luke Olney</title>
+<meta property="og:title" content="The Prepack Compiler - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title"><a href=https://github.com/facebook/prepack>The Prepack Compiler</a></h1>
+    
+
+    
+    <span class="article-date">2019-04-30</span>
+    
+
+
+
+    <div class="article-content">
+      
+
+<p>Prepack is an experimental optimizing Javascript compiler. The existing major Javascript compilers, like Babel or Closure, focus on other things: code size reduction for the former, backwards compatibility for the latter. Prepack is all about optimization: function inlining, loop unrolling, and other transformations that shift some of the work to compile time.</p>
+
+<h2 id="how-it-works">How it works</h2>
+
+<p>It runs your code, then generates an optimized version that returns the same results. This makes it very good at optimizing, for example, a call to fib(10), which returns the 10th Fibonacci number.</p>
+
+<p>It’s limited, by default, to code along the global path — ie, what’s run in the initialization phase — but it can also run specific code that you direct it to do so, as long as any state it depends on are defined by the time the initialization phase in complete.</p>
+
+<h3 id="symbolic-execution-engine">Symbolic Execution Engine</h3>
+
+<p>Certain results will depend on state, e.g., Date.now(), that can’t be determined at compile time. These can be substituted with abstract values, allowing optimizations to still be made over code that depends on them.</p>
+
+<p>Here are some examples that I tried with the <a href="https://prepack.io/repl.html">Prepack repl</a> that could in principle be optimized, but aren&rsquo;t:</p>
+
+<p>Eg 1:</p>
+
+<pre><code>let now = Date.now();
+now += 1;
+now -= 1;
+</code></pre>
+
+<p>In this case, the compiler can deduce that the value of <code>now</code> (which could be any integer) is the same whether or not lines 2 and 3 execute, so it should optimize them away.</p>
+
+<p>Eg 2:</p>
+
+<pre><code>function f() {
+    let now = Date.now()
+    if(now * 2 == 12) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+</code></pre>
+
+<p>Here, the result only depends on whether now is equal to 6. The abstract interpreter can replace the result with an abstract data type equivalent to (Date.now == 6 ? 0 : 1).</p>
+
+<p>(This shows the result of a control flow merge that results in a conditional abstract value.)</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>
