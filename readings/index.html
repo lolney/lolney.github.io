@@ -98,15 +98,19 @@
 
 <p>Redux author Dan Abrahamov has recommended it, saying he &ldquo;wouldn&rsquo;t claim it&rsquo;s the best book ever&rdquo; but also that it&rsquo;s &ldquo;practical and fun&rdquo; and &ldquo;required reading for UI engineers.&rdquo; You certainly get explanations of some of the trends in programming models that motivated the creators of React, like favoring functional reactive components over imperative events, components over class hierachies, etc.</p>
 
-<h3 id="the-patterns">The patterns</h3>
+<h2 id="the-patterns">The patterns</h2>
 
-<ol>
-<li><a href="#Command">Command</a></li>
-<li><a href="#Flyweight">Flyweight</a></li>
-<li><a href="#third-example">Third Example</a></li>
-</ol>
+<p>I. <a href="#command">Command</a></p>
 
-<h4 id="command">Command</h4>
+<p>II. <a href="#flyweight">Flyweight</a></p>
+
+<p>III. <a href="#prototype">Prototype</a></p>
+
+<p>IV. <a href="#singleton">Singleton</a></p>
+
+<p>V. <a href="#state">State</a></p>
+
+<h3 id="command">Command</h3>
 
 <ul>
 <li>Def: an object-oriented replacement for callbacks</li>
@@ -150,7 +154,7 @@ BUTTON_B -&gt; shootCommand</p>
 <li>Flyweight: if we have multiple controls creating a JumpCommand that’s largely the same, we might implement it as a Flyweight</li>
 </ul>
 
-<h4 id="flyweight">Flyweight</h4>
+<h3 id="flyweight">Flyweight</h3>
 
 <ul>
 <li>If there are elements duplicated among objects, limit the per-instance data to whatever’s unique and point each object to a shared copy of the rest.</li>
@@ -176,7 +180,7 @@ TreeModel
 <li>Retains the advantages of an API that works with real objects</li>
 </ul>
 
-<h4 id="observer">Observer</h4>
+<h3 id="observer">Observer</h3>
 
 <ul>
 <li>This is an extremely ubiquitous pattern, baked into, eg, Javascript and C# with the &ldquo;Event&rdquo; class.</li>
@@ -208,7 +212,7 @@ TreeModel
 <p>Like other declarative systems, data binding is probably a bit too slow and complex to fit inside the core of a game engine. But I would be surprised if I didn’t see it start making inroads into less critical areas of the game like UI.</p>
 </blockquote>
 
-<h4 id="prototype">Prototype</h4>
+<h3 id="prototype">Prototype</h3>
 
 <ul>
 <li>Example: a spawner creates monsters. The spawner holds a monster &ldquo;prototype,&rdquo; which can be cloned to create new monster instances.</li>
@@ -260,14 +264,14 @@ greenGoblin = {
 }
 </code></pre>
 
-<h6 id="prototypes-in-javascript-and-other-languages">Prototypes in Javascript and other languages</h6>
+<h4 id="prototypes-in-javascript-and-other-languages">Prototypes in Javascript and other languages</h4>
 
 <ul>
 <li>In a pure prototype-based language &ndash; Self is the first example &ndash; objects are created by cloning other objects, at which point other fields can be added.</li>
 <li>ES5 classes more closely resemble traditional classes, just defined a bit strangely (something that ES6 basically admits). A constructor is a function, not an object that can be cloned.</li>
 </ul>
 
-<h4 id="singleton">Singleton</h4>
+<h3 id="singleton">Singleton</h3>
 
 <ul>
 <li>Alternatives:
@@ -282,7 +286,7 @@ greenGoblin = {
 </ul></li>
 </ul>
 
-<h4 id="state">State</h4>
+<h3 id="state">State</h3>
 
 <ul>
 <li>Using dynamic dispatch:
@@ -316,7 +320,7 @@ greenGoblin = {
 }
 </code></pre>
 
-<h6 id="concerns">Concerns:</h6>
+<h4 id="concerns">Concerns:</h4>
 
 <ul>
 <li>A single state is often not enough. Eg, a character can be both running and jumping.
