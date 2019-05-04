@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/readings/game-programming-patterns/</loc>
+    <lastmod>2019-05-04T10:59:29-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/prepack/</loc>
     <lastmod>2019-04-30T23:25:14-08:00</lastmod>
   </url>
@@ -243,6 +248,12 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/design-patterns/</loc>
+    <lastmod>2019-05-04T10:59:29-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/distributed-systems/</loc>
     <lastmod>2019-02-16T22:58:09-07:00</lastmod>
     <priority>0</priority>
@@ -268,7 +279,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2019-04-30T23:25:14-08:00</lastmod>
+    <lastmod>2019-05-04T10:59:29-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -310,7 +321,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/programming/</loc>
-    <lastmod>2018-04-19T20:20:48-07:00</lastmod>
+    <lastmod>2019-05-04T10:59:29-04:00</lastmod>
     <priority>0</priority>
   </url>
   
