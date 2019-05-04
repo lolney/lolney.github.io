@@ -22,11 +22,17 @@
 <h3 id="command">Command</h3>
 
 <ul>
-<li>Def: an object-oriented replacement for callbacks</li>
+<li>Defintion: an object-oriented replacement for callbacks
+
+<ul>
 <li>That is, a method call wrapped in an object</li>
-<li>Support stuff like:</li>
+</ul></li>
+<li>Supports attaching additional behavior to actions:
+
+<ul>
 <li>Permissions</li>
 <li>Logging metadata</li>
+</ul></li>
 </ul>
 
 <p>Actor controls example:
