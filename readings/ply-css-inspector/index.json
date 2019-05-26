@@ -1,0 +1,22 @@
+{
+    "data" :  {
+    "title": "Ply CSS Inspector",
+    "content": "<p>Working with CSS, it&rsquo;s easy to add CSS properties that are valid but have no visual effect. Some examples: invalid font families. <code>Color</code> on elements with no text. <code>align-items: center</code> on a flex container that&rsquo;s only as tall as its items.</p>
+
+<p>Browser inspectors or CSS linters don&rsquo;t handle this well &ndash; Chrome dev tools won&rsquo;t tell you anything&rsquo;s wrong with those examples. They&rsquo;re still considered active since, as far as the browser is concerned, they&rsquo;re still being applied to the DOM.</p>
+
+<p>Fixing this is what&rsquo;s really interesting about Ply, and why the concept is now being integrated into Firefox dev tools.</p>
+
+<p>Static analysis of CSS, it turns out, can be difficult. Existing work highlighted by the paper, like browser dev tools or tools like <a href="http://www.cs.cmu.edu/~./webcrystal/">WebCrystal</a>, only manages to show which properties are currently rendered by the browser engine.</p>
+
+<p>Ply detects relevant properties by applying visual relevance testing. It&rsquo;s very much like visual regression testing, in that you check for visual changes after introducing a change (in this case, adding a CSS property). CSS properties that don&rsquo;t cause a change are considered irrelevant.</p>
+
+<p>This approach is also used to find dependencies. After the initial pruning round, each property A is disabled again (resulting in state 2), and the other n-1 properties B_i are disabled in turn (resulting in state 3). Any property B_i that does not cause a change between states 2 and 3 is dependent on A.</p>
+
+<p>Eg, property A might be <code>display: flex</code> and B <code>align-items: center</code>. After A is removed, B will no longer do anything.</p>
+
+<p>An approach like this that&rsquo;s entirely limited to runtime checking is limited, though - it&rsquo;s inefficient and doesn&rsquo;t lend well to error messages that explain why a particular property doesn&rsquo;t have any effect. Any real browser implementation would probably rely on a static dependency list, as the <a href="https://twitter.com/patrickbrosset/status/1118889616952766466/photo/1">Firefox dev tools version</a> seems to do. For a better automated approach, static analysis of the browser engine code (which determines the property interactions in the first place) ought to be able to generate a complete list of dependencies, not limited to what&rsquo;s just on the current page. Still, Ply manages to do a lot with a simple approach, and served as inspiration for beginning such work in the first place.</p>
+"
+} 
+}
+

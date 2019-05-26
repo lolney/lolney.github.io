@@ -69,6 +69,47 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://docs.google.com/viewer?url=https%3A%2F%2Fdrum.lib.umd.edu%2Fbitstream%2Fhandle%2F1903%2F542%2FCS-TR-2222.ps%3Fsequence%3D1%26isAllowed%3Dy">Skip Lists</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 06 April 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/skip-list/">06 April 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/data-structures">Data Structures</a>
+        <a href="/tags/algorithms">Algorithms</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>The skip list is an alternative to balanced search trees, especially suited for distributed applications. MemSQL is the main adopter, using skip lists as its primary index structure, but they&rsquo;re <a href="https://github.com/antirez/redis/blob/unstable/src/t_zset.c#L31">also used in Redis</a> to implement ordered sets.</p>
+
+<p>This image from the paper shows what the data structure looks like. A node contains k pointers, with the ith pointer pointing to the next node of level i:
+<img src="/img/skip-list.png" alt="A skip list" />
+When a node is inserted, it is given a random level to represent it: level 1 with 50% probability, 2 with 25%, etc. Searches are started at the top level, with each node acting as an index to the lower level. This process is like a binary search &ndash; if the skip list is balanced, the search traverses only 1-2 nodes at each level.</p>
+
+<p>The paper defends the claims that 1) concurrency guarantees are easier to implement for skip lists than for balanced trees, requiring only write locks on the nodes being written, and 2) the data structure is very unlikely to become significantly unbalanced. With skip lists having the advantage of 1) and having similar performance to balanced trees, they appear to provide an advantage in concurrent applications.</p>
+
+<p>To ensure that readers are not disrupted by writes in the absence of read locks, x is updated to point to its predecessor after removing x. Proofs are supplied for the correctness guarantees, among them that the list remains sorted and the lock is held only by the deleted key.</p>
+
+<p>Although the worst case search time is O(n), in the case, for example, that the only node at each level i is the first node in the list at level 0, this is an unlikely outcome. The probability distribution over the comparisons required is similar to that of the number of coin flips needed to see k heads, where k is equal to the number of levels. Showing that distribution is apparently left by the authors as an exercise for the reader, but it makes intuitive sense: the most likely outcome is 1-2 comparisons on each level, corresponding to the most likely outcomes of 1 or 2 coin flips needed to see 1 head.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="http://vas3k.com/blog/touchbar/">Making the Touch Bar finally useful</a>
         </h1>
         <div class="post-meta">
@@ -385,36 +426,6 @@
             </div>
         </div>
     </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://medium.com/@cscalfani/goodbye-object-oriented-programming-a59cda4c0e53">Pitfalls of OO Design</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 15 March 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/oo-design/">15 March 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/software-engineering">Software Engineering</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>An overview for the reasons that more recent languages (Rust, Go) have avoided the full-on object-orientedness of Java, C#, et. al. Traits and interfaces allow for polymorphism while avoiding the problems of inheritance - they&rsquo;re not hierarchical, so they avoid issues like the diamond problem that result when implementing new objects that don&rsquo;t fit easily into the existing hierarchy. Non-hierarchical structs also avoid the bloat of carrying around unnecessary parent fields.</p>
-
-            </div>
-        </div>
-    </section>
 </article>  
         </div>
 
@@ -467,9 +478,22 @@
     </li>
     
   
+  
+  
+  
+   
+    
+    
+  
+  
+    <li
+      ><a href="/readings/page/4/">4</a>
+    </li>
+    
+  
   <li
-    class="page-links-disabled">
-    <a href="" aria-label="Next"><span aria-hidden="true">&#160;&gt;</span></a>
+    >
+    <a href="/readings/page/4/" aria-label="Next"><span aria-hidden="true">&#160;&gt;</span></a>
   </li>
 </ul>
 

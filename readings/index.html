@@ -69,6 +69,52 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="http://users.eecs.northwestern.edu/~scl025/files/ply-uist.pdf">Ply CSS Inspector</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 12 May 2019 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/ply-css-inspector/">12 May 2019</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/css">CSS</a>
+        <a href="/tags/papers">Papers</a>
+        <a href="/tags/hci">HCI</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>Working with CSS, it&rsquo;s easy to add CSS properties that are valid but have no visual effect. Some examples: invalid font families. <code>Color</code> on elements with no text. <code>align-items: center</code> on a flex container that&rsquo;s only as tall as its items.</p>
+
+<p>Browser inspectors or CSS linters don&rsquo;t handle this well &ndash; Chrome dev tools won&rsquo;t tell you anything&rsquo;s wrong with those examples. They&rsquo;re still considered active since, as far as the browser is concerned, they&rsquo;re still being applied to the DOM.</p>
+
+<p>Fixing this is what&rsquo;s really interesting about Ply, and why the concept is now being integrated into Firefox dev tools.</p>
+
+<p>Static analysis of CSS, it turns out, can be difficult. Existing work highlighted by the paper, like browser dev tools or tools like <a href="http://www.cs.cmu.edu/~./webcrystal/">WebCrystal</a>, only manages to show which properties are currently rendered by the browser engine.</p>
+
+<p>Ply detects relevant properties by applying visual relevance testing. It&rsquo;s very much like visual regression testing, in that you check for visual changes after introducing a change (in this case, adding a CSS property). CSS properties that don&rsquo;t cause a change are considered irrelevant.</p>
+
+<p>This approach is also used to find dependencies. After the initial pruning round, each property A is disabled again (resulting in state 2), and the other n-1 properties B_i are disabled in turn (resulting in state 3). Any property B_i that does not cause a change between states 2 and 3 is dependent on A.</p>
+
+<p>Eg, property A might be <code>display: flex</code> and B <code>align-items: center</code>. After A is removed, B will no longer do anything.</p>
+
+<p>An approach like this that&rsquo;s entirely limited to runtime checking is limited, though - it&rsquo;s inefficient and doesn&rsquo;t lend well to error messages that explain why a particular property doesn&rsquo;t have any effect. Any real browser implementation would probably rely on a static dependency list, as the <a href="https://twitter.com/patrickbrosset/status/1118889616952766466/photo/1">Firefox dev tools version</a> seems to do. For a better automated approach, static analysis of the browser engine code (which determines the property interactions in the first place) ought to be able to generate a complete list of dependencies, not limited to what&rsquo;s just on the current page. Still, Ply manages to do a lot with a simple approach, and served as inspiration for beginning such work in the first place.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="http://gameprogrammingpatterns.com/contents.html">Game Programming Patterns: Revisiting Design Patterns</a>
         </h1>
         <div class="post-meta">
@@ -909,49 +955,6 @@ entity_id, target_id: &lt;average, sum, ..&gt; feature_value for feature_id
             </div>
         </div>
     </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://googleprojectzero.blogspot.com/2018/09/a-cache-invalidation-bug-in-linux.html">Linux Cache Invalidation Bug</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 02 October 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/linux-cache-invalidation-bug/">02 October 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/systems">Systems</a>
-        <a href="/tags/security">Security</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>This is a detailed writeup from Project Zero about a bug in the Linux Kernel, introduced through an optimization with an unconsidered edge case.</p>
-
-<p>A quick summary of the relevant OS concepts: Virtual Memory Areas (VMAs), which include the code segment, data segment, and heap, have special rules[1] that must be applied when a page fault occurs. The mappings of addresses to VMAs are stored in <code>vm_area_struct</code>s, which are stored in a red-black tree or possibly cached in a per-thread 4-member array. Whenever a VMA is freed in any thread for the process, all of these per-thread caches must be invalidated.</p>
-
-<p>To avoid having to do this expensive operation, each cache is tagged with a <code>seqnum</code> equal to the <code>seqnum</code> of the per-process <code>mm_struct</code>; when the <code>seqnum</code>s are out of sync, we know to invalidate the cache. Because the <code>seqnum</code> can overflow, though, we still need to flush all the caches every time that happens.</p>
-
-<p>In the patch in question, someone added the further optimization of simply avoiding the flush if the process is single-threaded. They reasoned that VMA lookups would always trigger the update of the cache <code>seqnum</code> and <code>mm_struct</code> <code>seqnum</code> simultaneously, avoiding the need for the flush.</p>
-
-<p>However, this added a (normally) rather unlikely bug in the case that, immediately after incrementing the <code>mm_struct</code> <code>seqnum</code> to wrap to zero, a second thread is created, pushing the <code>seqnum</code> back up to <code>0xffffffff</code> and making the cache in the first thread appear valid again.</p>
-
-<p>The authors manage to exploit the bug first by doing a large number of VMA remappings to trigger the overflow, then creating a fake VMA using the pointers from the deallocated one &ndash; leaked to logs by a warning message &ndash; to bypass Kernel controls. The VMA contains a fault handler that is used on page faults, which can be used, for instance, to run a binary with root privileges.</p>
-
-<p>[1] <a href="http://students.mimuw.edu.pl/SO/Linux/Kod/include/linux/mm.h.html">http://students.mimuw.edu.pl/SO/Linux/Kod/include/linux/mm.h.html</a></p>
-
-            </div>
-        </div>
-    </section>
 </article>  
         </div>
 
@@ -1001,6 +1004,19 @@ entity_id, target_id: &lt;average, sum, ..&gt; feature_value for feature_id
   
     <li
       ><a href="/readings/page/3/">3</a>
+    </li>
+    
+  
+  
+  
+  
+   
+    
+    
+  
+  
+    <li
+      ><a href="/readings/page/4/">4</a>
     </li>
     
   
