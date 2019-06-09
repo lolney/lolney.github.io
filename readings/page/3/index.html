@@ -69,6 +69,43 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://blogs.dropbox.com/tech/2016/05/inside-the-magic-pocket/">Dropbox&#39;s Distributed Storage System</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 10 April 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/dropbox-storage/">10 April 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/software-engineering">Software Engineering</a>
+        <a href="/tags/distributed-systems">Distributed Systems</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>Magic Pocket is Dropbox&rsquo;s distributed storage system. It prioritizes simplicity, durability and availability, with a multi-level design that uses centralized coordination where possible. Data is replicated on all levels: between zones (which span an entire region, like the Eastern US) but also within each zone. The <a href="https://news.ycombinator.com/item?id=11647343">author notes in a HN comment</a> the high-level similarities with GFS, which may warrant a closer look.</p>
+
+<p>Below the level of <code>zone</code> is the <code>cell</code>, the largest storage unit with central coordination. The <code>cell</code> contains <code>volume</code>s, which are replicated over several physical storage units, or <code>OSD</code>s. The cell&rsquo;s <code>master</code> controls tasks like the creation and deletion of buckets, and repair of volumes in case of <code>OSD</code> failure. The data flow of the cell works independently of the master, though: a separate <code>replication table</code> maps buckets to physical storage locations, keeping it working in case of failure of the master. The master&rsquo;s protocol ensures consistency in the event of failure or restart of any component, notably by storing the <code>generation</code> of each volume-to-OSD mapping with the volume and in the replication table. Eg, if the master hangs in the middle of a repair process and later comes back to life, it will not try to continue that repair (or will at least not leave the system inconsistent - the exact mechanism that prevents that is unclear).</p>
+
+<p>Some other characteristics: the smallest units of file storage are immutable, like git&rsquo;s or IPFS&rsquo;s: changes are written to a journal and each change creates a new block. This prevents inconsistency that could result from updating some copies of the file but not others. It&rsquo;s also optimizing for temporal locality &ndash; files that get changed are the most likely to get changed again soon &ndash; while making sure that even old files can be accessed quickly. It does this, per <a href="https://news.ycombinator.com/item?id=11646627">the author&rsquo;s comment on HN</a>, by applying the above replication scheme for 24 hours after a volume is created. After that, data is replicated by a more efficient erasure-coding system.</p>
+
+<p>In <a href="https://news.ycombinator.com/item?id=11646524">another interesting HN comment</a>, the author points out that the <code>block</code>s are actual blocks on the storage device, directly managed without any intermediate filesystem.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://docs.google.com/viewer?url=https%3A%2F%2Fdrum.lib.umd.edu%2Fbitstream%2Fhandle%2F1903%2F542%2FCS-TR-2222.ps%3Fsequence%3D1%26isAllowed%3Dy">Skip Lists</a>
         </h1>
         <div class="post-meta">
@@ -386,42 +423,6 @@ When a node is inserted, it is given a random level to represent it: level 1 wit
 <p>Futures are tasks that can be chained. They must implement a type Item that is the result of the computation, a type Error, and a poll method that returns <code>Async::WillWake</code> or <code>Async::Ready(data: Item)</code>.</p>
 
 <p>Futures are designed to be state machines: eg, one that alterates between the states <code>Reading</code> and <code>Writing</code>, returning <code>Async::NotReady</code> when it can&rsquo;t proceed.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://idea.popcount.org/2014-04-03-bind-before-connect/">Bind Before Connect</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 20 March 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/bind-before-connect/">20 March 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/programming">Programming</a>
-        <a href="/tags/networking">Networking</a>
-        <a href="/tags/how-to">How-to</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>If you create a socket and call <code>connect(dst, port)</code> on it, or first call <code>bind(src, port)</code> with port 0, the kernel will allocate from the pool of up to 64k available ports. However, with with <code>SO_REUSEPORT</code>, you can also share ports to create an effectively unlimited number of connections - as long as the destination address is different for each connection sharing the same port. To have multiple connections to the same IP/Port pair, you can use different source IP addresses instead.</p>
-
-<p><code>SO_REUSEADDR</code> behaves slightly differently than <code>SO_REUSEPORT</code>, allowing reuse of addresses in the cooldown period after a process releases a socket, plus allowing binding of wildcard addresses (<code>0.0.0.0</code>) and normal addresses to the same port.</p>
-
-<p>There are various implementation concerns (ie, <code>bind</code> is fine, but after <code>connect</code> one of the reuse rules is broken) that the linked post discusses.</p>
 
             </div>
         </div>

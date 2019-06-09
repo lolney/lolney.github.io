@@ -8,6 +8,16 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/posts/your-server-as-a-function/</loc>
+    <lastmod>2019-06-09T11:39:51-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://lukeolney.me/readings/primer-css/</loc>
+    <lastmod>2019-05-25T22:42:08-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/ply-css-inspector/</loc>
     <lastmod>2019-05-12T21:05:05-04:00</lastmod>
   </url>
@@ -205,6 +215,12 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/architecture/</loc>
+    <lastmod>2019-06-09T11:39:51-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/authentication/</loc>
     <lastmod>2018-10-22T20:20:26-07:00</lastmod>
     <priority>0</priority>
@@ -218,7 +234,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/css/</loc>
-    <lastmod>2019-05-12T21:05:05-04:00</lastmod>
+    <lastmod>2019-05-25T22:42:08-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -290,7 +306,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2019-05-12T21:05:05-04:00</lastmod>
+    <lastmod>2019-06-09T11:39:51-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -313,6 +329,12 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/networking/</loc>
+    <lastmod>2018-12-30T23:19:08-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/papers/</loc>
     <lastmod>2019-05-12T21:05:05-04:00</lastmod>
     <priority>0</priority>
@@ -320,7 +342,7 @@
   
   <url>
     <loc>https://lukeolney.me/posts/</loc>
-    <lastmod>2018-10-18T00:09:36-07:00</lastmod>
+    <lastmod>2019-06-09T11:39:51-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -356,7 +378,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/rust/</loc>
-    <lastmod>2019-03-14T13:26:33-07:00</lastmod>
+    <lastmod>2019-06-09T11:39:51-04:00</lastmod>
     <priority>0</priority>
   </url>
   

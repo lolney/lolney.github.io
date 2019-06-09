@@ -69,6 +69,46 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://krebsonsecurity.com/2017/01/who-is-anna-senpai-the-mirai-worm-author/">Who is Anna-Senpai, the Mirai Worm Author</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 18 October 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/mirai/">18 October 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/security">Security</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>This is Brian Krebs&rsquo; fascinating investigative report into the Mirai botnet, the network used to launch some of the largest DDoS attacks on the Internet to date. Krebs&rsquo; account include testimony and private conversations with the hackers themselves, who were later charged by the FBI for their activities. It reveals how much the Internet remains a free-for-all, kill-or-be-killed world, where rogue security companies can surreptitiously hijack competitors&rsquo; IP addresses<a href="https://en.wikipedia.org/wiki/BGP_hijacking">1</a> or take down their services with DDoS hits.</p>
+
+<p>Mirai was the covert arm of a legitimate business, ProTraf Solutions, which offered DDoS protection services in the competitive Minecraft server cottage industry. In early attacks, it sought competitive advantage by DDoSing a competing service, ProxyPipe, which forced many of ProxyPipe&rsquo;s customers to switch to ProTraf.</p>
+
+<p>Krebs is able to connect ProTraf CEO&rsquo;s description of his programming language skills to that of his blackhat persona &ndash; and professed Mirai author &ndash; Anna-Senpai. He also mentions a Github username, shared among a number of online accounts that includes a number of Minecraft forums and a Reddit account. This has several interesting posts, including awfully suspicious speculation about the nature of a DDoS attack on the Rutgers campus.</p>
+
+<p>After the ProxyPipe CEO, remarkably, managed through several layers of ISPs to get the Ukrainian-based control servers for the botnet disconnected, Anna-Senpai taunts him with the knowledge he is responsible. This is just one piece of evidence for his petty-vindictive persona &ndash; he is constantly taking down people he gets into disagreements with, like a hapless server operator and, on multiple occasions, Krebs himself.</p>
+
+<p>The ProxyPipe CEO evenutally makes the connection that Krebs describes between Anna-Senpai and his real life persona. In fact, the two had previously been friends and collaborators on Minecraft projects, before, he says, Anna-Senpai fell to the bad influence of places like Hackforums.net.</p>
+
+<p>His sloppiness with his online personas and his hubris eventually does the Mirai creator in, as the FBI track him down after a broad investigation. He is indicted, and now, as of the time of writing, serves the FBI as part of a plea agreement.<a href="http://www2.philly.com/philly/business/mirai-cyberattack-rutgers-student-paras-jha-fbi-20180919.html">2</a></p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://googleprojectzero.blogspot.com/2018/09/a-cache-invalidation-bug-in-linux.html">Linux Cache Invalidation Bug</a>
         </h1>
         <div class="post-meta">
@@ -461,43 +501,6 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
                 <p>Roofnet is a WiFi mesh network for increasing Internet access in urban areas. It&rsquo;s designed to be easy to set up: Users just need to place antennae on their roofs, and there&rsquo;s no need surveys to determine the optimum place to put them &ndash; since the network makes up the difference in performance. It does that, in part, though its routing protocol, which chooses routes that maximize bitrate and minimize loss-rate. It also introduces a new protocol that maximizes throughput no matter the loss rate &ndash; transmitting at a lower bitrate can improve performance by avoiding re-transmissions, and this protocol improves on the heuristics used by its predecessors (although not described in detail here).</p>
 
 <p>In summary: Some number of nodes in the network have wired access to the Internet. The rest of the nodes need to route their packets to these gateway nodes, with some number of hops. Roofnet does that without much performance loss by choosing the highest-throughput routes, using multiple links if necessary.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://blogs.dropbox.com/tech/2016/05/inside-the-magic-pocket/">Dropbox&#39;s Distributed Storage System</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 10 April 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/dropbox-storage/">10 April 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/software-engineering">Software Engineering</a>
-        <a href="/tags/distributed-systems">Distributed Systems</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>Magic Pocket is Dropbox&rsquo;s distributed storage system. It prioritizes simplicity, durability and availability, with a multi-level design that uses centralized coordination where possible. Data is replicated on all levels: between zones (which span an entire region, like the Eastern US) but also within each zone. The <a href="https://news.ycombinator.com/item?id=11647343">author notes in a HN comment</a> the high-level similarities with GFS, which may warrant a closer look.</p>
-
-<p>Below the level of <code>zone</code> is the <code>cell</code>, the largest storage unit with central coordination. The <code>cell</code> contains <code>volume</code>s, which are replicated over several physical storage units, or <code>OSD</code>s. The cell&rsquo;s <code>master</code> controls tasks like the creation and deletion of buckets, and repair of volumes in case of <code>OSD</code> failure. The data flow of the cell works independently of the master, though: a separate <code>replication table</code> maps buckets to physical storage locations, keeping it working in case of failure of the master. The master&rsquo;s protocol ensures consistency in the event of failure or restart of any component, notably by storing the <code>generation</code> of each volume-to-OSD mapping with the volume and in the replication table. Eg, if the master hangs in the middle of a repair process and later comes back to life, it will not try to continue that repair (or will at least not leave the system inconsistent - the exact mechanism that prevents that is unclear).</p>
-
-<p>Some other characteristics: the smallest units of file storage are immutable, like git&rsquo;s or IPFS&rsquo;s: changes are written to a journal and each change creates a new block. This prevents inconsistency that could result from updating some copies of the file but not others. It&rsquo;s also optimizing for temporal locality &ndash; files that get changed are the most likely to get changed again soon &ndash; while making sure that even old files can be accessed quickly. It does this, per <a href="https://news.ycombinator.com/item?id=11646627">the author&rsquo;s comment on HN</a>, by applying the above replication scheme for 24 hours after a volume is created. After that, data is replicated by a more efficient erasure-coding system.</p>
-
-<p>In <a href="https://news.ycombinator.com/item?id=11646524">another interesting HN comment</a>, the author points out that the <code>block</code>s are actual blocks on the storage device, directly managed without any intermediate filesystem.</p>
 
             </div>
         </div>

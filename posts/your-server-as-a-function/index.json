@@ -1,0 +1,135 @@
+{
+    "data" :  {
+    "title": "Your Server as a Function, Actix-net, and composable network services",
+    "content": "
+
+<p>Twitter&rsquo;s 2013 Paper <a href="https://monkey.org/~marius/funsrv.pdf">Your Server as a Function</a> presents a functional model for distributed server software, based on the primitives of futures, services, and filters. This paper shares ideas in common with high-level Rust apis like tokio or futures, but it&rsquo;s particularly influential on Actix-net, which creates the building blocks for the Rust-based micro web framework <a href="https://github.com/actix/actix-web">Actix-web</a>. I&rsquo;ll start by summarizing the paper, then get into how it relates to Activ-net after that.</p>
+
+<h1 id="your-server-as-a-function">Your Server as a Function</h1>
+
+<p>The paper mostly details the Finagle runtime library, but outlines some general principles.</p>
+
+<p>As the title suggests, the gist is to treat servers as functions &ndash; composable buiding blocks that can be made by composing functions themselves. Some key quotes to set the tone:</p>
+
+<blockquote>
+<p>Server operations (e.g. acting on an incoming RPC or a timeout) are defined in a declarative fashion,</p>
+</blockquote>
+
+<p>Don&rsquo;t worry about low-level primitives like threads, only data flow. Servers are the primary building blocks, with lower-level concerns are are handled by the runtime engine.</p>
+
+<blockquote>
+<p>relating the results of the (possibly many) subsequent sub-operations through the use of future combinators</p>
+</blockquote>
+
+<p>Asynchronous results compose, feeding into each other and building up greater functionality.</p>
+
+<h2 id="futures-services-and-filters">Futures, Services, and Filters</h2>
+
+<p>Futures represent the results of asynchronous operations. Services are asynchronous functions, representing system boundaries. Filters are asynchronous functions that compose to build services, and can be reused in multiple services.</p>
+
+<p>Futures are the familiar concept that&rsquo;s made it into many popular languages, as either futures or promises.</p>
+
+<p>Futures compose by feeding into another operation, resulting in another future. Multiple asynchronous operations, eg, separating a query into requests to multiple servers, can also be combined into a single future.</p>
+
+<p>Services are just asynchronous functions, but can be used to represent by themselves either a client or server:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#6ab825;font-weight:bold">val</span> client<span style="color:#6ab825;font-weight:bold">:</span> <span style="color:#6ab825;font-weight:bold">Service</span>[<span style="color:#6ab825;font-weight:bold">HttpReq</span>, <span style="color:#6ab825;font-weight:bold">HttpRep</span>] <span style="color:#6ab825;font-weight:bold">=</span> <span style="color:#447fcf">Http</span>.newService(<span style="color:#ed9d13">&#34;twitter.com:80&#34;</span>)
+server <span style="color:#6ab825;font-weight:bold">=</span> <span style="color:#447fcf">Http</span>.serve(<span style="color:#ed9d13">&#34;:80&#34;</span>, { req<span style="color:#6ab825;font-weight:bold">:</span> <span style="color:#6ab825;font-weight:bold">HttpReq</span> =&gt; <span style="color:#447fcf">Future</span>.value(<span style="color:#447fcf">HttpRep</span>(<span style="color:#447fcf">Status</span>.<span style="color:#447fcf">OK</span>, req.body)) })</code></pre></div>
+<p>Generally, services take a request and return a future.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#6ab825;font-weight:bold">type</span> <span style="color:#6ab825;font-weight:bold">Service</span>[<span style="color:#6ab825;font-weight:bold">Req</span>, <span style="color:#6ab825;font-weight:bold">Rep</span>] <span style="color:#6ab825;font-weight:bold">=</span> <span style="color:#447fcf">Req</span> <span style="color:#6ab825;font-weight:bold">=&gt;</span> <span style="color:#447fcf">Future</span>[<span style="color:#6ab825;font-weight:bold">Rep</span>]</code></pre></div>
+<p>A filter is used to augment a service; it takes the form:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#6ab825;font-weight:bold">type</span> <span style="color:#6ab825;font-weight:bold">Filter</span>[<span style="color:#6ab825;font-weight:bold">Req</span>, <span style="color:#6ab825;font-weight:bold">Rep</span>] <span style="color:#6ab825;font-weight:bold">=</span> (<span style="color:#447fcf">Req</span>, <span style="color:#447fcf">Service</span>[<span style="color:#6ab825;font-weight:bold">Req</span>, <span style="color:#6ab825;font-weight:bold">Rep</span>]) <span style="color:#6ab825;font-weight:bold">=&gt;</span> <span style="color:#447fcf">Future</span>[<span style="color:#6ab825;font-weight:bold">Rep</span>]</code></pre></div>
+<p>For example, the auth service combines the method <code>authReq</code> and the <code>argument</code>:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#6ab825;font-weight:bold">val</span> auth<span style="color:#6ab825;font-weight:bold">:</span> (<span style="color:#6ab825;font-weight:bold">HttpReq</span>, <span style="color:#6ab825;font-weight:bold">Service</span>[<span style="color:#6ab825;font-weight:bold">AuthHttpReq</span>, <span style="color:#6ab825;font-weight:bold">HttpRes</span>]) <span style="color:#6ab825;font-weight:bold">=&gt;</span> <span style="color:#447fcf">Future</span>[<span style="color:#6ab825;font-weight:bold">HttpRep</span>] <span style="color:#6ab825;font-weight:bold">=</span> {
+    (req, service) <span style="color:#6ab825;font-weight:bold">=&gt;</span>
+        authReq(req) flatMap { authReq <span style="color:#6ab825;font-weight:bold">=&gt;</span>
+           service(authReq)
+        }
+}</code></pre></div>
+<p>With the andThen combinator, you can combine <code>auth</code> and <code>authedService</code> into a single service that performs <code>auth</code> and runs <code>authedService</code> with the result:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#6ab825;font-weight:bold">val</span> service<span style="color:#6ab825;font-weight:bold">:</span> <span style="color:#6ab825;font-weight:bold">Service</span>[<span style="color:#6ab825;font-weight:bold">HttpReq</span>, <span style="color:#6ab825;font-weight:bold">HttpRep</span>] <span style="color:#6ab825;font-weight:bold">=</span> auth andThen authedService</code></pre></div>
+<h2 id="concerns">Concerns</h2>
+
+<h3 id="interrupts">Interrupts</h3>
+
+<p>Since a consumer cannot affect its producer, operations like cancelation are not possible with a pure dataflow model. Finagle uses interrupts to solve this; a consumer can send an interrupt to its producer. The producer remains a black box, its state not directly affected, but it can choose to stop its operations for performance reasons.</p>
+
+<h3 id="allocation">Allocation</h3>
+
+<p>Future combinators allocate futures on the heap, and, in practice, a single can service can include a lot of futures:</p>
+
+<pre><code>recordHandletime
+andThen traceRequest
+andThen collectJvmStats
+andThen parseRequest
+andThen logRequest
+andThen recordClientStats
+andThen sanitize
+andThen respondToHealthCheck
+andThen applyTrafficControl
+andThen virtualHostServer
+</code></pre>
+
+<p>The use of closures can be a problem, as a closure can <a href="https://docs.scala-lang.org/sips/spores.html">inadvertently capture some shorter-lived value</a>. Many of the problems described by are solved by Rust&rsquo;s borrow checker and lifetimes &ndash; eg, not allowing the containing object to be accidently captured.</p>
+
+<h3 id="comparison-with-other-models">Comparison with other models</h3>
+
+<p>Dataflow programming is similar, but requires determinacy that makes them unsuitable for systems programming. See <a href="https://www.info.ucl.ac.be/~pvr/ozma-paper-cr.pdf">this paper</a> for a fuller treatment.
+Channels (as used in Go, Rust) remove Finagle&rsquo;s constraints on data flow direction (producers can also be consumers, both sending and receiving), but are less easily composed.</p>
+
+<h1 id="actix-net">Actix-net</h1>
+
+<p><a href="https://github.com/actix/actix-net">Actix-net</a> borrows very heavily in terms and concepts from &ldquo;Your Server as a Function.&rdquo; Here is an example that uses <code>and_then</code> combinators to compose a service that takes a stream, transforms it, logs it, and counts the number of connections:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#6ab825;font-weight:bold">let</span><span style="color:#666"> </span>num<span style="color:#666"> </span>=<span style="color:#666"> </span>Arc::new(AtomicUsize::new(<span style="color:#3677a9">0</span>));<span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>fn_service(<span style="color:#6ab825;font-weight:bold">move</span><span style="color:#666"> </span>|stream: <span style="color:#447fcf">Io</span>&lt;tokio_tcp::TcpStream&gt;|<span style="color:#666"> </span>{<span style="color:#666">
+</span><span style="color:#666">    </span>SslAcceptorExt::accept_async(&amp;acceptor,<span style="color:#666"> </span>stream.into_parts().<span style="color:#3677a9">0</span>)<span style="color:#666">
+</span><span style="color:#666">        </span>.map_err(|e|<span style="color:#666"> </span>println!(<span style="color:#ed9d13">&#34;Openssl error: {}&#34;</span>,<span style="color:#666"> </span>e))<span style="color:#666">
+</span><span style="color:#666"></span>})<span style="color:#666">
+</span><span style="color:#666"></span>.and_then(fn_service(logger))<span style="color:#666">
+</span><span style="color:#666"></span>.and_then(<span style="color:#6ab825;font-weight:bold">move</span><span style="color:#666"> </span>|_|<span style="color:#666"> </span>{<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">let</span><span style="color:#666"> </span>num<span style="color:#666"> </span>=<span style="color:#666"> </span>num.fetch_add(<span style="color:#3677a9">1</span>,<span style="color:#666"> </span>Ordering::Relaxed);<span style="color:#666">
+</span><span style="color:#666">    </span>println!(<span style="color:#ed9d13">&#34;got ssl connection {:?}&#34;</span>,<span style="color:#666"> </span>num);<span style="color:#666">
+</span><span style="color:#666">    </span>future::ok(())<span style="color:#666">
+</span><span style="color:#666"></span>})</code></pre></div>
+<p>Each individual service acts on requests, fed into it by the stream produced in the first service.
+pub fn and_then<U, F>(self, op: F) -&gt; Result<U, E>
+where
+F: FnOnce(T) -&gt; Result<U, E>,</p>
+
+<p><a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.and_then">and_then</a> is an overloaded concept in Rust, usually used with <code>Result</code> and <code>Option</code> types. The signature for <code>Service</code> maps very closely to its signature for <code>Result</code>, <code>(Result&lt;U, F&gt;, fn(T) -&gt; Result&lt;U,E&gt;) -&gt; Result&lt;U, E&gt;</code>. Instead of U being a value, it&rsquo;s a Request/Response object: A response from one service and request for another.</p>
+
+<p>The <a href="https://github.com/actix/actix-net/blob/158482cd2ff68f9a9c4f47b104e33db99a3968d6/actix-service/src/lib.rs#L105">source</a> represents how <code>and_then</code> transforms a service into a new service (actually <code>AndThen</code>, which implements the Service trait) whose input (<code>Request</code>) is the same as the output (<code>Response</code>). This is a powerful usage of Rust&rsquo;s traits that allows any function that can be converted into a service to then be converted into a type, <code>AndThen</code>, that explicits implements the <code>Service</code> trait.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#6ab825;font-weight:bold">fn</span> <span style="color:#447fcf">and_then</span>&lt;F,<span style="color:#666"> </span>B&gt;(self,<span style="color:#666"> </span>service: <span style="color:#447fcf">F</span>)<span style="color:#666"> </span>-&gt; <span style="color:#447fcf">AndThen</span>&lt;Self,<span style="color:#666"> </span>B&gt;<span style="color:#666">
+</span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">where</span><span style="color:#666">
+</span><span style="color:#666">    </span>Self: <span style="color:#24909d">Sized</span>,<span style="color:#666">
+</span><span style="color:#666">    </span>F: <span style="color:#447fcf">IntoService</span>&lt;B&gt;,<span style="color:#666">
+</span><span style="color:#666">    </span>B: <span style="color:#447fcf">Service</span>&lt;Request<span style="color:#666"> </span>=<span style="color:#666"> </span>Self::Response,<span style="color:#666"> </span>Error<span style="color:#666"> </span>=<span style="color:#666"> </span>Self::Error&gt;,<span style="color:#666">
+</span><span style="color:#666"></span>{<span style="color:#666">
+</span><span style="color:#666">    </span>AndThen::new(self,<span style="color:#666"> </span>service.into_service())<span style="color:#666">
+</span><span style="color:#666"></span>}</code></pre></div>
+<h2 id="rust-futures">Rust futures</h2>
+
+<p>The library relies heavily on Rust futures for both <code>Serivce</code>s and its runtime model (<code>actix-server</code>).</p>
+
+<p>Services return a future, but also are themselves a kind of future with <code>poll_ready</code> and <code>call</code> methods. In the <code>actix-server</code>, workers will poll the service for readiness, then <a href="https://github.com/actix/actix-net/blob/1441355d4f/actix-server/src/worker.rs#L290">call the service</a> with incoming requests:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#6ab825;font-weight:bold">while</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">let</span><span style="color:#666"> </span><span style="color:#24909d">Some</span>(msg)<span style="color:#666"> </span>=<span style="color:#666"> </span>conns.pop()<span style="color:#666"> </span>{<span style="color:#666">
+</span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">match</span><span style="color:#666"> </span>self.check_readiness(<span style="color:#6ab825;font-weight:bold">false</span>)<span style="color:#666"> </span>{<span style="color:#666">
+</span><span style="color:#666">        </span><span style="color:#24909d">Ok</span>(<span style="color:#6ab825;font-weight:bold">true</span>)<span style="color:#666"> </span>=&gt;<span style="color:#666"> </span>{<span style="color:#666">
+</span><span style="color:#666">            </span><span style="color:#6ab825;font-weight:bold">let</span><span style="color:#666"> </span>guard<span style="color:#666"> </span>=<span style="color:#666"> </span>self.conns.get();<span style="color:#666">
+</span><span style="color:#666">            </span><span style="color:#6ab825;font-weight:bold">let</span><span style="color:#666"> </span>_<span style="color:#666"> </span>=<span style="color:#666"> </span>self.services[msg.token.<span style="color:#3677a9">0</span>]<span style="color:#666">
+</span><span style="color:#666">                </span>.as_mut()<span style="color:#666">
+</span><span style="color:#666">                </span>.expect(<span style="color:#ed9d13">&#34;actix net bug&#34;</span>)<span style="color:#666">
+</span><span style="color:#666">                </span>.<span style="color:#3677a9">1</span><span style="color:#666">
+</span><span style="color:#666">                </span>.call((<span style="color:#24909d">Some</span>(guard),<span style="color:#666"> </span>ServerMessage::Connect(msg.io)));<span style="color:#666">
+</span><span style="color:#666">        </span>}<span style="color:#666">
+</span><span style="color:#666">        </span>...<span style="color:#666">
+</span><span style="color:#666">    </span>}<span style="color:#666">
+</span><span style="color:#666"></span>}</code></pre></div>
+<p>Service primitives implement this directly, like the <a href="https://github.com/actix/actix-net/blob/5f8599faf150533320912cd99ee87f5f7f7c5cc8/actix-connect/src/ssl/openssl.rs#L80">OpensslConnectorService</a>.
+For a plain function, <code>poll_ready</code> always returns ready, and <code>call</code> will <a href="https://github.com/actix/actix-net/blob/5f8599faf150533320912cd99ee87f5f7f7c5cc8/actix-service/src/fn_service.rs#L68">simply call the function, interpreting its return type as a future</a>.</p>
+
+<p>The event loop of the server ultimately relies on the implementations of the service building blocks themselves. Even through many layers of abstraction of service combinators, the IO implementation at the bottom of the chain will drive the execution of the whole works.</p>
+"
+} 
+}
+
