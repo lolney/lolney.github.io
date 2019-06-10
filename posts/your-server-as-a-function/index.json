@@ -3,7 +3,9 @@
     "title": "Your Server as a Function, Actix-net, and composable network services",
     "content": "
 
-<p>Twitter&rsquo;s 2013 Paper <a href="https://monkey.org/~marius/funsrv.pdf">Your Server as a Function</a> presents a functional model for distributed server software, based on the primitives of futures, services, and filters. This paper shares ideas in common with high-level Rust apis like tokio or futures, but it&rsquo;s particularly influential on Actix-net, which creates the building blocks for the Rust-based micro web framework <a href="https://github.com/actix/actix-web">Actix-web</a>. I&rsquo;ll start by summarizing the paper, then get into how it relates to Activ-net after that.</p>
+<p>Twitter&rsquo;s 2013 Paper <a href="https://monkey.org/~marius/funsrv.pdf">Your Server as a Function</a> presents a functional model for distributed server software, based on the primitives of futures, services, and filters. The paper touches on the ideas behind high-level Rust APIs like tokio or futures, but it&rsquo;s particularly relevant to Actix-net, which creates the building blocks for the Rust-based micro web framework <a href="https://github.com/actix/actix-web">Actix-web</a>.</p>
+
+<p>I&rsquo;ll start by summarizing the paper, then get into how it relates to Activ-net after that.</p>
 
 <h1 id="your-server-as-a-function">Your Server as a Function</h1>
 
@@ -25,11 +27,11 @@
 
 <h2 id="futures-services-and-filters">Futures, Services, and Filters</h2>
 
-<p>Futures represent the results of asynchronous operations. Services are asynchronous functions, representing system boundaries. Filters are asynchronous functions that compose to build services, and can be reused in multiple services.</p>
+<p>These three concepts fit together to create the system: Futures represent the results of asynchronous operations. Services are asynchronous functions, representing system boundaries. Filters are asynchronous functions that compose to build services, and can be reused in multiple services.</p>
 
 <p>Futures are the familiar concept that&rsquo;s made it into many popular languages, as either futures or promises.</p>
 
-<p>Futures compose by feeding into another operation, resulting in another future. Multiple asynchronous operations, eg, separating a query into requests to multiple servers, can also be combined into a single future.</p>
+<p>They compose by feeding into another operation, resulting in another future. Multiple asynchronous operations, eg, separating a query into requests to multiple servers, can also be combined into a single future.</p>
 
 <p>Services are just asynchronous functions, but can be used to represent by themselves either a client or server:</p>
 <div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-scala" data-lang="scala"><span style="color:#6ab825;font-weight:bold">val</span> client<span style="color:#6ab825;font-weight:bold">:</span> <span style="color:#6ab825;font-weight:bold">Service</span>[<span style="color:#6ab825;font-weight:bold">HttpReq</span>, <span style="color:#6ab825;font-weight:bold">HttpRep</span>] <span style="color:#6ab825;font-weight:bold">=</span> <span style="color:#447fcf">Http</span>.newService(<span style="color:#ed9d13">&#34;twitter.com:80&#34;</span>)
@@ -78,7 +80,7 @@ Channels (as used in Go, Rust) remove Finagle&rsquo;s constraints on data flow d
 
 <h1 id="actix-net">Actix-net</h1>
 
-<p><a href="https://github.com/actix/actix-net">Actix-net</a> borrows very heavily in terms and concepts from &ldquo;Your Server as a Function.&rdquo; Here is an example that uses <code>and_then</code> combinators to compose a service that takes a stream, transforms it, logs it, and counts the number of connections:</p>
+<p><a href="https://github.com/actix/actix-net">Actix-net</a> borrows heavily in terms and concepts from &ldquo;Your Server as a Function.&rdquo; Here is an example that uses <code>and_then</code> combinators to compose a service that takes a stream, transforms it, logs it, and counts the number of connections:</p>
 <div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-rust" data-lang="rust"><span style="color:#6ab825;font-weight:bold">let</span><span style="color:#666"> </span>num<span style="color:#666"> </span>=<span style="color:#666"> </span>Arc::new(AtomicUsize::new(<span style="color:#3677a9">0</span>));<span style="color:#666">
 </span><span style="color:#666">
 </span><span style="color:#666"></span>fn_service(<span style="color:#6ab825;font-weight:bold">move</span><span style="color:#666"> </span>|stream: <span style="color:#447fcf">Io</span>&lt;tokio_tcp::TcpStream&gt;|<span style="color:#666"> </span>{<span style="color:#666">
@@ -91,10 +93,7 @@ Channels (as used in Go, Rust) remove Finagle&rsquo;s constraints on data flow d
 </span><span style="color:#666">    </span>println!(<span style="color:#ed9d13">&#34;got ssl connection {:?}&#34;</span>,<span style="color:#666"> </span>num);<span style="color:#666">
 </span><span style="color:#666">    </span>future::ok(())<span style="color:#666">
 </span><span style="color:#666"></span>})</code></pre></div>
-<p>Each individual service acts on requests, fed into it by the stream produced in the first service.
-pub fn and_then<U, F>(self, op: F) -&gt; Result<U, E>
-where
-F: FnOnce(T) -&gt; Result<U, E>,</p>
+<p>Each individual service acts on requests, fed into it by the stream produced in the first service.</p>
 
 <p><a href="https://doc.rust-lang.org/std/result/enum.Result.html#method.and_then">and_then</a> is an overloaded concept in Rust, usually used with <code>Result</code> and <code>Option</code> types. The signature for <code>Service</code> maps very closely to its signature for <code>Result</code>, <code>(Result&lt;U, F&gt;, fn(T) -&gt; Result&lt;U,E&gt;) -&gt; Result&lt;U, E&gt;</code>. Instead of U being a value, it&rsquo;s a Request/Response object: A response from one service and request for another.</p>
 
