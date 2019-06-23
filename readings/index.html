@@ -69,17 +69,19 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
-            <a href="https://primer.style/css">Primer Css</a>
+            <a href="https://github.com/vuejs/rfcs/blob/function-apis/active-rfcs/0000-function-api.md#multiple-logic-topics">Vue functions API RFC, compared with React hooks</a>
         </h1>
         <div class="post-meta">
-            <time datetime=" 25 May 2019 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/primer-css/">25 May 2019</a>
+            <time datetime=" 23 June 2019 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/vue-functions/">23 June 2019</a>
             </time>
             <ul class="article-taxonomy">
      
     <li>
         <i class="fa fa-tags"></i>
-        <a href="/tags/css">CSS</a>
+        <a href="/tags/react">React</a>
+        <a href="/tags/vue">Vue</a>
+        <a href="/tags/web">Web</a>
     </li>
     
 </ul>
@@ -93,9 +95,97 @@
             <div class="readmore" hidden=true>
                 
 
-<h2 id="organiation">Organiation</h2>
+<p>The Vue core team recently released a proposal for a &ldquo;functions API,&rdquo; essentially implementing React hooks in Vue.</p>
 
-<h2 id="project-automation">Project Automation</h2>
+<p>The functions API shares a lot of the advantages of hooks: Compared with class components, stateful logic is more easily extractable and composable. Compared to HOCs, there are no unnecessary components created and prop naming clashes are better avoided.</p>
+
+<p>Here is a side-by-side for a simple program:</p>
+
+<h3 id="counting">Counting:</h3>
+
+<p>Vue:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#6ab825;font-weight:bold">template</span>&gt;
+  &lt;<span style="color:#6ab825;font-weight:bold">span</span>&gt;{{ count }}&lt;/<span style="color:#6ab825;font-weight:bold">span</span>&gt;
+&lt;/<span style="color:#6ab825;font-weight:bold">template</span>&gt;
+
+&lt;<span style="color:#6ab825;font-weight:bold">script</span>&gt;
+  <span style="color:#6ab825;font-weight:bold">import</span> { value } from <span style="color:#ed9d13">&#34;vue&#34;</span>;
+
+  <span style="color:#6ab825;font-weight:bold">export</span> <span style="color:#6ab825;font-weight:bold">default</span> {
+    setup() {
+      <span style="color:#6ab825;font-weight:bold">const</span> count = value(<span style="color:#3677a9">0</span>);
+      <span style="color:#6ab825;font-weight:bold">const</span> increment = () =&gt; {
+        count.value++;
+      };
+      <span style="color:#6ab825;font-weight:bold">return</span> {
+        count,
+        increment
+      };
+    }
+  };
+&lt;/<span style="color:#6ab825;font-weight:bold">script</span>&gt;</code></pre></div>
+<p>React:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#6ab825;font-weight:bold">import</span> React, { useState } from <span style="color:#ed9d13">&#34;react&#34;</span>;
+
+<span style="color:#6ab825;font-weight:bold">function</span> App() {
+  <span style="color:#6ab825;font-weight:bold">const</span> [count, setCount] = useState(<span style="color:#3677a9">0</span>);
+  <span style="color:#6ab825;font-weight:bold">return</span> (
+    &lt;<span style="color:#6ab825;font-weight:bold">div</span> <span style="color:#bbb">className</span>=<span style="color:#ed9d13">&#34;App&#34;</span>&gt;
+      &lt;<span style="color:#6ab825;font-weight:bold">h1</span>&gt;{count}&lt;/<span style="color:#6ab825;font-weight:bold">h1</span>&gt;
+      &lt;<span style="color:#6ab825;font-weight:bold">button</span> <span style="color:#bbb">onClick</span>=<span style="color:#ed9d13">{()</span> <span style="color:#a61717;background-color:#e3d2d2">=</span>&gt; setCount(count + <span style="color:#3677a9">1</span>)} <span style="color:#a61717;background-color:#e3d2d2">/&gt;</span>
+    &lt;/<span style="color:#6ab825;font-weight:bold">div</span>&gt;
+  );
+}</code></pre></div>
+<h3 id="comparison-with-hooks">Comparison with Hooks</h3>
+
+<p>A few differences help to give it a bit more of the feel of vanilla Javascript, rather than a framework.</p>
+
+<p>One is the separation of logic and the view via the <code>setup</code> function. Where hooks muddy things a bit by putting a value that only needs to be created once (<code>setCount</code>) inside a function that’s called on every render (App), Vue makes it clear that <code>increment</code> is only being defined once, in setup. Vue’s optional template system - you can define your view in JSX, too.</p>
+
+<p>The <code>setup</code> function also eliminates the need for the <code>useCallback</code> hook. It&rsquo;s normally used to prevent unnecessary re-renders because of repeatedly recreating callback functions, but not needed if those are defined once.</p>
+
+<p>Vue’s <code>value</code> function is just a wrapper, so you can just update the wrapped value directly:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">const</span> count = value(<span style="color:#3677a9">0</span>);
+count.value++;
+</code></pre></div>
+<p>While this seems to discourage updating values in a functional way, it is possible to create purely functional updaters through <code>computed</code>:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">const</span> count
+<span style="color:#6ab825;font-weight:bold">const</span> writableComputed = computed(
+  <span style="color:#999;font-style:italic">// read
+</span><span style="color:#999;font-style:italic"></span>  () =&gt; count.value + <span style="color:#3677a9">1</span>,
+)
+</code></pre></div>
+<p>There’s also a dependency injection API that’s similar to the React context API:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">import</span> { provide, inject } from <span style="color:#ed9d13">&#34;vue&#34;</span>;
+
+<span style="color:#6ab825;font-weight:bold">const</span> CountSymbol = Symbol();
+
+<span style="color:#6ab825;font-weight:bold">const</span> Ancestor = {
+  setup() {
+    <span style="color:#999;font-style:italic">// providing a value can make it reactive
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">const</span> count = value(<span style="color:#3677a9">0</span>);
+    provide({
+      [CountSymbol]: count
+    });
+  }
+};
+
+<span style="color:#6ab825;font-weight:bold">const</span> Descendent = {
+  setup() {
+    <span style="color:#6ab825;font-weight:bold">const</span> count = inject(CountSymbol);
+    <span style="color:#6ab825;font-weight:bold">return</span> {
+      count
+    };
+  }
+};
+</code></pre></div>
+<p>The <code>watch</code> function is similar to <code>useEffect</code>, but more explicitly reactive: it subscribes to changes in either props or state, rather than having to implement that check yourself.</p>
+
+<h3 id="conclusions">Conclusions</h3>
+
+<p>The <a href="https://news.ycombinator.com/item?id=20237568">reactions</a> to the proposal are mostly negative, mainly saying that it ruins Vue’s simplicity, or that it’s trying to beat React at its own game. It’s true, for instance, that this <a href="https://github.com/vuejs/rfcs/blob/function-apis/active-rfcs/0000-function-api.md#multiple-logic-topics">example, with the same component implemented with the function api and the current Vue api,</a> doesn’t show a clear winner: The component options in the original separates code along one dimension (methods, data, lifecycle), but the function api does along another (useFetch, useMouse). But it’s easy to see how the function API could have advantages in a larger codebase for composing stateful effects.</p>
+
+<p>The question remains whether the functions API is worth using over React hooks. While functions appears like a pure improvement, it&rsquo;s perhaps not worth abandoning the superior support and ecosystem of React over relatively minor differences.</p>
 
             </div>
         </div>

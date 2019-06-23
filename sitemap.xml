@@ -8,13 +8,13 @@
   </url>
   
   <url>
-    <loc>https://lukeolney.me/posts/your-server-as-a-function/</loc>
-    <lastmod>2019-06-09T11:39:51-04:00</lastmod>
+    <loc>https://lukeolney.me/readings/vue-functions/</loc>
+    <lastmod>2019-06-23T18:40:16-04:00</lastmod>
   </url>
   
   <url>
-    <loc>https://lukeolney.me/readings/primer-css/</loc>
-    <lastmod>2019-05-25T22:42:08-04:00</lastmod>
+    <loc>https://lukeolney.me/posts/your-server-as-a-function/</loc>
+    <lastmod>2019-06-09T11:39:51-04:00</lastmod>
   </url>
   
   <url>
@@ -234,7 +234,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/css/</loc>
-    <lastmod>2019-05-25T22:42:08-04:00</lastmod>
+    <lastmod>2019-05-12T21:05:05-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -306,7 +306,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2019-06-09T11:39:51-04:00</lastmod>
+    <lastmod>2019-06-23T18:40:16-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -372,7 +372,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/react/</loc>
-    <lastmod>2019-03-20T15:49:21-07:00</lastmod>
+    <lastmod>2019-06-23T18:40:16-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -431,8 +431,14 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/vue/</loc>
+    <lastmod>2019-06-23T18:40:16-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/web/</loc>
-    <lastmod>2019-04-30T23:25:14-08:00</lastmod>
+    <lastmod>2019-06-23T18:40:16-04:00</lastmod>
     <priority>0</priority>
   </url>
   
