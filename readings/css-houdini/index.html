@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>CSS Houdini - Luke Olney</title>
+<meta property="og:title" content="CSS Houdini - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title"><a href=http://houdini.glitch.me/>CSS Houdini</a></h1>
+    
+
+    
+    <span class="article-date">2019-08-01</span>
+    
+
+
+
+    <div class="article-content">
+      
+
+<p>Houdini is a series of browser API proposal for extending CSS. It would allow developers to make highly-performant CSS polyfills, or even to create new CSS layout models like CSS grid or flexbox.</p>
+
+<p>Houdini provides three main modes of implementing properties: the layout, paint, and animation APIs.</p>
+
+<h3 id="layout-https-drafts-css-houdini-org-css-layout-api"><a href="https://drafts.css-houdini.org/css-layout-api/">Layout</a></h3>
+
+<p>The layout API is what you would use to recreate flexbox, or else some other kind of custom layout. The sample below shows how it&rsquo;s done &ndash; you define <code>mylayout</code> though the <code>registerLayout</code> function. You can define properties that serve as variable inputs to your layout, and write the code that determines how children in the layout are positioned.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">registerLayout(
+  <span style="color:#ed9d13">&#34;example&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">class</span> {
+    <span style="color:#6ab825;font-weight:bold">static</span> inputProperties = [<span style="color:#ed9d13">&#34;--foo&#34;</span>];
+    <span style="color:#6ab825;font-weight:bold">static</span> childrenInputProperties = [<span style="color:#ed9d13">&#34;--bar&#34;</span>];
+    <span style="color:#6ab825;font-weight:bold">static</span> layoutOptions = {
+      childDisplay: <span style="color:#ed9d13">&#34;normal&#34;</span>,
+      sizing: <span style="color:#ed9d13">&#34;block-like&#34;</span>
+    };
+
+    <span style="color:#6ab825;font-weight:bold">async</span> intrinsicSizes(children, edges, styleMap) {
+      <span style="color:#999;font-style:italic">// Intrinsic sizes code goes here.
+</span><span style="color:#999;font-style:italic"></span>    }
+
+    <span style="color:#6ab825;font-weight:bold">async</span> layout(children, edges, constraints, styleMap, breakToken) {
+      <span style="color:#999;font-style:italic">// Layout code goes here.
+</span><span style="color:#999;font-style:italic"></span>    }
+  }
+);
+</code></pre></div>
+<p>In flexbox, inputProperties include <code>align-items</code> and childrenInputProperties <code>align-self</code>. Your custom variables have the same power to affect how items and their children are laid out, depending on how you want to use them.</p>
+
+<p>The API controls much of the lifecycle of layout itself. You get to define:</p>
+
+<ul>
+<li>The element&rsquo;s min and max size, given the children&rsquo;s sizes</li>
+<li>The available space for its children, given the element&rsquo;s size</li>
+<li>The positions of each child, given the children&rsquo;s sizes</li>
+</ul>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">registerLayout(
+  <span style="color:#ed9d13">&#34;block-like&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">class</span> {
+    <span style="color:#6ab825;font-weight:bold">async</span> intrinsicSizes(children, edges, styleMap) {
+      <span style="color:#6ab825;font-weight:bold">const</span> childrenSizes = <span style="color:#6ab825;font-weight:bold">await</span> <span style="color:#24909d">Promise</span>.all(
+        children.map(child =&gt; {
+          <span style="color:#6ab825;font-weight:bold">return</span> child.intrinsicSizes();
+        })
+      );
+
+      <span style="color:#6ab825;font-weight:bold">const</span> maxContentSize =
+        childrenSizes.reduce((max, childSizes) =&gt; {
+          <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#24909d">Math</span>.max(max, childSizes.maxContentSize);
+        }, <span style="color:#3677a9">0</span>) + edges.inline;
+
+      <span style="color:#6ab825;font-weight:bold">const</span> minContentSize =
+        childrenSizes.reduce((max, childSizes) =&gt; {
+          <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#24909d">Math</span>.max(max, childSizes.minContentSize);
+        }, <span style="color:#3677a9">0</span>) + edges.inline;
+
+      <span style="color:#6ab825;font-weight:bold">return</span> { maxContentSize, minContentSize };
+    }
+
+    <span style="color:#6ab825;font-weight:bold">async</span> layout(children, edges, constraints, styleMap) {
+      <span style="color:#999;font-style:italic">// Determine our (inner) available size.
+</span><span style="color:#999;font-style:italic"></span>      <span style="color:#6ab825;font-weight:bold">const</span> availableInlineSize = constraints.fixedInlineSize - edges.inline;
+      <span style="color:#6ab825;font-weight:bold">const</span> availableBlockSize = constraints.fixedBlockSize
+        ? constraints.fixedBlockSize - edges.block
+        : <span style="color:#6ab825;font-weight:bold">null</span>;
+
+      <span style="color:#6ab825;font-weight:bold">const</span> childFragments = [];
+      <span style="color:#6ab825;font-weight:bold">const</span> childConstraints = { availableInlineSize, availableBlockSize };
+
+      <span style="color:#6ab825;font-weight:bold">const</span> childFragments = <span style="color:#6ab825;font-weight:bold">await</span> <span style="color:#24909d">Promise</span>.all(
+        children.map(child =&gt; {
+          <span style="color:#6ab825;font-weight:bold">return</span> child.layoutNextFragment(childConstraints);
+        })
+      );
+
+      <span style="color:#6ab825;font-weight:bold">let</span> blockOffset = edges.blockStart;
+      <span style="color:#6ab825;font-weight:bold">for</span> (<span style="color:#6ab825;font-weight:bold">let</span> fragment <span style="color:#6ab825;font-weight:bold">of</span> childFragments) {
+        <span style="color:#999;font-style:italic">// Position the fragment in a block like manner, centering it in the
+</span><span style="color:#999;font-style:italic"></span>        <span style="color:#999;font-style:italic">// inline direction.
+</span><span style="color:#999;font-style:italic"></span>        fragment.blockOffset = blockOffset;
+        fragment.inlineOffset = <span style="color:#24909d">Math</span>.max(
+          edges.inlineStart,
+          (availableInlineSize - fragment.inlineSize) <span style="color:#a61717;background-color:#e3d2d2">/ 2</span>
+        );
+
+        blockOffset += fragment.blockSize;
+      }
+
+      <span style="color:#6ab825;font-weight:bold">const</span> autoBlockSize = blockOffset + edges.blockEnd;
+
+      <span style="color:#6ab825;font-weight:bold">return</span> {
+        autoBlockSize,
+        childFragments
+      };
+    }
+  }
+);
+</code></pre></div>
+<h3 id="paint-https-googlechromelabs-github-io-houdini-samples-paint-worklet-border-radius-reverse-border-radius-reverse-js"><a href="https://googlechromelabs.github.io/houdini-samples/paint-worklet/border-radius-reverse/border-radius-reverse.js">Paint</a></h3>
+
+<p>The paint API gives an SVG- or canvas-like drawing API that you can control via CSS properties. The following draws a circle with the radius given by <code>border-radius-reverse</code>:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#6ab825;font-weight:bold">class</span> BorderRadiusReversePainter {
+  <span style="color:#6ab825;font-weight:bold">static</span> get inputProperties() {
+    <span style="color:#6ab825;font-weight:bold">return</span> [<span style="color:#ed9d13">&#34;--border-radius-reverse&#34;</span>, <span style="color:#ed9d13">&#34;--border-radius-reverse-color&#34;</span>];
+  }
+
+  clearCircle(context, x, y, radius) {
+    context.save();
+    context.beginPath();
+    context.arc(x, y, radius, <span style="color:#3677a9">0</span>, <span style="color:#3677a9">2</span> * <span style="color:#24909d">Math</span>.PI, <span style="color:#6ab825;font-weight:bold">true</span>);
+    context.clip();
+    context.clearRect(x - radius, y - radius, radius * <span style="color:#3677a9">2</span>, radius * <span style="color:#3677a9">2</span>);
+    context.restore();
+  }
+
+  paint(ctx, geom, props) {
+    <span style="color:#6ab825;font-weight:bold">const</span> radiusValue = <span style="color:#24909d">Number</span>(props.get(<span style="color:#ed9d13">&#34;--border-radius-reverse&#34;</span>).toString());
+
+    ctx.fillStyle = props.get(<span style="color:#ed9d13">&#34;--border-radius-reverse-color&#34;</span>).toString();
+    ctx.fillRect(<span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>, geom.width, geom.height);
+
+    <span style="color:#6ab825;font-weight:bold">this</span>.clearCircle(ctx, <span style="color:#3677a9">0</span>, <span style="color:#3677a9">0</span>, radiusValue); <span style="color:#999;font-style:italic">// Left top
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">this</span>.clearCircle(ctx, geom.width, geom.height, radiusValue); <span style="color:#999;font-style:italic">// Right bottom
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">this</span>.clearCircle(ctx, <span style="color:#3677a9">0</span>, geom.height, radiusValue); <span style="color:#999;font-style:italic">// Left bottom
+</span><span style="color:#999;font-style:italic"></span>    <span style="color:#6ab825;font-weight:bold">this</span>.clearCircle(ctx, geom.width, <span style="color:#3677a9">0</span>, radiusValue); <span style="color:#999;font-style:italic">// Right top
+</span><span style="color:#999;font-style:italic"></span>  }
+}
+
+registerPaint(<span style="color:#ed9d13">&#34;border-radius-reverse&#34;</span>, BorderRadiusReversePainter);
+</code></pre></div>
+<h3 id="animation-https-github-com-w3c-css-houdini-drafts-tree-master-css-animationworklet"><a href="https://github.com/w3c/css-houdini-drafts/tree/master/css-animationworklet">Animation</a></h3>
+
+<p>The WorkletAnimation API provides a way for CSS animation effects to hook into user input. It allows you to define keyframes and a way to a way to translate the current time into the progress of the animation, which runs in a worklet thread:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">registerAnimator(
+  <span style="color:#ed9d13">&#34;my-awesome-animator&#34;</span>,
+  <span style="color:#6ab825;font-weight:bold">class</span> Passthrough <span style="color:#6ab825;font-weight:bold">extends</span> StatelessAnimator {
+    animate(currentTime, effect) {
+      <span style="color:#999;font-style:italic">// The simplest custom animator that does exactly what regular animations do!
+</span><span style="color:#999;font-style:italic"></span>      effect.localTime = currentTime;
+    }
+  }
+);
+</code></pre></div><div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#999;font-style:italic">// Load your custom animator in the worklet
+</span><span style="color:#999;font-style:italic"></span><span style="color:#6ab825;font-weight:bold">await</span> CSS.animationWorklet.addModule(<span style="color:#ed9d13">&#34;animator.js&#34;</span>);
+
+<span style="color:#6ab825;font-weight:bold">const</span> effect = <span style="color:#6ab825;font-weight:bold">new</span> KeyframeEffect(
+  targetEl,
+  { transform: [<span style="color:#ed9d13">&#34;translateX(0)&#34;</span>, <span style="color:#ed9d13">&#34;translateX(50vw)&#34;</span>] },
+  { duration: <span style="color:#3677a9">1000</span> }
+);
+<span style="color:#6ab825;font-weight:bold">const</span> animation = <span style="color:#6ab825;font-weight:bold">new</span> WorkletAnimation(<span style="color:#ed9d13">&#34;my-awesome-animator&#34;</span>, effect);
+animation.play();
+</code></pre></div>
+<p>As well as defining your own timelines (in <code>animate</code>), you can use provided animation timelines like <code>ScrollTimeline</code> to translate user scroll input into animation progress.</p>
+
+<p>Here&rsquo;s a full example, with more available in the <a href="https://github.com/w3c/css-houdini-drafts/tree/master/css-animationworklet">explainer</a>:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">[
+  <span style="color:#ed9d13">&#34;--avatar-size&#34;</span>,
+  <span style="color:#ed9d13">&#34;--avatar-border&#34;</span>,
+  <span style="color:#ed9d13">&#34;--header-height&#34;</span>,
+  <span style="color:#ed9d13">&#34;--font-base&#34;</span>,
+  <span style="color:#ed9d13">&#34;--bar-height&#34;</span>,
+  <span style="color:#ed9d13">&#34;--spacer&#34;</span>
+].forEach(name =&gt; {
+  CSS.registerProperty({
+    name,
+    syntax: <span style="color:#ed9d13">&#34;&lt;length&gt;&#34;</span>,
+    initialValue: <span style="color:#ed9d13">&#34;0px&#34;</span>,
+    inherits: <span style="color:#6ab825;font-weight:bold">true</span>
+  });
+});
+
+<span style="color:#6ab825;font-weight:bold">async</span> <span style="color:#6ab825;font-weight:bold">function</span> init() {
+  <span style="color:#6ab825;font-weight:bold">await</span> animationWorklet.addModule(<span style="color:#ed9d13">&#34;twitter-header-animator.js&#34;</span>);
+  <span style="color:#6ab825;font-weight:bold">const</span> scrollSource = <span style="color:#24909d">document</span>.body;
+  <span style="color:#6ab825;font-weight:bold">const</span> bar = <span style="color:#24909d">document</span>.querySelector(<span style="color:#ed9d13">&#34;.bar&#34;</span>);
+  <span style="color:#6ab825;font-weight:bold">const</span> avatar = <span style="color:#24909d">document</span>.querySelector(<span style="color:#ed9d13">&#34;.profile .avatar&#34;</span>);
+  <span style="color:#6ab825;font-weight:bold">const</span> follow = <span style="color:#24909d">document</span>.querySelector(<span style="color:#ed9d13">&#34;.profile .follow&#34;</span>);
+  <span style="color:#6ab825;font-weight:bold">const</span> name = <span style="color:#24909d">document</span>.querySelector(<span style="color:#ed9d13">&#34;.profile .name&#34;</span>);
+  <span style="color:#6ab825;font-weight:bold">const</span> timeRange = <span style="color:#3677a9">1000</span>;
+  <span style="color:#6ab825;font-weight:bold">const</span> scrollTimeline = <span style="color:#6ab825;font-weight:bold">new</span> ScrollTimeline({ scrollSource, timeRange });
+
+  <span style="color:#6ab825;font-weight:bold">const</span> barEffect = <span style="color:#6ab825;font-weight:bold">new</span> KeyframeEffect(bar, [{ opacity: <span style="color:#3677a9">0</span> }, { opacity: <span style="color:#3677a9">1</span> }], {
+    duration: <span style="color:#999;font-style:italic">/*timeWhenAvatarTouchesTop*/</span> <span style="color:#3677a9">0</span>,
+    fill: <span style="color:#ed9d13">&#34;both&#34;</span>
+  });
+  <span style="color:#6ab825;font-weight:bold">new</span> WorkletAnimation(<span style="color:#ed9d13">&#34;twitter-header&#34;</span>, barEffect, scrollTimeline, []).play();
+  <span style="color:#6ab825;font-weight:bold">const</span> avatarEffect = <span style="color:#6ab825;font-weight:bold">new</span> KeyframeEffect(
+    avatar,
+    [
+      { transform: <span style="color:#ed9d13">`translateY(0) scale(1)`</span> },
+      {
+        transform: <span style="color:#ed9d13">`translateY(0px) scale(</span><span style="color:#ed9d13">${</span><span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*targetAvatarScale*/</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">)`</span>,
+        offset: <span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*timeWhenAvatarTouchesTop/timeRange*/</span>
+      },
+      {
+        transform: <span style="color:#ed9d13">`translateY(</span><span style="color:#ed9d13">${</span><span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*maxAvatarOffset*/</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">px) scale(</span><span style="color:#ed9d13">${</span>
+          <span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*targetAvatarScale*/</span>
+        <span style="color:#ed9d13">}</span><span style="color:#ed9d13">)`</span>
+      }
+    ],
+    {
+      duration: timeRange,
+      fill: <span style="color:#ed9d13">&#34;both&#34;</span>
+    }
+  );
+  <span style="color:#6ab825;font-weight:bold">new</span> WorkletAnimation(
+    <span style="color:#ed9d13">&#34;twitter-header&#34;</span>,
+    avatarEffect,
+    scrollTimeline,
+    []
+  ).play();
+
+  <span style="color:#6ab825;font-weight:bold">const</span> followEffect = <span style="color:#6ab825;font-weight:bold">new</span> KeyframeEffect(
+    follow,
+    [
+      { transform: <span style="color:#ed9d13">`translateY(0)`</span> },
+      {
+        transform: <span style="color:#ed9d13">`translateY(0)`</span>,
+        offset: <span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*timeWhenFollowTouchesTop/range*/</span>
+      },
+      { transform: <span style="color:#ed9d13">`translateY(</span><span style="color:#ed9d13">${</span><span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*maxAvatarOffset*/</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">px)`</span> }
+    ],
+    {
+      duration: timeRange,
+      fill: <span style="color:#ed9d13">&#34;both&#34;</span>
+    }
+  );
+  <span style="color:#6ab825;font-weight:bold">new</span> WorkletAnimation(
+    <span style="color:#ed9d13">&#34;twitter-header&#34;</span>,
+    followEffect,
+    scrollTimeline,
+    []
+  ).play();
+
+  <span style="color:#6ab825;font-weight:bold">const</span> nameEffect = <span style="color:#6ab825;font-weight:bold">new</span> KeyframeEffect(
+    name,
+    [
+      { transform: <span style="color:#ed9d13">`translateY(0)`</span> },
+      {
+        transform: <span style="color:#ed9d13">`translateY(0)`</span>,
+        offset: <span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*timeWhenFollowTouchesTop/timeRange*/</span>
+      },
+      {
+        transform: <span style="color:#ed9d13">`translateY(0) translateX(</span><span style="color:#ed9d13">${</span>
+          <span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*scrollSourceStyles.get(&#39;--bar-height&#39;).value*/</span>
+        <span style="color:#ed9d13">}</span><span style="color:#ed9d13">px)`</span>,
+        offset: <span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*timeWhenNameTouchesTop/timeRange*/</span>
+      },
+      {
+        transform: <span style="color:#ed9d13">`translateY(</span><span style="color:#ed9d13">${</span><span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*maxNameOffset*/</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">px) translateX(</span><span style="color:#ed9d13">${</span>
+          <span style="color:#3677a9">0</span> <span style="color:#999;font-style:italic">/*scrollSourceStyles.get(&#39;--bar-height&#39;).value*/</span>
+        <span style="color:#ed9d13">}</span><span style="color:#ed9d13">px)`</span>
+      }
+    ],
+    {
+      duration: timeRange,
+      fill: <span style="color:#ed9d13">&#34;both&#34;</span>
+    }
+  );
+  <span style="color:#6ab825;font-weight:bold">new</span> WorkletAnimation(<span style="color:#ed9d13">&#34;twitter-header&#34;</span>, nameEffect, scrollTimeline, []).play();
+
+  <span style="color:#6ab825;font-weight:bold">function</span> updateTimings() {
+    <span style="color:#6ab825;font-weight:bold">const</span> scrollSourceStyles = <span style="color:#24909d">document</span>.body.computedStyleMap();
+    <span style="color:#6ab825;font-weight:bold">const</span> viewportHeight = scrollSource.clientHeight;
+    <span style="color:#6ab825;font-weight:bold">const</span> maxScroll = scrollSource.scrollHeight - viewportHeight;
+
+    <span style="color:#6ab825;font-weight:bold">const</span> avatarDistanceFromTop =
+      scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--header-height&#34;</span>).value <span style="color:#a61717;background-color:#e3d2d2">/ 2 -</span>
+      scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--avatar-size&#34;</span>).value <span style="color:#a61717;background-color:#e3d2d2">/ 2 -</span>
+      scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--avatar-border&#34;</span>).value;
+    <span style="color:#6ab825;font-weight:bold">const</span> timeWhenAvatarTouchesTop =
+      (avatarDistanceFromTop <span style="color:#a61717;background-color:#e3d2d2">/ maxScroll) * timeRange;</span>
+    <span style="color:#6ab825;font-weight:bold">const</span> maxAvatarOffset = maxScroll - avatarDistanceFromTop;
+    <span style="color:#6ab825;font-weight:bold">const</span> targetAvatarScale =
+      scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--bar-height&#34;</span>).value <span style="color:#a61717;background-color:#e3d2d2">/</span>
+      (scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--avatar-size&#34;</span>).value +
+        scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--avatar-border&#34;</span>).value * <span style="color:#3677a9">2</span>);
+
+    <span style="color:#6ab825;font-weight:bold">const</span> avatarEffectKeyFrames = avatarEffect.getKeyframes();
+    avatarEffectKeyFrames[<span style="color:#3677a9">1</span>].transform = <span style="color:#ed9d13">`translateY(0px) scale(</span><span style="color:#ed9d13">${</span>targetAvatarScale<span style="color:#ed9d13">}</span><span style="color:#ed9d13">)`</span>;
+    avatarEffectKeyFrames[<span style="color:#3677a9">1</span>].offset = timeWhenAvatarTouchesTop <span style="color:#a61717;background-color:#e3d2d2">/ timeRange;</span>
+    avatarEffectKeyFrames[<span style="color:#3677a9">2</span>].transform = <span style="color:#ed9d13">`translateY(</span><span style="color:#ed9d13">${</span>maxAvatarOffset<span style="color:#ed9d13">}</span><span style="color:#ed9d13">px) scale(</span><span style="color:#ed9d13">${</span>targetAvatarScale<span style="color:#ed9d13">}</span><span style="color:#ed9d13">)`</span>;
+    avatarEffect.setKeyframes(avatarEffectKeyFrames);
+
+    barEffect.duration = timeWhenAvatarTouchesTop;
+
+    <span style="color:#6ab825;font-weight:bold">const</span> followDistanceFromTop =
+      scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--header-height&#34;</span>).value <span style="color:#a61717;background-color:#e3d2d2">/ 2 +</span>
+      scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--spacer&#34;</span>).value <span style="color:#a61717;background-color:#e3d2d2">/ 2;</span>
+    <span style="color:#6ab825;font-weight:bold">const</span> timeWhenFollowTouchesTop =
+      (followDistanceFromTop <span style="color:#a61717;background-color:#e3d2d2">/ maxScroll) * timeRange;</span>
+    <span style="color:#6ab825;font-weight:bold">const</span> maxFollowOffset = maxScroll - followDistanceFromTop;
+    <span style="color:#6ab825;font-weight:bold">const</span> followEffectKeyFrames = followEffect.getKeyframes();
+    followEffectKeyFrames[<span style="color:#3677a9">1</span>].offset = timeWhenFollowTouchesTop <span style="color:#a61717;background-color:#e3d2d2">/ timeRange;</span>
+    followEffectKeyFrames[<span style="color:#3677a9">2</span>].transform = <span style="color:#ed9d13">`translateY(</span><span style="color:#ed9d13">${</span>maxFollowOffset<span style="color:#ed9d13">}</span><span style="color:#ed9d13">px)`</span>;
+    followEffect.setKeyframes(followEffectKeyFrames);
+
+    <span style="color:#6ab825;font-weight:bold">const</span> nameDistanceFromTop =
+      name.offsetTop - scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--spacer&#34;</span>).value;
+    <span style="color:#6ab825;font-weight:bold">const</span> timeWhenNameTouchesTop =
+      (nameDistanceFromTop <span style="color:#a61717;background-color:#e3d2d2">/ maxScroll) * timeRange;</span>
+    <span style="color:#6ab825;font-weight:bold">const</span> maxNameOffset = maxScroll - nameDistanceFromTop;
+    <span style="color:#6ab825;font-weight:bold">const</span> nameEffectKeyFrames = nameEffect.getKeyframes();
+    <span style="color:#6ab825;font-weight:bold">const</span> nameLeftOffset =
+      scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--bar-height&#34;</span>).value +
+      scrollSourceStyles.get(<span style="color:#ed9d13">&#34;--spacer&#34;</span>).value <span style="color:#a61717;background-color:#e3d2d2">/ 2;</span>
+    nameEffectKeyFrames[<span style="color:#3677a9">1</span>].offset = timeWhenAvatarTouchesTop <span style="color:#a61717;background-color:#e3d2d2">/ timeRange;</span>
+    nameEffectKeyFrames[<span style="color:#3677a9">2</span>].transform = <span style="color:#ed9d13">`translateY(0) translateX(</span><span style="color:#ed9d13">${</span>nameLeftOffset<span style="color:#ed9d13">}</span><span style="color:#ed9d13">px)`</span>;
+    nameEffectKeyFrames[<span style="color:#3677a9">2</span>].offset = timeWhenNameTouchesTop <span style="color:#a61717;background-color:#e3d2d2">/ timeRange;</span>
+    nameEffectKeyFrames[<span style="color:#3677a9">3</span>].transform = <span style="color:#ed9d13">`translateY(</span><span style="color:#ed9d13">${</span>maxNameOffset<span style="color:#ed9d13">}</span><span style="color:#ed9d13">px) translateX(</span><span style="color:#ed9d13">${</span>nameLeftOffset<span style="color:#ed9d13">}</span><span style="color:#ed9d13">px)`</span>;
+    nameEffect.setKeyframes(nameEffectKeyFrames);
+  }
+  updateTimings();
+  <span style="color:#24909d">window</span>.addEventListener(<span style="color:#ed9d13">&#34;resize&#34;</span>, _ =&gt; updateTimings());
+}
+init();
+</code></pre></div>
+<h3 id="other-components">Other Components</h3>
+
+<h4 id="worklets">Worklets</h4>
+
+<p><code>registerLayout</code> and <code>registerPaint</code> register worklets. Worklets are like webworkers, running in a separate browser process, but the browser&rsquo;s layout engine controls when they&rsquo;re called.</p>
+
+<h4 id="css-object-model">CSS Object Model</h4>
+
+<p>A separate proposal, the CSS object model, provides a mapping of CSS values to Javascript objects, like <code>CSS.number(0.5)</code> or <code>CSS.em(2)</code>. This is supposed to improve performance compared to implementing typing in pure JS, which interfaces with CSS via strings and must convert them back and forth.</p>
+
+<p>You can use this to get or set properties directly on on an element via its <code>attributeStyleMap</code>:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">myElement.attributeStyleMap.set(<span style="color:#ed9d13">&#34;opacity&#34;</span>, CSS.number(<span style="color:#3677a9">3</span>));
+myElement.attributeStyleMap.set(<span style="color:#ed9d13">&#34;z-index&#34;</span>, CSS.number(<span style="color:#3677a9">15.4</span>));
+
+console.log(myElement.attributeStyleMap.get(<span style="color:#ed9d13">&#34;opacity&#34;</span>).value); <span style="color:#999;font-style:italic">// 3
+</span><span style="color:#999;font-style:italic"></span>console.log(myElement.attributeStyleMap.get(<span style="color:#ed9d13">&#34;z-index&#34;</span>).value); <span style="color:#999;font-style:italic">// 15.4
+</span><span style="color:#999;font-style:italic"></span></code></pre></div>
+<h4 id="css-registerproperty"><code>CSS.registerProperty</code></h4>
+
+<p>New properties are defined via the custom properties API, which allow you more or less to mimic any already existing CSS property. For instance, you make them limited to a single DOM node rather than cascading down the tree:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">CSS.registerProperty({
+  name: <span style="color:#ed9d13">&#34;--foo&#34;</span>, <span style="color:#999;font-style:italic">// String, name of the custom property
+</span><span style="color:#999;font-style:italic"></span>  syntax: <span style="color:#ed9d13">&#34;&lt;color&gt;&#34;</span>, <span style="color:#999;font-style:italic">// String, how to parse this property. Defaults to *
+</span><span style="color:#999;font-style:italic"></span>  inherits: <span style="color:#6ab825;font-weight:bold">false</span>, <span style="color:#999;font-style:italic">// Boolean, if true should inherit down the DOM tree
+</span><span style="color:#999;font-style:italic"></span>  initialValue: <span style="color:#ed9d13">&#34;black&#34;</span> <span style="color:#999;font-style:italic">// String, initial value of this property
+</span><span style="color:#999;font-style:italic"></span>});
+</code></pre></div>
+<p>Here&rsquo;s how that would look in a CSS rule:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-css" data-lang="css">.<span style="color:#447fcf">my-layout-element</span> {
+  <span style="color:#6ab825;font-weight:bold">display</span>: <span style="color:#447fcf">layout</span>(<span style="color:#ed9d13">&#34;mylayout&#34;</span>);
+  foo: <span style="color:#6ab825;font-weight:bold">red</span>;
+}</code></pre></div>
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>
