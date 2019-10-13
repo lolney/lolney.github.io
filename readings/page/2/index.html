@@ -69,6 +69,53 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/microservices-on-aws.pdf?icmpid=link_from_whitepapers_page">Service Discovery</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 02 December 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/service-discovery/">02 December 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/aws">AWS</a>
+        <a href="/tags/microservices">microservices</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                
+
+<p>Service discovery deals with the problem of mapping services to IPs: If a load balancer wants to send a request to an API server, how does it figure out which ip address to sent it to? This AWS whitepaper gives a high level overview and trade-offs to a couple of approaches:</p>
+
+<h2 id="domains-names-and-load-balancers">Domains Names and Load Balancers</h2>
+
+<p>Alias service domain names (using CNAME records) to the load balancer, which routes to the correct service based on path or host name. This is vulnerable to DNS caching, but you can mitigate that with a short TTL.</p>
+
+<h2 id="dns">DNS</h2>
+
+<p>You can also use DNS to route requests directly to the service. Route 53 allows you to restrict access to services in your own virtual private cloud.</p>
+
+<h2 id="configuration-management">Configuration management</h2>
+
+<p>Map service names to IP addresses in your configuration, which you can set on server start. In particular, you can have new service register with a central configuration manager like AWS OpsWorks.</p>
+
+<p>This is also the basis for frameworks like <a href="https://github.com/Netflix/eureka">Netflix Eurkea</a> or <a href="https://stripe.com/blog/service-discovery-at-stripe">Consul</a>.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://openid.net/specs/openid-connect-basic-1_0.html">OpenID Connect 1.0 Spec</a>
         </h1>
         <div class="post-meta">
@@ -470,61 +517,6 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
 <p>Locking vs message passing: Message passing is better when data has high contention, locking with low contention.</p>
 
 <p>Performance of different types of locks: Each of the nine locks considered is the best performer in certain situations. The ticket lock is the best performer in most low-contention cases, though&ndash;the &ldquo;ticket lock&rdquo; being a spinlock that uses a FIFO queue to determine which thread is allowed to proceed.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://news.ycombinator.com/item?id=11939851">Alan Kay&#39;s Hacker News AMA</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 14 April 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/alan-kay/">14 April 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/software-engineering">Software Engineering</a>
-        <a href="/tags/computing-history">Computing History</a>
-        <a href="/tags/programming-languages">Programming Languages</a>
-        <a href="/tags/hci">HCI</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>Here are some highlights for the Hacker News AMA of Alan Kay, pioneering researcher in graphical user interfaces and object-oriented programming.</p>
-
-<blockquote>
-<p><a href="https://news.ycombinator.com/item?id=11940433">Part of this was that the rather good idea of parsing non-command messages in each process &ndash; we used this in the first Smalltalk at Parc &ndash; became much too ad hoc because there was not a strong attempt to intertwine a real language around the message structures (this very same thing happened with http &ndash; just think of what this could have been if anyone had been noticing</a></p>
-</blockquote>
-
-<p>Mr. Kay thinks that current message-passing protocols (like HTTP or Unix process communication) don&rsquo;t stand up well to the formal treatment of message-passing in Smalltalk. As background, Smalltalk&rsquo;s message handling was done by dynamic dispatch on objects. This would allow inheritance of message handling, so that, eg, the default implementation was to return <code>messageNotUnderstood</code>.<sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup> There is perhaps also the advantage that message fields are parsed by the language parser, making it an actual component of the language that might allow, eg, for easier static analysis. I&rsquo;m only speculating on the specifics, though, since Mr. Kay doesn&rsquo;t make this part clear.</p>
-
-<blockquote>
-<p><a href="https://news.ycombinator.com/user?id=alankay1">&ndash; I was surprised that the HN list page didn&rsquo;t automatically refresh in my browser (seems as though it should be live and not have to be prompted &hellip;)
-</a></p>
-</blockquote>
-
-<p>Mr. Kay comments earlier on the <a href="https://news.ycombinator.com/item?id=11940276">&ldquo;worse is better&rdquo; vs &ldquo;better is better&rdquo;</a> approaches to user interface design, but this, I think, is a better, more concrete way of answering the question. Hacker News is itself an embodiment of &ldquo;worse is better&rdquo;, avoiding new features and maintaining <a href="https://news.ycombinator.com/item?id=11940044">what one commenter points out</a> is an &ldquo;old school&rdquo; feel. Mr. Kay counters with an interesting critique, saying that if old school means how things were done, eg, at PARC, that&rsquo;s more than this website can do! That&rsquo;s to say that old school software was often more capable than we give it credit for, not static, as we often imagine it, but experimenting with new modes of interaction just like fast-moving software today. We shouldn&rsquo;t, therefore, fold up new features simply because they wouldn&rsquo;t be &ldquo;old school&rdquo; enough, as if the researchers at PARC and Bell Labs achieved the perfect form of computing.</p>
-<div class="footnotes">
-
-<hr />
-
-<ol>
-<li id="fn:1"><a href="https://courses.cs.washington.edu/courses/cse505/99au/oo/smalltalk-concepts.html">https://courses.cs.washington.edu/courses/cse505/99au/oo/smalltalk-concepts.html</a>
- <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
-</ol>
-</div>
 
             </div>
         </div>

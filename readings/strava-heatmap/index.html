@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<title>Strava Heatmap - Luke Olney</title>
+<meta property="og:title" content="Strava Heatmap - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title"><a href=https://medium.com/strava-engineering/the-global-heatmap-now-6x-hotter-23fc01d301de>Strava Heatmap</a></h1>
+    
+
+    
+    <span class="article-date">2019-10-13</span>
+    
+
+
+
+    <div class="article-content">
+      <p>The Strava global heatmap is a really cool way of visualizing the popularity of cycling and running routes around the world. It&rsquo;s also interesting challenge on two fronts: efficiently building the heatmap from millions of activities, and efficiently serving the map tiles.</p>
+
+<p><strong>Building the heatmap</strong></p>
+
+<p>Previously, the heatmap was created with C code that accessed activities with individual S3 requests. The latest version is built on Apache Spark to be parallelizable at every stage. It uses a &ldquo;Spark/S3/Parquet data warehouse&rdquo; for data storage – <a href="https://parquet.apache.org/">Parquet</a> being a columnar storage format that&rsquo;s build for doing distributed jobs, working on top of the Hadroop filesystem.</p>
+
+<p>Data is filtered to remove data that is likely the result of non-biking or running activities. It&rsquo;s also normalized for velocity - sitting at a traffic light won&rsquo;t produce more data points than going 20mph on a bike.</p>
+
+<p>The computation is parallelized on a per-tile basis. Since the primitives drawn are paths rather than points, this means that each path must be resampled to fit inside a single tile.</p>
+
+<p>Line drawing is done using <a href="https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm">Bresenham&rsquo;s line algorithm</a> for efficiency. A first stab at a line-drawing might involve looping from the origin the endpoint and adding the slope on each iteration. But this involves float multiplication, which is unnecessary when we&rsquo;re dealing with discrete tiles. Bresenham&rsquo;s algorithm uses only integer addition/subtraction and bitshifting, where the steps are as follows:</p>
+
+<pre><code>    d = 2*dy - dx
+    y = y_start
+
+    for x in range(x_start, x_end):
+        plot(x, y)
+    		if d &gt; 0:
+    			y = y + 1
+    			d = d - 2*dx
+    		d = d + 2*dy
+</code></pre>
+
+<p>With dx = 6, dy =3 ( slope of .5), we have the following pattern:</p>
+
+<table>
+<thead>
+<tr>
+<th>iteration</th>
+<th>d (before)</th>
+<th>y (before)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>0</td>
+<td>Title</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>0 + 6 = 6</td>
+<td>0</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>6 - 12 + 6 = 0</td>
+<td>1</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>0 + 6 = 6</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Line_1.5x%2B1_--_points.svg/300px-Line_1.5x%2B1_--_points.svg.png" alt="" /></p>
+
+<p>Whatever files are currently being processed are stored as nxn matrices, then compressed and written to disk when done.</p>
+
+<p><strong>Normalization</strong></p>
+
+<p>If the samples in a given pixel were linearly mapped to colors, this would result in only the most popular areas being visible (which might have 100x the number of visitors as a less popular area). For normalization, they use the CDF of the pixel values, so that the median pixel is half as strong as the most-traversed pixel.</p>
+
+<p>The CDF is calculated on a per-tile level, but includes the surrounding tiles as well. This ensures that there&rsquo;s a smooth transition between tiles - otherwise, a route might suddenly disappear when it goes from a less popular tile to a more popular one.</p>
+
+<p>Each pixel is actually bilinearly interpolated from the CDFs of its surrounding pixels. It&rsquo;s not clear how this affects parallelization at the per-tile level.</p>
+
+<p><strong>Serving tiles</strong></p>
+
+<p>Tiles at different more zoomed out zoom levels are greater simply by sampling the lower zoom levels.</p>
+
+<p>Tiles are stored on S3 as raw byte values, corresponding to values of the 8-bit color map. These are then are converted to pngs at request time (and cached via their CDN).</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>
