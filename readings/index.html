@@ -97,7 +97,7 @@
 
 <p><strong>Building the heatmap</strong></p>
 
-<p>Previously, the heatmap was created with C code that accessed activities with individual S3 requests. The latest version is built on Apache Spark to be parallelizable at every stage. It uses a &ldquo;Spark/S3/Parquet data warehouse&rdquo; for data storage – <a href="https://parquet.apache.org/">Parquet</a> being a columnar storage format that&rsquo;s build for doing distributed jobs, working on top of the Hadroop filesystem.</p>
+<p>Previously, the heatmap was created with C code that accessed activities with individual S3 requests. The latest version is built on Apache Spark to be parallelizable at every stage. It uses a &ldquo;Spark/S3/Parquet data warehouse&rdquo; for data storage – <a href="https://parquet.apache.org/">Parquet</a> being a columnar storage format that&rsquo;s built for doing distributed jobs, working on top of the Hadroop filesystem.</p>
 
 <p>Data is filtered to remove data that is likely the result of non-biking or running activities. It&rsquo;s also normalized for velocity - sitting at a traffic light won&rsquo;t produce more data points than going 20mph on a bike.</p>
 
@@ -130,7 +130,7 @@
 <tbody>
 <tr>
 <td>0</td>
-<td>Title</td>
+<td>0</td>
 <td>0</td>
 </tr>
 
