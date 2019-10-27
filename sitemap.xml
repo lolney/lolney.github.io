@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/readings/postgres-stored-proceedures/</loc>
+    <lastmod>2019-10-27T18:27:53-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/strava-heatmap/</loc>
     <lastmod>2019-10-13T15:06:42-04:00</lastmod>
   </url>
@@ -285,7 +290,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/databases/</loc>
-    <lastmod>2018-05-19T23:33:44-07:00</lastmod>
+    <lastmod>2019-10-27T18:27:53-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -321,7 +326,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2019-10-13T15:06:42-04:00</lastmod>
+    <lastmod>2019-10-27T18:27:53-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -459,7 +464,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/web/</loc>
-    <lastmod>2019-08-01T21:36:20-04:00</lastmod>
+    <lastmod>2019-10-27T18:27:53-04:00</lastmod>
     <priority>0</priority>
   </url>
   

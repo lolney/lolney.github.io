@@ -69,6 +69,60 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://daniel.haxx.se/http3-explained/">HTTP/3 Explained</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 30 December 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/http3/">30 December 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/networking">Networking</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                
+
+<p>HTTP/3 is the evolution of the HTTP standard with UDP. It’s based on a new transport-layer protocol called QUIC, which allows better parallelism of the features of HTTP/2.</p>
+
+<p>HTTP/2 introduced multiplexing, which lets the browser send multiple requests without first waiting for the response. This appears parallel at the HTTP level, but it still relies on a single TCP connection. That means that any lost packet will hold up the chain of requests until that packet can be re-transmitted.</p>
+
+<p>HTTP/3&rsquo;s solution continues to use a single connection, but allows transmission from other logical streams while waiting for a lost packet to be retransmitted. That requires implementing a new protocol that retains TCP’s features but allows more control over transmission of packets.</p>
+
+<h2 id="streams">Streams</h2>
+
+<p>QUIC brings HTTP streams to the transport layer. They are independently flow-controlled and independently head-blocked, with prioritization still done at the HTTP layer.</p>
+
+<h2 id="ossification">Ossification</h2>
+
+<p>Changing standards like TCP comes with costs: The Internet relies on a lot of intermediaries to survive, but many are not frequently updated — they will often drop packets on seeing TCP options that they don’t recognize. QUIC gets around this by operating purely with secure connections, preventing intermediaries from inspecting traffic.</p>
+
+<p>This has been a problem with TCP Fast Open, the standard that allows sending data on the first handshake transmission. QUIC offers its own fast open handshake to address that.</p>
+
+<p>Regardless, there are still barriers to using UDP as a transport - many routers block UDP traffic on the standard HTTP ports, for example. This means that HTTP/1 or /2 will still have to exist as a fallback and that connections to unknown hosts will have to be initiated that way.</p>
+
+<h2 id="adoption">Adoption</h2>
+
+<p>It’s already in use across much of the Internet - 7% of all Internet traffic in 2017. While the original Google-introduced protocol was just for HTTP, the IETF version includes a layer for non-HTTP protocols. The implementation for that is still in progress.</p>
+
+<p>Adoption requires coordinating support among those who determine the path of the web, including browser vendors, Apache and nGinx, and TSL implementors.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/microservices-on-aws.pdf?icmpid=link_from_whitepapers_page">Service Discovery</a>
         </h1>
         <div class="post-meta">
@@ -478,45 +532,6 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
         <div class="article-content">
             <div class="readmore" hidden=true>
                 <p>I found Urbit when somebody compared it to the &ldquo;decentralized Internet&rdquo; that <em>Silicon Valley</em>&rsquo;s Pied Piper is building. It turns out that it&rsquo;s even more ambitious than that &ndash; an attempt to rebuild the whole software stack from the Kernel up &ndash; but this summary will focus on the network part.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="http://sigops.org/sosp/sosp13/papers/p33-david.pdf">Everything You Always Wanted to Know About Synchronization but Were Afraid to Ask</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 19 April 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/synchronization/">19 April 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/programming">Programming</a>
-        <a href="/tags/synchronization">Synchronization</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>This paper is an overview of synchronization methods across the hardware stack, with an analysis that attributes high-level performance differences to low-level hardware constraints.</p>
-
-<p>Among the key takeaways:</p>
-
-<p>Latency of atomic operations: There is a heavy penalty for cross-socket sharing - ie, passing data between cores (or hyperthreads). This outweighs other sources of latency by far.</p>
-
-<p>Locking vs message passing: Message passing is better when data has high contention, locking with low contention.</p>
-
-<p>Performance of different types of locks: Each of the nine locks considered is the best performer in certain situations. The ticket lock is the best performer in most low-contention cases, though&ndash;the &ldquo;ticket lock&rdquo; being a spinlock that uses a FIFO queue to determine which thread is allowed to proceed.</p>
 
             </div>
         </div>

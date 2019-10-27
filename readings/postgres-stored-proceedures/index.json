@@ -1,0 +1,90 @@
+{
+    "data" :  {
+    "title": "Rewriting your web app in PostgreSQL stored procedures",
+    "content": "<p>This program is written almost entirely using PostgreSQL stored procedures. These replace all of the controller, model, and serializer logic that you might find in a typical web app.</p>
+
+<p>The part that&rsquo;s implemented in Ruby amounts to handling results and passing parameters:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">    ok, res = db.call(<span style="color:#ed9d13">&#39;invoice_paid&#39;</span>, <span style="color:#3677a9">4</span>, <span style="color:#ed9d13">&#39;cash&#39;</span>)
+    <span style="color:#6ab825;font-weight:bold">if</span> ok
+    	<span style="color:#24909d">puts</span> <span style="color:#ed9d13">&#39;paid&#39;</span>
+    <span style="color:#6ab825;font-weight:bold">else</span>
+    	<span style="color:#24909d">puts</span> <span style="color:#ed9d13">&#39;error&#39;</span>
+    	<span style="color:#24909d">puts</span> res.inspect
+    <span style="color:#6ab825;font-weight:bold">end</span></code></pre></div>
+<p>The rest — including serializing to JSON, setting status codes, and building error objects — is done entirely in PostgreSQL&rsquo;s stored procedure language, plpgsql. This is a superset of the query language that looks a lot like bash.</p>
+
+<p>Here&rsquo;s an example, from <code>invoice_get</code>:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    js := row_to_json(r) <span style="color:#6ab825;font-weight:bold">from</span> (
+    		<span style="color:#6ab825;font-weight:bold">select</span> * <span style="color:#6ab825;font-weight:bold">from</span> store.invoice_view <span style="color:#6ab825;font-weight:bold">where</span> id = <span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#3677a9">1</span>
+    	) r;
+    	status := <span style="color:#3677a9">200</span>;
+    <span style="color:#6ab825;font-weight:bold">if</span> js <span style="color:#6ab825;font-weight:bold">is</span> <span style="color:#6ab825;font-weight:bold">null</span> <span style="color:#6ab825;font-weight:bold">then</span>
+    	js := <span style="color:#ed9d13">&#39;{}&#39;</span>;
+    	status := <span style="color:#3677a9">404</span>;
+    <span style="color:#6ab825;font-weight:bold">end</span> <span style="color:#6ab825;font-weight:bold">if</span>;</code></pre></div>
+<p>Validation is done with very specific constraints, like this email regex:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#6ab825;font-weight:bold">CREATE</span> <span style="color:#6ab825;font-weight:bold">TABLE</span> peeps.people (
+    	id <span style="color:#24909d">serial</span> <span style="color:#6ab825;font-weight:bold">primary</span> <span style="color:#6ab825;font-weight:bold">key</span>,
+    	email <span style="color:#24909d">text</span> <span style="color:#6ab825;font-weight:bold">UNIQUE</span> <span style="color:#6ab825;font-weight:bold">CHECK</span> (email ~ <span style="color:#ed9d13">&#39;\A\S+@\S+\.\S+\Z&#39;</span>),
+    	name <span style="color:#24909d">text</span> <span style="color:#6ab825;font-weight:bold">NOT</span> <span style="color:#6ab825;font-weight:bold">NULL</span> <span style="color:#6ab825;font-weight:bold">CHECK</span> (<span style="color:#6ab825;font-weight:bold">LENGTH</span>(name) &gt; <span style="color:#3677a9">0</span>),
+    	city <span style="color:#24909d">text</span>,
+    	<span style="color:#6ab825;font-weight:bold">state</span> <span style="color:#24909d">text</span>,
+    	country <span style="color:#24909d">char</span>(<span style="color:#3677a9">2</span>) <span style="color:#6ab825;font-weight:bold">REFERENCES</span> peeps.countries(code)
+    );</code></pre></div>
+<p>There&rsquo;s also some more complicated logic, like finding the minimum cost of a ship with at least the given weight:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#6ab825;font-weight:bold">create</span> <span style="color:#6ab825;font-weight:bold">or</span> <span style="color:#6ab825;font-weight:bold">replace</span> <span style="color:#6ab825;font-weight:bold">function</span> store.shipcost(<span style="color:#24909d">char</span>(<span style="color:#3677a9">2</span>), <span style="color:#24909d">numeric</span>) <span style="color:#6ab825;font-weight:bold">returns</span> <span style="color:#24909d">numeric</span> <span style="color:#6ab825;font-weight:bold">as</span> <span style="color:#a61717;background-color:#e3d2d2">$$</span>
+    <span style="color:#6ab825;font-weight:bold">declare</span>
+    	<span style="color:#6ab825;font-weight:bold">c</span> <span style="color:#24909d">numeric</span>;
+    <span style="color:#6ab825;font-weight:bold">begin</span>
+    	<span style="color:#6ab825;font-weight:bold">if</span> <span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#3677a9">2</span> = <span style="color:#3677a9">0</span> <span style="color:#6ab825;font-weight:bold">then</span>
+    		<span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#3677a9">0</span>;
+    	<span style="color:#6ab825;font-weight:bold">end</span> <span style="color:#6ab825;font-weight:bold">if</span>;
+    	<span style="color:#6ab825;font-weight:bold">if</span> (<span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#3677a9">2</span> &lt; <span style="color:#3677a9">0</span>) <span style="color:#6ab825;font-weight:bold">or</span> (<span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#3677a9">2</span> &gt; <span style="color:#3677a9">999</span>) <span style="color:#6ab825;font-weight:bold">then</span>
+    		<span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#3677a9">1000</span>;
+    	<span style="color:#6ab825;font-weight:bold">end</span> <span style="color:#6ab825;font-weight:bold">if</span>;
+    	<span style="color:#6ab825;font-weight:bold">select</span> cost <span style="color:#6ab825;font-weight:bold">into</span> <span style="color:#6ab825;font-weight:bold">c</span> <span style="color:#6ab825;font-weight:bold">from</span> store.shipchart
+    		<span style="color:#6ab825;font-weight:bold">where</span> country = <span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#3677a9">1</span>
+    		<span style="color:#6ab825;font-weight:bold">and</span> weight &gt;= <span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#3677a9">2</span>
+    		<span style="color:#6ab825;font-weight:bold">order</span> <span style="color:#6ab825;font-weight:bold">by</span> cost <span style="color:#6ab825;font-weight:bold">asc</span> <span style="color:#6ab825;font-weight:bold">limit</span> <span style="color:#3677a9">1</span>;
+    	<span style="color:#6ab825;font-weight:bold">if</span> <span style="color:#6ab825;font-weight:bold">c</span> <span style="color:#6ab825;font-weight:bold">is</span> <span style="color:#6ab825;font-weight:bold">not</span> <span style="color:#6ab825;font-weight:bold">null</span> <span style="color:#6ab825;font-weight:bold">then</span>
+    		<span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#6ab825;font-weight:bold">c</span>;
+    	<span style="color:#6ab825;font-weight:bold">end</span> <span style="color:#6ab825;font-weight:bold">if</span>;
+    	<span style="color:#6ab825;font-weight:bold">select</span> cost <span style="color:#6ab825;font-weight:bold">into</span> <span style="color:#6ab825;font-weight:bold">c</span> <span style="color:#6ab825;font-weight:bold">from</span> store.shipchart
+    		<span style="color:#6ab825;font-weight:bold">where</span> country <span style="color:#6ab825;font-weight:bold">is</span> <span style="color:#6ab825;font-weight:bold">null</span>
+    		<span style="color:#6ab825;font-weight:bold">and</span> weight &gt;= <span style="color:#a61717;background-color:#e3d2d2">$</span><span style="color:#3677a9">2</span>
+    		<span style="color:#6ab825;font-weight:bold">order</span> <span style="color:#6ab825;font-weight:bold">by</span> cost <span style="color:#6ab825;font-weight:bold">asc</span> <span style="color:#6ab825;font-weight:bold">limit</span> <span style="color:#3677a9">1</span>;
+    	<span style="color:#6ab825;font-weight:bold">if</span> <span style="color:#6ab825;font-weight:bold">c</span> <span style="color:#6ab825;font-weight:bold">is</span> <span style="color:#6ab825;font-weight:bold">not</span> <span style="color:#6ab825;font-weight:bold">null</span> <span style="color:#6ab825;font-weight:bold">then</span>
+    		<span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#6ab825;font-weight:bold">c</span>;
+    	<span style="color:#6ab825;font-weight:bold">end</span> <span style="color:#6ab825;font-weight:bold">if</span>;
+    	<span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#3677a9">1001</span>;
+    <span style="color:#6ab825;font-weight:bold">end</span>;</code></pre></div>
+<p>There are triggers to update related records when other records are updated. For example, <code>lineitem_calc.sql</code> calculates the total price of the items sold based on the item&rsquo;s price and the quantity sold:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">    <span style="color:#6ab825;font-weight:bold">if</span> (tg_op != <span style="color:#ed9d13">&#39;DELETE&#39;</span>) <span style="color:#6ab825;font-weight:bold">then</span>
+    		<span style="color:#6ab825;font-weight:bold">update</span> store.lineitems l
+    			<span style="color:#6ab825;font-weight:bold">set</span> price = l.quantity * i.price
+    			<span style="color:#6ab825;font-weight:bold">from</span> store.items i
+    			<span style="color:#6ab825;font-weight:bold">where</span> l.item_id = i.id
+    			<span style="color:#6ab825;font-weight:bold">and</span> l.id = <span style="color:#6ab825;font-weight:bold">NEW</span>.id;
+    	<span style="color:#6ab825;font-weight:bold">end</span> <span style="color:#6ab825;font-weight:bold">if</span>;</code></pre></div>
+<p>Tests on the stored procedures are done in ruby, using a set of fixtures:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby">    res = <span style="color:#40ffff">DB</span>.exec(<span style="color:#ed9d13">&#34;SELECT * FROM store.invoice_shipcost(1)&#34;</span>)
+    assert_equal <span style="color:#ed9d13">&#39;6&#39;</span>, res[<span style="color:#3677a9">0</span>][<span style="color:#ed9d13">&#39;cost&#39;</span>]</code></pre></div>
+<p>There are a couple potential benefits to this approach:</p>
+
+<ul>
+<li>Enables easily moving between web frameworks, or using something like <a href="http://postgrest.org/en/v6.0/">http://postgrest.org/en/v6.0/</a> to generate an API from your schema</li>
+<li>Puts all your data logic in one place. Some logic — eg constraints — is normally handled by the DB anyway. Why not do all of it here?</li>
+</ul>
+
+<p>Potential drawbacks:</p>
+
+<ul>
+<li>Ties you very heavily to a particular database implementation, which an ORM gives you relative freedom to change</li>
+<li>The tooling — eg, for testing or debugging — doesn&rsquo;t seem great</li>
+</ul>
+
+<p>But probably the most compelling reason — to those who seek this sort of solution — is the minimalism that&rsquo;s common to other types of framework avoidance. There are still those who prefer writing vanilla Javascript or C to their more modern, complex cousins, and I see an approach in common with that here. But most will still prefer the power of frameworks over the elegance and control of simple solutions like this.</p>
+"
+} 
+}
+
