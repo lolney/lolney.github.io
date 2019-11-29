@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/readings/facebook-dev-tools/</loc>
+    <lastmod>2019-11-28T22:07:23-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/postgres-stored-proceedures/</loc>
     <lastmod>2019-10-27T18:27:53-04:00</lastmod>
   </url>
@@ -301,6 +306,12 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/dev-tools/</loc>
+    <lastmod>2019-11-28T22:07:23-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/distributed-systems/</loc>
     <lastmod>2019-10-13T15:06:42-04:00</lastmod>
     <priority>0</priority>
@@ -326,7 +337,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2019-10-27T18:27:53-04:00</lastmod>
+    <lastmod>2019-11-28T22:07:23-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -429,6 +440,12 @@
   <url>
     <loc>https://lukeolney.me/tags/software-engineering/</loc>
     <lastmod>2018-04-14T00:34:41-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lukeolney.me/tags/software-engineering/</loc>
+    <lastmod>2019-11-28T22:07:23-05:00</lastmod>
     <priority>0</priority>
   </url>
   

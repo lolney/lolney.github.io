@@ -65,6 +65,67 @@
 
         <div class="list">
             
+            <h2 class="list-title">2019</h2>
+             <article class="preview">
+    <header>
+        <h1 class="post-title">
+            <a href="https://code.fb.com/core-data/apache-spark-scale-a-60-tb-production-use-case/">Spark at scale at Facebook</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 16 February 2019 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/spark-facebook/">16 February 2019</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/spark">Spark</a>
+        <a href="/tags/distributed-systems">Distributed Systems</a>
+        <a href="/tags/case-studies">Case Studies</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>This blog post details Facebook&rsquo;s migration from Hive to Spark for a particular distributed data processing workload.</p>
+
+<p>Spark is a distributed compute engine, allowing you to write SQL or imperative code that runs in a distributed environment with relatively few accommodations.</p>
+
+<p>Example pipeline (Hive):</p>
+
+<pre><code>Filter -&gt;
+Group -&gt;
+Reduce
+</code></pre>
+
+<p>In this writeup, the core task was to aggregate feature values for each entity_id, target_id pair and shard by entity id:</p>
+
+<pre><code>entity_id, target_id, feature_id, feature_value
+
+-&gt;
+
+// Aggregation could be something like this - not explicit in writeup
+entity_id, target_id: &lt;average, sum, ..&gt; feature_value for feature_id
+</code></pre>
+
+<p>In Hive, each step outputs a temporary table (stored in the HDFS) that serves as the input to the next step. Because this involved serializing and writing files to HDFS repeatedly along the way, this had a pretty severe performance cost in time and CPU hours.</p>
+
+<p>In the Spark implementation described here, each step is instead combined into a single MapReduce job.</p>
+
+<p>They also note some contributions to Spark to improve its reliability, where the great size of their workload revealed some cracks - especially where hardcoded limits proved to be too restrictive.</p>
+
+<p>E.g., <a href="https://github.com/apache/spark/pull/12285/files">this pull request</a> solves a problem when a reducer&rsquo;s memory is fully allocated. Memory is taken up both by the pointer array (which is the array that&rsquo;s sorted) and the records pointed to by it. Initially, the code would reset the pointer array first (allocating new memory) then free the records, which could cause OoM errors unnecessarily.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  
             <h2 class="list-title">2018</h2>
              <article class="preview">
     <header>
@@ -502,36 +563,6 @@ test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
 <p>Consider how the prisoners could design their choices similarly. If, in the case where each prisoner is only allowed to search a single box, all prisoners just choose box 1, there is no possibility of success: Only one prisoner will find the correct number. Choosing a box at random has some probability of success, if extremely low: 100^-100. If instead each prisoner i chooses the ith box, the chances are improved: it&rsquo;s now 1/(100!), since each correctly chosen box constrains the options for future boxes. If just you expand that search to the next 50 boxes, you still don&rsquo;t get the optimal solution - starting with a <sup>1</sup>&frasl;<sub>2</sub> chance of success for the first prisoner, the next 50 prisoners slowly widdle that down to 1 (the resulting probability is 50^50/(100!/50!)).</p>
 
 <p>It follows along these lines that permutation cycles, being disjoint, are better for structuring the search. But I&rsquo;m not sure how to make this intuition concrete, if that&rsquo;s even possible.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://github.com/urbit/urbit">Urbit</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 02 May 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/urbit/">02 May 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/distributed-systems">Distributed Systems</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>I found Urbit when somebody compared it to the &ldquo;decentralized Internet&rdquo; that <em>Silicon Valley</em>&rsquo;s Pied Piper is building. It turns out that it&rsquo;s even more ambitious than that &ndash; an attempt to rebuild the whole software stack from the Kernel up &ndash; but this summary will focus on the network part.</p>
 
             </div>
         </div>

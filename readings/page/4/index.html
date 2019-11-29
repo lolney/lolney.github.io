@@ -69,6 +69,42 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://github.com/rust-lang/rfcs/pull/1888/files">Tail Calls in Rust</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 01 April 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/tail-calls/">01 April 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/rust">Rust</a>
+        <a href="/tags/rust-internals">Rust Internals</a>
+        <a href="/tags/programming-languages">Programming Languages</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>The main transformation to enable tail calls is to replace the function call <code>f</code> with a <code>goto</code>, calling destructors on local variables, then replacing the original arguments of the current function with the arguments of <code>f</code>. The normal borrow semantics for the return should therefore apply.</p>
+
+<p>A tail call is only valid if there is nothing to be done in the caller after the call. This implementation checks this by first creating a node for <code>become</code> in HIR, then later, in MIR, checks that the &ldquo;basic block being branched into&rdquo; either &ldquo;has length zero&rdquo; or &ldquo;terminates with a return.&rdquo; I assume that this &ldquo;basic block being branched into&rdquo; contains whatever follows the <code>become</code> statement, and branches to another basic block if there&rsquo;s anything more to do after the <code>become</code>; otherwise falling into the cases mentioned.</p>
+
+<p>Also notes the main reason tail calls haven&rsquo;t been implemented yet: portability. They&rsquo;re not supported in several targets, like WebAssembly, which is something that the Rust developers apparently won&rsquo;t tolerate.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://github.com/ipfs/ipfs/blob/master/papers/ipfs-cap2pfs/ipfs-p2p-file-system.pdf?raw=true">IPFS (Interplanetary File System) Proposal Paper</a>
         </h1>
         <div class="post-meta">

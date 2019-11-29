@@ -69,6 +69,89 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="https://engineering.fb.com/developer-tools/ccsm/">Notes on some of Facebook&#39;s dev tools work</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 28 November 2019 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/facebook-dev-tools/">28 November 2019</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/software-engineering">Software engineering</a>
+        <a href="/tags/dev-tools">Dev tools</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                
+
+<p>The scale of big tech companies means it makes sense to put a lot of work into developer tools, even if they provide only marginal improvements to any individual workflow. Some of the projects described on Facebook&rsquo;s engineering blog in particular are really cool &ndash; and sometimes their utility also matches that coolness. I&rsquo;ll summarize a couple of them here:</p>
+
+<h2 id="anomaly-detection-https-engineering-fb-com-developer-tools-ccsm"><a href="https://engineering.fb.com/developer-tools/ccsm/">Anomaly detection</a></h2>
+
+<p>This tool finds statistically significant features from crash reports to aid in debugging. Lots of crash reports, with lots of (mostly irrelevant) information in each one, are difficult to interpret. There&rsquo;s a huge upside if you can group reports into similar types of crashes, and also determine the features from similar crash reports that led to the crash. This article describes a way to automate the latter step.</p>
+
+<p>Crash reports can be distilled to group of key-value pairs like <code>{ country: US, version: 4, ...}</code>. The article calls thees <code>contrast sets</code>. The goal is to find contrast sets that are particularly relevant for some group.</p>
+
+<p>For discrete data (like <code>country: US</code> ), we can work with these null hypotheses for statistical tests to determine relevance:</p>
+
+<ul>
+<li>There exists some pair of groups G_i, G_j, where the likelihood of seeing the contrast set is significantly different between them</li>
+<li>The difference is at least d for some pair of groups G_i, G_j</li>
+</ul>
+
+<p>We can also use continuous data, like TD-IDF scores for a given page transition (treated a a bigram, eg, feed → photos). These show how common this interaction was in a crash report, relative to all the others.</p>
+
+<p>The statistical test here is similar idea: the null hypothesis is that the average of the variable is the same across groups</p>
+
+<h2 id="autofix-suggestions-https-engineering-fb-com-developer-tools-getafix-how-facebook-tools-learn-to-fix-bugs-automatically"><a href="https://engineering.fb.com/developer-tools/getafix-how-facebook-tools-learn-to-fix-bugs-automatically/">Autofix suggestions</a></h2>
+
+<p>Static analysis can help you identify problematic code, but this tool, Getafix, goes a step above that – by suggesting a patch to fix it.</p>
+
+<p>This is a tool that&rsquo;s similar to publicly available services like <a href="https://lgtm.com/">https://lgtm.com/</a>, but it&rsquo;s cool to see the methodology explained here.</p>
+
+<p>Getafix learns from past bug fixes to suggest new bug fixes. It&rsquo;s a linter that also suggests intelligent changes, based on code that other developers have used to fix similar issues.</p>
+
+<p>It works by training on diffs of the AST, doing <a href="[https://en.wikipedia.org/wiki/Anti-unification_(computer_science)](https://en.wikipedia.org/wiki/Anti-unification_(computer_science))">anti-unification</a> to group examples that differ only by variables, then building a model that takes the surrounding code into account.</p>
+
+<p>In the pattern mining stage, it unifies edits with some element in common that can be swapped out. E.g., <code>if(dog == null)</code> and <code>if(cat == null)</code> get represented by the common <code>if(n_0 == null)</code></p>
+
+<p>It also supports multiple layers of context. <code>if(dog == null) return; dog.drink();</code> and <code>if(list == null) return; do{ list.pop }</code> have the first line in common, but not the second line.</p>
+
+<p>The context restricts the number of places where the fix can be applied, even if some of the context is unmodified. It can also decide between competing fixes</p>
+
+<ul>
+<li><code>h0.h1()</code> → <code>h0!=null &amp;&amp; h0.h1()</code></li>
+<li><code>h0.h1()</code> → <code>if (h0 == null) return;</code> h0.h1()`</li>
+</ul>
+
+<p>The second is specific to function calls and therefore more likely to be applied, if it matches.</p>
+
+<h2 id="automated-performance-regression-testing-https-engineering-fb-com-web-browserlab-automated-regression-detection-for-the-web"><a href="https://engineering.fb.com/web/browserlab-automated-regression-detection-for-the-web/">Automated performance regression testing</a></h2>
+
+<p>Facebook&rsquo;s CI pipeline analyzes every code change for performance regressions. But when doing end-to-end performance regression testing, especially on a site as complex as Facebook, there&rsquo;s a lot of variation in performance between runs that make these sorts of tests difficult to interpret. Here are some are the areas where the engineers had to work minimize variance between tests, and their solutions:</p>
+
+<ul>
+<li>Data loaded. There&rsquo;s a proxy to ensure that data servers serve a cached version for both the control and treatment versions of the experiment.</li>
+<li>Code nondeterminism - eg, slow logging scripts that are run 1-in-10 times. The fix replaces random generators on the client side with seeded versions. This is necessary on the server side as well, since presumably A-B testing and the like means that the components returned are not the same every time. Here, each call site gets with a uniquely seeded RNG, since multithreading means that the same execution order is not guaranteed every time.</li>
+<li>Environment differences - e.g. browser cookies and cache. Here, it&rsquo;s just necessary to have a clean browser setup for each run of the tests.</li>
+</ul>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://github.com/sivers/store/">Rewriting your web app in PostgreSQL stored procedures</a>
         </h1>
         <div class="post-meta">
@@ -1421,65 +1504,6 @@ Tree 3:                                          [ render | diff | ------ | diff
 <h2 id="diffing-and-updating-the-dom">Diffing and updating the DOM</h2>
 
 <p>The diffing process is done by walking the two trees in unison and noting whenever children, attributes, or listeners vary between the two. These changes are translated to instructions in a stack machine, which is read and interpreted in Javascript.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://code.fb.com/core-data/apache-spark-scale-a-60-tb-production-use-case/">Spark at scale at Facebook</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 16 February 2019 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/spark-facebook/">16 February 2019</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/spark">Spark</a>
-        <a href="/tags/distributed-systems">Distributed Systems</a>
-        <a href="/tags/case-studies">Case Studies</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>This blog post details Facebook&rsquo;s migration from Hive to Spark for a particular distributed data processing workload.</p>
-
-<p>Spark is a distributed compute engine, allowing you to write SQL or imperative code that runs in a distributed environment with relatively few accommodations.</p>
-
-<p>Example pipeline (Hive):</p>
-
-<pre><code>Filter -&gt;
-Group -&gt;
-Reduce
-</code></pre>
-
-<p>In this writeup, the core task was to aggregate feature values for each entity_id, target_id pair and shard by entity id:</p>
-
-<pre><code>entity_id, target_id, feature_id, feature_value
-
--&gt;
-
-// Aggregation could be something like this - not explicit in writeup
-entity_id, target_id: &lt;average, sum, ..&gt; feature_value for feature_id
-</code></pre>
-
-<p>In Hive, each step outputs a temporary table (stored in the HDFS) that serves as the input to the next step. Because this involved serializing and writing files to HDFS repeatedly along the way, this had a pretty severe performance cost in time and CPU hours.</p>
-
-<p>In the Spark implementation described here, each step is instead combined into a single MapReduce job.</p>
-
-<p>They also note some contributions to Spark to improve its reliability, where the great size of their workload revealed some cracks - especially where hardcoded limits proved to be too restrictive.</p>
-
-<p>E.g., <a href="https://github.com/apache/spark/pull/12285/files">this pull request</a> solves a problem when a reducer&rsquo;s memory is fully allocated. Memory is taken up both by the pointer array (which is the array that&rsquo;s sorted) and the records pointed to by it. Initially, the code would reset the pointer array first (allocating new memory) then free the records, which could cause OoM errors unnecessarily.</p>
 
             </div>
         </div>
