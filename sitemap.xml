@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/readings/http2-server-push/</loc>
+    <lastmod>2020-01-01T23:37:34-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/facebook-dev-tools/</loc>
     <lastmod>2019-11-28T22:07:23-05:00</lastmod>
   </url>
@@ -337,7 +342,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2019-11-28T22:07:23-05:00</lastmod>
+    <lastmod>2020-01-01T23:37:34-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -361,13 +366,13 @@
   
   <url>
     <loc>https://lukeolney.me/tags/networking/</loc>
-    <lastmod>2018-12-30T23:19:08-08:00</lastmod>
+    <lastmod>2020-01-01T23:37:34-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://lukeolney.me/tags/networking/</loc>
-    <lastmod>2018-12-30T23:19:08-08:00</lastmod>
+    <lastmod>2020-01-01T23:37:34-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -481,7 +486,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/web/</loc>
-    <lastmod>2019-10-27T18:27:53-04:00</lastmod>
+    <lastmod>2020-01-01T23:37:34-07:00</lastmod>
     <priority>0</priority>
   </url>
   

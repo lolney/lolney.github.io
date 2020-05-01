@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37.1" /> 
+<title>HTTP/2 Server Push vs Websockets vs Server-Sent Events - Luke Olney</title>
+<meta property="og:title" content="HTTP/2 Server Push vs Websockets vs Server-Sent Events - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title"><a href=>HTTP/2 Server Push vs Websockets vs Server-Sent Events</a></h1>
+    
+
+    
+    <span class="article-date">2020-01-01</span>
+    
+
+
+
+    <div class="article-content">
+      <p>One of the key features of HTTP/2 is server push, a way of sending resources over HTTP before the browser requests them. It&rsquo;s related to the older API of SSE (server-sent events), which can be done, with more overhead, over HTTP/1.1, but server push is done in a more stream-oriented way. This post will focus on the differences between the two, as well as what prevents it from being used like websockets.</p>
+
+<p>Server push is typically presented as an alternative to inlining page resources like CSS [1], limited in scope to when a web page is first loaded.</p>
+
+<p>This is because the HTTP/2 push protocol is built to be browser-controlled. Specifically, an HTTP/2 PUSH-enabled server will send a response that contains a PUSH_PROMISE frame for every resource that it expects will be requested, containing the headers that would be included with that request. These are collected by the browser in a store for PUSH_PROMISE frames. The browser can then check its PUSH_PROMISE store before making any requests; if it finds the headers for that request there, it can simply wait for the resource to arrive. [2]</p>
+
+<pre><code>Client ----&gt;
+GET example.com/index.html
+</code></pre>
+
+<pre><code>&lt;---- Server
+PUSH_PROMISE:
+GET example.com/index.html
+</code></pre>
+
+<pre><code>&lt;---- Server
+200 OK
+/Headers/
+`link: script.js`
+/Body/
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<pre><code>Client:
+[find script.js in store; don't make request]
+</code></pre>
+
+<pre><code>&lt;---- Server
+`200 OK`
+/Body/
+`console.log('hello world);`
+</code></pre>
+
+<p>But it&rsquo;s not immediately clear what happens when a server pushes resources that haven&rsquo;t been requested. Is it possible to use a persistent HTTP connection to send resources as you would through a websocket channel? The benefits of this approach might include a security advantage [3], and it might help simplify web app architectures: for instance, we you need both the structure of a REST API and the push capability of websockets. This feature would have to be implemented by browsers, but I don&rsquo;t see any reason that can&rsquo;t, in principle, be done.</p>
+
+<p>Other Notes:</p>
+
+<p>-</p>
+
+<ul>
+<li>Server-sent events have a more websockets-like API, mimicking the familiar Javascript event API.</li>
+<li>Another push option is the <em>Push API</em>, distinct from HTTP push. It&rsquo;s a distinct protocol: <a href="https://w3c.github.io/push-api/">https://w3c.github.io/push-api/</a></li>
+</ul>
+
+<p>[1] <a href="https://blog.golang.org/h2push">https://blog.golang.org/h2push</a>
+[2] <a href="https://en.wikipedia.org/wiki/HTTP/2_Server_Push#How_HTTP/2_PUSH_works_at_a_protocol_level">https://en.wikipedia.org/wiki/HTTP/2_Server_Push#How_HTTP/2_PUSH_works_at_a_protocol_level</a>
+[3] <a href="https://stackoverflow.com/questions/28582935/does-http-2-make-websockets-obsolete">https://stackoverflow.com/questions/28582935/does-http-2-make-websockets-obsolete</a></p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

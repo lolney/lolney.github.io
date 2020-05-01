@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37.1" /> 
 <title>Readings - Luke Olney</title>
 <meta property="og:title" content="Readings - Luke Olney">       
 
@@ -67,6 +67,90 @@
             
             <h2 class="list-title">2019</h2>
              <article class="preview">
+    <header>
+        <h1 class="post-title">
+            <a href="https://hacks.mozilla.org/2019/03/fast-bump-allocated-virtual-doms-with-rust-and-wasm/">Dodrio: Virtual DOMs in Rust</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 14 March 2019 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/rust-virtual-doms/">14 March 2019</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/rust">Rust</a>
+        <a href="/tags/browser-tech">Browser tech</a>
+        <a href="/tags/javascript">Javascript</a>
+        <a href="/tags/react">React</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                
+
+<p>Javascript ecosystem tools like ESLint, Babel, NPM, or Webpack have traditionally been written in Javascript and run on the Node runtime. But there&rsquo;s no requirement that tools that process our JS code be written in JS themselves, and given that these tools are often computationally demanding, there have been <a href="https://www.notionjs.com/">attempts</a> to create more performant versions in languages like Rust.</p>
+
+<p>The project described here takes that a step further, moving a process normally handled by front end JS libraries to high-performance code via WebAssembly.</p>
+
+<p>The virtual DOM is at the core of how React, Ember, Angular, and Vue &ndash; name any recent front end view framework &ndash; do updates: a virtual representation of the DOM, mirroring the component tree, that can be diffed on updates to avoid making unnecessary updates to the actual DOM.</p>
+
+<p>Dodrio implements the virtual DOM in Rust and does high-throughput transfers to JS to make the actual DOM updates. This raises the question, perhaps, if those updates could in the future be done directly in Wasm via the browser API, but the result is still faster than many of the libraries they benchmarked against.</p>
+
+<h2 id="the-dodrio-api">The Dodrio API</h2>
+
+<p>The API gives ways to manipulate virtual DOM nodes (including state, like counters) and render them. It also includes a Wasm interface for using Javacsript components in Rust:</p>
+
+<pre><code>#[wasm_bindgen]
+extern &quot;C&quot; {
+    // Import the JS `Greeting` class.
+    #[wasm_bindgen(extends = Object)]
+    type Greeting;
+
+    // And the `Greeting` class's constructor.
+    #[wasm_bindgen(constructor)]
+    fn new(who: &amp;str) -&gt; Greeting;
+}
+
+// Construct a JS rendering component from a `Greeting` instance.
+let js = JsRender::new(Greeting::new(&quot;World&quot;));
+
+</code></pre>
+
+<h2 id="bump-allocation">Bump allocation</h2>
+
+<p>Bump allocators treat allocation like adding to a stack: add new objects to the end, and you can&rsquo;t deallocate existing objects (except all of them at once).</p>
+
+<p>Dodrio bump allocates its virtual DOM trees and the DOM mutations required after each render, batching the changes that will be made to the physical DOM.</p>
+
+<p>Diagram provided by the blog post. Two trees - the two most recent renders - must be kept in memory at a given time:</p>
+
+<pre><code>        ------------------- Time -------------------&gt;
+Tree 0: [ render | ------ | diff ]
+Tree 1:          [ render | diff | ------ | diff ]
+Tree 2:                          [ render | diff | ------ | diff ]
+Tree 3:                                          [ render | diff | ------ | diff ]
+...
+
+</code></pre>
+
+<p>This is a simple garbage collector that avoid any of the overhead of a general tracing/generational GC.</p>
+
+<h2 id="diffing-and-updating-the-dom">Diffing and updating the DOM</h2>
+
+<p>The diffing process is done by walking the two trees in unison and noting whenever children, attributes, or listeners vary between the two. These changes are translated to instructions in a stack machine, which is read and interpreted in Javascript.</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
     <header>
         <h1 class="post-title">
             <a href="https://code.fb.com/core-data/apache-spark-scale-a-60-tb-production-use-case/">Spark at scale at Facebook</a>
@@ -523,46 +607,6 @@ test hashmap_insert_mut_10     ... bench:       1,961 ns/iter (+/- 191)
 test hashmap_insert_mut_100    ... bench:      29,460 ns/iter (+/- 2,971)
 test hashmap_insert_mut_1000   ... bench:     305,106 ns/iter (+/- 17,927)
 </code></pre>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://en.wikipedia.org/wiki/100_prisoners_problem">100 Prisoners</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 03 May 2018 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/100-prisoners/">03 May 2018</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/probability">Probability</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                <p>The 100 prisoners problem is a probability thought exercise with an unintuitive solution, kind of like the Monty-Hall problem. The setup is this: there are 100 numbers in drawers, each corresponding to one of 100 prisoners. Each prisoner is allowed to pick 50 drawers, but the drawers are reset after each prisoner makes their choice (and there&rsquo;s no communication between prisoners). The goal is for each prisoner to find their number &ndash; if that happens, they escape their sentence.</p>
-
-<p>The naive solution is to pick the 50 drawers at random, giving each prisoner a 50% chance of success (and a vanishingly small chance &ndash; .50^100 &ndash; for all 100 prisoners to pick the correct number). But there&rsquo;s a strategy that drastically improves the odds of success, bringing it to ~30%.</p>
-
-<p>This strategy does not appear much different from the naive one, but it relies on the hidden correlation between success and failure in the permutation cycles to shape the search space. Namely, the prisoners want to search a set that&rsquo;s as different as possible from everyone else&rsquo;s &ndash; since they know the world where they succeed is one in which they all pick different boxes.</p>
-
-<p>The the <a href="https://en.wikipedia.org/wiki/100_prisoners_problem#Monty_Hall_problem">Monty Hall-inspired analogy on the Wikipedia page</a> gives a good explanation of this. Essentially, the contestants choose doors (over two rounds) in a way that they&rsquo;re never picking the same door in the same round.</p>
-
-<p>Consider how the prisoners could design their choices similarly. If, in the case where each prisoner is only allowed to search a single box, all prisoners just choose box 1, there is no possibility of success: Only one prisoner will find the correct number. Choosing a box at random has some probability of success, if extremely low: 100^-100. If instead each prisoner i chooses the ith box, the chances are improved: it&rsquo;s now 1/(100!), since each correctly chosen box constrains the options for future boxes. If just you expand that search to the next 50 boxes, you still don&rsquo;t get the optimal solution - starting with a <sup>1</sup>&frasl;<sub>2</sub> chance of success for the first prisoner, the next 50 prisoners slowly widdle that down to 1 (the resulting probability is 50^50/(100!/50!)).</p>
-
-<p>It follows along these lines that permutation cycles, being disjoint, are better for structuring the search. But I&rsquo;m not sure how to make this intuition concrete, if that&rsquo;s even possible.</p>
 
             </div>
         </div>

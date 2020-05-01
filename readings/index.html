@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37.1" /> 
 <title>Readings - Luke Olney</title>
 <meta property="og:title" content="Readings - Luke Olney">       
 
@@ -65,6 +65,87 @@
 
         <div class="list">
             
+            <h2 class="list-title">2020</h2>
+             <article class="preview">
+    <header>
+        <h1 class="post-title">
+            <a href="">HTTP/2 Server Push vs Websockets vs Server-Sent Events</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 01 January 2020 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/http2-server-push/">01 January 2020</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/web">Web</a>
+        <a href="/tags/networking">Networking</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>One of the key features of HTTP/2 is server push, a way of sending resources over HTTP before the browser requests them. It&rsquo;s related to the older API of SSE (server-sent events), which can be done, with more overhead, over HTTP/1.1, but server push is done in a more stream-oriented way. This post will focus on the differences between the two, as well as what prevents it from being used like websockets.</p>
+
+<p>Server push is typically presented as an alternative to inlining page resources like CSS [1], limited in scope to when a web page is first loaded.</p>
+
+<p>This is because the HTTP/2 push protocol is built to be browser-controlled. Specifically, an HTTP/2 PUSH-enabled server will send a response that contains a PUSH_PROMISE frame for every resource that it expects will be requested, containing the headers that would be included with that request. These are collected by the browser in a store for PUSH_PROMISE frames. The browser can then check its PUSH_PROMISE store before making any requests; if it finds the headers for that request there, it can simply wait for the resource to arrive. [2]</p>
+
+<pre><code>Client ----&gt;
+GET example.com/index.html
+</code></pre>
+
+<pre><code>&lt;---- Server
+PUSH_PROMISE:
+GET example.com/index.html
+</code></pre>
+
+<pre><code>&lt;---- Server
+200 OK
+/Headers/
+`link: script.js`
+/Body/
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;&lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<pre><code>Client:
+[find script.js in store; don't make request]
+</code></pre>
+
+<pre><code>&lt;---- Server
+`200 OK`
+/Body/
+`console.log('hello world);`
+</code></pre>
+
+<p>But it&rsquo;s not immediately clear what happens when a server pushes resources that haven&rsquo;t been requested. Is it possible to use a persistent HTTP connection to send resources as you would through a websocket channel? The benefits of this approach might include a security advantage [3], and it might help simplify web app architectures: for instance, we you need both the structure of a REST API and the push capability of websockets. This feature would have to be implemented by browsers, but I don&rsquo;t see any reason that can&rsquo;t, in principle, be done.</p>
+
+<p>Other Notes:</p>
+
+<p>-</p>
+
+<ul>
+<li>Server-sent events have a more websockets-like API, mimicking the familiar Javascript event API.</li>
+<li>Another push option is the <em>Push API</em>, distinct from HTTP push. It&rsquo;s a distinct protocol: <a href="https://w3c.github.io/push-api/">https://w3c.github.io/push-api/</a></li>
+</ul>
+
+<p>[1] <a href="https://blog.golang.org/h2push">https://blog.golang.org/h2push</a>
+[2] <a href="https://en.wikipedia.org/wiki/HTTP/2_Server_Push#How_HTTP/2_PUSH_works_at_a_protocol_level">https://en.wikipedia.org/wiki/HTTP/2_Server_Push#How_HTTP/2_PUSH_works_at_a_protocol_level</a>
+[3] <a href="https://stackoverflow.com/questions/28582935/does-http-2-make-websockets-obsolete">https://stackoverflow.com/questions/28582935/does-http-2-make-websockets-obsolete</a></p>
+
+            </div>
+        </div>
+    </section>
+</article>  
             <h2 class="list-title">2019</h2>
              <article class="preview">
     <header>
@@ -1420,90 +1501,6 @@ return width;
 </code></pre>
 
 <p>Dan presents a number of solutions that involve passing an identifying key, and points out how each in turn fails to meet these requirements, or requires a lot of additional setup.</p>
-
-            </div>
-        </div>
-    </section>
-</article>  <article class="preview">
-    <header>
-        <h1 class="post-title">
-            <a href="https://hacks.mozilla.org/2019/03/fast-bump-allocated-virtual-doms-with-rust-and-wasm/">Dodrio: Virtual DOMs in Rust</a>
-        </h1>
-        <div class="post-meta">
-            <time datetime=" 14 March 2019 ">
-                <a title="Permalink" href="https://lukeolney.me/readings/rust-virtual-doms/">14 March 2019</a>
-            </time>
-            <ul class="article-taxonomy">
-     
-    <li>
-        <i class="fa fa-tags"></i>
-        <a href="/tags/rust">Rust</a>
-        <a href="/tags/browser-tech">Browser tech</a>
-        <a href="/tags/javascript">Javascript</a>
-        <a href="/tags/react">React</a>
-    </li>
-    
-</ul>
-        </div>
-    </header>
-    <section class="post-excerpt">
-        <div class="center">
-            <i class="fa fa-spinner fa-spin"></i>
-        </div>
-        <div class="article-content">
-            <div class="readmore" hidden=true>
-                
-
-<p>Javascript ecosystem tools like ESLint, Babel, NPM, or Webpack have traditionally been written in Javascript and run on the Node runtime. But there&rsquo;s no requirement that tools that process our JS code be written in JS themselves, and given that these tools are often computationally demanding, there have been <a href="https://www.notionjs.com/">attempts</a> to create more performant versions in languages like Rust.</p>
-
-<p>The project described here takes that a step further, moving a process normally handled by front end JS libraries to high-performance code via WebAssembly.</p>
-
-<p>The virtual DOM is at the core of how React, Ember, Angular, and Vue &ndash; name any recent front end view framework &ndash; do updates: a virtual representation of the DOM, mirroring the component tree, that can be diffed on updates to avoid making unnecessary updates to the actual DOM.</p>
-
-<p>Dodrio implements the virtual DOM in Rust and does high-throughput transfers to JS to make the actual DOM updates. This raises the question, perhaps, if those updates could in the future be done directly in Wasm via the browser API, but the result is still faster than many of the libraries they benchmarked against.</p>
-
-<h2 id="the-dodrio-api">The Dodrio API</h2>
-
-<p>The API gives ways to manipulate virtual DOM nodes (including state, like counters) and render them. It also includes a Wasm interface for using Javacsript components in Rust:</p>
-
-<pre><code>#[wasm_bindgen]
-extern &quot;C&quot; {
-    // Import the JS `Greeting` class.
-    #[wasm_bindgen(extends = Object)]
-    type Greeting;
-
-    // And the `Greeting` class's constructor.
-    #[wasm_bindgen(constructor)]
-    fn new(who: &amp;str) -&gt; Greeting;
-}
-
-// Construct a JS rendering component from a `Greeting` instance.
-let js = JsRender::new(Greeting::new(&quot;World&quot;));
-
-</code></pre>
-
-<h2 id="bump-allocation">Bump allocation</h2>
-
-<p>Bump allocators treat allocation like adding to a stack: add new objects to the end, and you can&rsquo;t deallocate existing objects (except all of them at once).</p>
-
-<p>Dodrio bump allocates its virtual DOM trees and the DOM mutations required after each render, batching the changes that will be made to the physical DOM.</p>
-
-<p>Diagram provided by the blog post. Two trees - the two most recent renders - must be kept in memory at a given time:</p>
-
-<pre><code>        ------------------- Time -------------------&gt;
-Tree 0: [ render | ------ | diff ]
-Tree 1:          [ render | diff | ------ | diff ]
-Tree 2:                          [ render | diff | ------ | diff ]
-Tree 3:                                          [ render | diff | ------ | diff ]
-...
-
-</code></pre>
-
-<p>This is a simple garbage collector that avoid any of the overhead of a general tracing/generational GC.</p>
-
-<h2 id="diffing-and-updating-the-dom">Diffing and updating the DOM</h2>
-
-<p>The diffing process is done by walking the two trees in unison and noting whenever children, attributes, or listeners vary between the two. These changes are translated to instructions in a stack machine, which is read and interpreted in Javascript.</p>
 
             </div>
         </div>
