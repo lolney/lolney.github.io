@@ -69,6 +69,41 @@
              <article class="preview">
     <header>
         <h1 class="post-title">
+            <a href="http://journal.stuffwithstuff.com/2015/02/01/what-color-is-your-function/">What color is your function?</a>
+        </h1>
+        <div class="post-meta">
+            <time datetime=" 03 April 2018 ">
+                <a title="Permalink" href="https://lukeolney.me/readings/function-color/">03 April 2018</a>
+            </time>
+            <ul class="article-taxonomy">
+     
+    <li>
+        <i class="fa fa-tags"></i>
+        <a href="/tags/programming">Programming</a>
+        <a href="/tags/programming-languages">Programming Languages</a>
+    </li>
+    
+</ul>
+        </div>
+    </header>
+    <section class="post-excerpt">
+        <div class="center">
+            <i class="fa fa-spinner fa-spin"></i>
+        </div>
+        <div class="article-content">
+            <div class="readmore" hidden=true>
+                <p>This blog post imagines a programming language with &ldquo;colored functions&rdquo; &ndash; function are either blue or red, and differently-colored functions cannot be passed to or called from each other, plus have different calling conventions &ndash; as an analogy for async functions. The point, I suppose, is to show the unwieldiness of interactions between async and code. After trying to navigate [futures in Rust for a while](), I can see the point. As the author notes, futures don&rsquo;t do much to solve the ugliness of the hand-off between sync and async code. There needs to ultimately be a method for handling separate independent callstacks.</p>
+
+<p>One area where this manifests: API design. The API creator must decide whether to expose async functions, leaving sync users to de-async the result themselves, or sync functions, which async users are left to wrap (potentially wasteful, as the library had to do this itself at some point).</p>
+
+<p>The <a href="https://news.ycombinator.com/item?id=8984648">HN comments for this post</a> are insightful, with the top commenter noting that the red-blue language is &ldquo;essentially Haskell&rdquo; (with blue and red monoids), and another noting that golang solves this problem by making the whole program &ldquo;red&rdquo; (async).</p>
+
+            </div>
+        </div>
+    </section>
+</article>  <article class="preview">
+    <header>
+        <h1 class="post-title">
             <a href="https://github.com/sellout/Iaia">Iaia</a>
         </h1>
         <div class="post-meta">

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> <meta name="generator" content="Hugo 0.37.1" /> 
+<title>Raytracing Quaternion Julia Sets on the GPU - Luke Olney</title>
+<meta property="og:title" content="Raytracing Quaternion Julia Sets on the GPU - Luke Olney">       
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116576963-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() { dataLayer.push(arguments); }
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116576963-1');
+</script>
+
+
+<link rel="stylesheet" href="https://lukeolney.me/css/main.css" media="all">
+<link rel="stylesheet" href="https://lukeolney.me/css/fonts.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="https://lukeolney.me/" class="nav-logo">
+    <img src="https://lukeolney.me/images/logo.png" 
+         width="50" 
+         height="50" 
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/projects/">Projects</a></li>
+    
+    <li><a href="/readings/">Readings</a></li>
+    
+    <li><a href="/tags/">Tags</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+  <article class="article">
+    
+    <h1 class="article-title"><a href=http://www.cs.cmu.edu/~kmcrane/Projects/QuaternionJulia/paper.pdf>Raytracing Quaternion Julia Sets on the GPU</a></h1>
+    
+
+    
+    <span class="article-date">2020-05-06</span>
+    
+
+
+
+    <div class="article-content">
+      
+
+<p>An intro to Julia sets, and a description of how to render the 4D version of them, follows!</p>
+
+<h2 id="what-is-a-julia-set">What is a Julia set?</h2>
+
+<p>Julia sets consist of a set of points in the complex plane, $z_0$, where the recurrence $z_n+1 = z_n^2 + c$ has a finite limit. That is – you put values into that formula, and some will go to infinity, while some will not. The ones that don&rsquo;t are part of a Julia set, namely the one for that particular value of c.</p>
+
+<p><img src="https://i.imgur.com/heeaDJm.png" alt="A particularly spirally Julia set" /></p>
+
+<p>The <a href="http://www.malinc.se/m/JuliaSets.php">colorful representations you see online</a> are formed by taking $z_0$ as pixel on the screen (where x is the real component and y the imaginary), then repeatedly applying that formula. The color represents the number of iterations used to guess if $z_0$ is in the set. Black is when we&rsquo;ve reached the max number of iterations.</p>
+
+<h2 id="quaternion-julia-sets">Quaternion Julia Sets</h2>
+
+<p>Quaternions are generalizations of the complex numbers, and so the Julia set notion can also be applied to them. We can set $z% to $a + bi + c j + dk\$ for some a, b, c, and d, just like we chose x and y in the 2D case. To render this, we can take a 3D slice by fixing one of the four dimensions.</p>
+
+<h2 id="raytracing-them">Raytracing them</h2>
+
+<p>To brute force the calculation of this set like we did in the 3D case is more difficult: we now have to consider $n^4$ vs $n^2$ points. And to ray trace the scene, you still have to advance one step at a time, evaluating the recurrence, until you hit a surface that&rsquo;s part of the set. There&rsquo;s no obvious way to get the surface normal for shading, either, as you&rsquo;ve only learned whether the point is in the set or not.</p>
+
+<p>There is a formula that will give you the closest point in the Julia set, though. And you can use this process to safely take larger steps while raytracing – if the closest volume is x distance away, you can advance x along the ray without hitting anything. Most of the time you will not hit the volume by doing that, but you avoid having to evaluate any steps in between.</p>
+
+<p>This formula can also yield an estimate of the normal, using finite distance approximation. We know how to sample the field of distances from the Julia set, and getting the gradient of that gives us the normal. It points in the direction the distance field is increasing the most, i.e. away from the Julia set.</p>
+
+<p>Raytracing Julia sets is simplier than raytracing normal geometries because you don&rsquo;t need to worry about storing the geometries in memory. Instead, for each pixel, you just go through the unbounding volumes process described above. There is the matter of certain pixels taking longer (because of more unbounding volumes steps), and also of branching.</p>
+
+<p>While I&rsquo;m not familiar with GPU architectures at the time this code was written (2005), the branching penalty could potentially be very severe.</p>
+
+    </div>
+
+    <ul class="article-taxonomy">
+     
+</ul>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <ul class="footer-links">
+    <li>
+      <a href="https://github.com/lolney">
+        <i class="fa fa-github"></i> Github</a>
+    </li>
+  </ul>
+</footer>
+
+</div>
+
+</body>
+
+</html>

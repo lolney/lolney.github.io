@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/readings/raytracing-julia-sets/</loc>
+    <lastmod>2020-05-06T21:39:28-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/readings/http2-server-push/</loc>
     <lastmod>2020-01-01T23:37:34-07:00</lastmod>
   </url>
@@ -323,6 +328,18 @@
   </url>
   
   <url>
+    <loc>https://lukeolney.me/tags/geometry/</loc>
+    <lastmod>2020-05-06T21:39:28-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://lukeolney.me/tags/graphics/</loc>
+    <lastmod>2020-05-06T21:39:28-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://lukeolney.me/tags/hci/</loc>
     <lastmod>2019-05-12T21:05:05-04:00</lastmod>
     <priority>0</priority>
@@ -342,7 +359,7 @@
   
   <url>
     <loc>https://lukeolney.me/</loc>
-    <lastmod>2020-01-01T23:37:34-07:00</lastmod>
+    <lastmod>2020-05-06T21:39:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -378,7 +395,7 @@
   
   <url>
     <loc>https://lukeolney.me/tags/papers/</loc>
-    <lastmod>2019-05-12T21:05:05-04:00</lastmod>
+    <lastmod>2020-05-06T21:39:28-04:00</lastmod>
     <priority>0</priority>
   </url>
   
