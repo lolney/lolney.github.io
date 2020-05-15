@@ -1,4 +1,4 @@
-@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css');
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.css");
 
 * {
   font-display: optional;
@@ -12,7 +12,7 @@ body {
 }
 
 body {
-  font-family: 'Merriweather', serif;
+  font-family: "Lato", serif;
   -webkit-hyphens: auto;
   hyphens: auto;
 }
@@ -23,13 +23,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   color: #222;
 }
 
 pre,
 code {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: 15px;
 }
 
@@ -57,8 +57,8 @@ pre code {
 a:hover,
 a:active {
   outline: none;
-  background-color: rgba(0,0,0,0);
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 img {
@@ -91,7 +91,7 @@ blockquote {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 15px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   text-align: right;
 }
 
@@ -133,7 +133,7 @@ blockquote {
 }
 
 .nav-links a:hover {
- color: #111;
+  color: #111;
 }
 
 .content {
@@ -156,7 +156,7 @@ blockquote {
 
 .article-date {
   font-size: 16px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   color: #ccc;
 }
 
@@ -189,7 +189,7 @@ blockquote {
   margin-top: 5px;
   list-style: none;
   padding-left: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   color: #404040;
   font-size: 14px;
   text-align: left;
@@ -228,6 +228,21 @@ blockquote {
   opacity: 0.5;
 }
 
+.reading-title {
+  margin-bottom: 10px;
+}
+
+.separator {
+  content: "\A";
+  pointer-events: none;
+  width: 5px;
+  height: 5px;
+  margin: 5px 10px;
+  border-radius: 50%;
+  background: black;
+  display: inline-block;
+}
+
 .list,
 .category,
 .tag-cloud {
@@ -252,7 +267,7 @@ blockquote {
 .list-item-date {
   display: block;
   padding: 4px 0;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   color: #ccc;
   font-size: 14px;
 }
@@ -268,7 +283,7 @@ blockquote {
   padding: 3px 0;
   text-decoration: none;
   font-size: 17px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
   color: #222;
   border-bottom: 1px solid #ddd;
@@ -291,14 +306,14 @@ blockquote {
   padding: 5px 0;
   text-decoration: none;
   font-size: 19px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
   color: #222;
   transition: color 300ms;
 }
 
 .category-item-count {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   margin-right: 15px;
   color: #ccc;
   font-size: 14px;
@@ -318,7 +333,7 @@ blockquote {
 
 .tag-cloud-item a {
   text-decoration: none;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: bold;
   color: #222;
   transition: color 300ms;
@@ -328,7 +343,7 @@ blockquote {
 .tag-cloud-item a:active,
 .category-item a:hover,
 .category-item a:active {
-   color: #ccc;
+  color: #ccc;
 }
 
 .footer {
@@ -336,7 +351,7 @@ blockquote {
   margin: 0;
   padding: 0;
   text-align: center;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .footer-links {
@@ -365,7 +380,7 @@ blockquote {
 }
 
 .footer-links li::before {
-  content: '•';
+  content: "•";
   position: relative;
   left: -2px;
 }
@@ -378,7 +393,7 @@ blockquote {
   margin: 25px 0;
   padding: 0;
   text-align: center;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 16px;
 }
 
@@ -424,7 +439,7 @@ blockquote {
 }
 
 .fa {
-  font-family: 'FontAwesome';
+  font-family: "FontAwesome";
   font-style: normal;
 }
 
@@ -458,17 +473,18 @@ blockquote {
 }
 
 code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
+  font: inherit;
+  font-size: 100%;
+  background: inherit;
+  border: inherit;
+  color: #515151;
 }
 
-.more, .less {
-	color: #355834;
-	text-decoration: none;
-	font-weight: bold;
+.more,
+.less {
+  color: #355834;
+  text-decoration: none;
+  font-weight: bold;
   padding: 0 5px;
 }
 .fa {
@@ -542,11 +558,11 @@ code.has-jax {
   }
 
   .category-item {
-     display: inline-block;
+    display: inline-block;
   }
 
   .category-item a {
-     font-size: 21px;
+    font-size: 21px;
   }
 
   .footer-links {
