@@ -1,0 +1,12 @@
+{
+    "data" :  {
+    "title": "A look at GPGPU computing in the browser",
+    "content": "<p>Even before WebGL2 introduced compute shaders, it was possible to hack WebGL to do GPGPU compute in normal fragment shaders. Here&rsquo;s a presentation (and demo) that I made to showcase that:</p>
+
+<p><a href="https://lukeolney.me/javascript-gpgpu-presentation/">https://lukeolney.me/javascript-gpgpu-presentation/</a></p>
+
+<p><a href="https://github.com/lolney/javascript-gpgpu-demo">Demo source</a></p>
+"
+} 
+}
+
