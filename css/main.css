@@ -147,6 +147,10 @@ blockquote {
   color: #555;
 }
 
+article.preview {
+  margin-bottom: 50px;
+}
+
 .article-title {
   font-size: 34px;
   color: #222;
